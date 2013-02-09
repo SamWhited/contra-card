@@ -160,25 +160,25 @@
 % The class can also be loaded with any of the following options:
 %    \begin{macrocode}
 \DeclareOption{small}{%
-  \PassOptionsToPackage{paperwidth=3in,paperheight=5in}{geometry}%
+  \PassOptionsToPackage{paperwidth=5in,paperheight=3in}{geometry}%
 }
 \DeclareOption{medium}{%
-  \PassOptionsToPackage{paperwidth=4in,paperheight=6in}{geometry}%
+  \PassOptionsToPackage{paperwidth=6in,paperheight=4in}{geometry}%
 }
 \DeclareOption{large}{%
-  \PassOptionsToPackage{paperwidth=5in,paperheight=8in}{geometry}%
+  \PassOptionsToPackage{paperwidth=8in,paperheight=5in}{geometry}%
 }
 \DeclareOption{a7paper}{%
-  \PassOptionsToPackage{paperwidth=74mm,paperheight=105mm}{geometry}%
+  \PassOptionsToPackage{paperwidth=105mm,paperheight=74mm}{geometry}%
 }
 \DeclareOption*{%
   \PassOptionsToClass{\CurrentOption}{article}%
 }
 %    \end{macrocode}
-% The \code{small} option creates a 76.2 by 127.0 mm (3 by 5 in) card.
-% The \code{medium} option creates a 101.6 by 152.4 mm (4 by 6 in) card.
-% The \code{large} option creates a 127.0 by 203.2 mm (5 by 8 in) card.
-% The \code{a7paper} option creates a 74 by 105mm (2.9 by 4.1 in) card.
+% The \code{small} option creates a 127.0 by 76.2 mm (5 by 3 in) card.
+% The \code{medium} option creates a 152.4 by 101.6 mm (6 by 4 in) card.
+% The \code{large} option creates a 203.2 by 27.0 mm (8 by 5 in) card.
+% The \code{a7paper} option creates a 105 by 74 mm (4.1 by 2.9 in) card.
 % The \code{auto} option sets the card size based on the paper size.
 % Any unrecognized options are passed to the \pkg{article} class.
 % \end{macro}
