@@ -1,0 +1,266 @@
+% \iffalse
+%<*internal>
+\begingroup
+\input docstrip.tex
+\keepsilent
+\usedir{tex/latex/contracard}
+\preamble
+
+  Copyright 2012 Samuel Whited
+
+  This file may be distributed and/or modified under the
+  conditions of the LaTeX Project Public License, either
+  version 1.3c of this license or (at your option) any later
+  version. The latest version of this license is in:
+
+  http://www.latex-project.org/lppl.txt
+
+  and version 1.3c or later is part of all distributions of
+  LaTeX version 2008/05/04 or later.
+
+\endpreamble
+\postamble
+
+  ___________
+  Maintainer: Sam Whited
+  Website:    https://samwhited.com
+  Contact:    sam@samwhited.com
+  Public key: 0xEC2C9934
+
+  This work consists of this file contracard.dtx
+            and the derived files contracard.cls
+                              and contracard.pdf
+
+\endpostamble
+\askforoverwritefalse
+
+\generate{\file{contracard.cls}{\from{contracard.dtx}{contracard}}}
+\generate{\file{contracard-style.sty}{\from{contracard.dtx}{doc-style}}}
+
+\obeyspaces
+\Msg{****************************************************}
+\Msg{*                                                  *}
+\Msg{* To finish the installation you have to move the  *}
+\Msg{* following file into a directory searched by TeX: *}
+\Msg{*                                                  *}
+\Msg{* contracard.cls                                   *}
+\Msg{*                                                  *}
+\Msg{****************************************************}
+
+\endgroup
+%</internal>
+%
+%<*driver>
+\ProvidesFile{contracard.dtx}
+%</driver>
+%
+%<*contracard>
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesClass{contracard}[2013/02/07]
+\AtEndOfClass{\LoadClass{article}}
+%</contracard>%
+%
+%<*driver>
+\documentclass[a4paper]{ltxdoc}
+\usepackage{contracard-style}
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+\begin{document}
+  \DocInput{\jobname.dtx}
+\end{document}
+%</driver>
+%
+% \fi
+%
+% \GetFileInfo{contracard.dtx}
+% \makeatletter
+% \errorcontextlines=999
+%
+% \title{The \textsf{contracard} class}
+% \author{
+%   \name{Sam Whited}\\
+%   \texttt{sam@samwhited.com}
+% }
+% \date{\today\\v0.1\githead\gitdirty\gituncommitted}
+%
+% \maketitle
+% \tableofcontents
+%
+% \section{Introduction}
+%
+% The \pkg{contracard} class is designed to aid in the formatting and
+% typesetting of caller cards for traditional square and line dances.
+%
+% \subsection{Rationale}
+%
+% There is little to no purpose for this class. I was tired of seeing caller
+% cards that were written in difficult to read shorthand, or, when they were
+% presented in a digital format, using some ugly 90s-looking HTML or MS Word
+% template. This is my attempt to make calling cards more beautiful.
+%
+% \subsection{License / about the source}
+%
+% This project may be distributed and/or modified under the conditions of the
+% \LaTeX\ Project Public License, either version 1.3c of this license or (at
+% your opinion) any later version. The latest version of this license is in:
+%
+% \url{http://www.latex-project.org/lppl.txt}
+%
+% and version 1.3c or later is part of all distributions of \LaTeX\ version
+% 2008/05/04 or later.
+%
+% Contributions are welcome, and the latest development version of the project
+% can always be found at \url{https://github.com/samwhited/contracard}.
+%
+% \StopEventually{}
+% \changes{0.1}{2013/02/09}{Created boilerplate for class}
+% \section{Package building and loading}
+%
+%    \begin{macrocode}
+%<*contracard>
+%    \end{macrocode}
+%
+% \paragraph{Building}
+%
+% Before building \pkg{contracard} you should verify that the following
+% dependencies are installed:
+%
+%    \begin{macrocode}
+\AtEndOfClass{\RequirePackage{hyperref}}
+\AtEndOfClass{\RequirePackage{geometry}}
+%    \end{macrocode}
+% Once you have all the required packages, building \pkg{contracard} from source
+% can be accomplished in multiple ways. If the Makefile is present running
+% \code{make help} will tell you everything you need to know. To manually
+% extract the files and generate the documentation simply run \code{pdflatex}
+% or \XeLaTeX\ against \fname{contracard.dtx}:
+%
+% \begin{Verbatim}
+%   pdflatex contracard.dtx
+% \end{Verbatim}
+%
+% You can also use the \code{-{}-shell-escape} option to generate documentation
+% which includes the current git commit short-hash in the version number:
+%
+% \begin{Verbatim}
+%   pdflatex --shell-escape contracard.dtx
+% \end{Verbatim}
+%
+% It should be noted that this option is extremely unsafe and you should only
+% use it if you understand the risks.
+%
+% \paragraph{Options}
+%
+% \hypertarget{CONTRACARD:OPTIONS}{}
+% \begin{macro}{small}
+% \begin{macro}{medium}
+% \begin{macro}{large}
+% \begin{macro}{a7paper}
+% The class can also be loaded with any of the following options:
+%    \begin{macrocode}
+\DeclareOption{small}{%
+  \PassOptionsToPackage{paperwidth=3in,paperheight=5in}{geometry}%
+}
+\DeclareOption{medium}{%
+  \PassOptionsToPackage{paperwidth=4in,paperheight=6in}{geometry}%
+}
+\DeclareOption{large}{%
+  \PassOptionsToPackage{paperwidth=5in,paperheight=8in}{geometry}%
+}
+\DeclareOption{a7paper}{%
+  \PassOptionsToPackage{paperwidth=74mm,paperheight=105mm}{geometry}%
+}
+\DeclareOption*{%
+  \PassOptionsToClass{\CurrentOption}{article}%
+}
+%    \end{macrocode}
+% The \code{small} option creates a 76.2 by 127.0 mm (3 by 5 in) card.
+% The \code{medium} option creates a 101.6 by 152.4 mm (4 by 6 in) card.
+% The \code{large} option creates a 127.0 by 203.2 mm (5 by 8 in) card.
+% The \code{a7paper} option creates a 74 by 105mm (2.9 by 4.1 in) card.
+% The \code{auto} option sets the card size based on the paper size.
+% Any unrecognized options are passed to the \pkg{article} class.
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% Now that everything is defined we can process any
+% \hyperlink{CONTRACARD:OPTIONS}{options} that were passed in by the user:
+%    \begin{macrocode}
+\ProcessOptions\relax
+%</contracard>
+%    \end{macrocode}
+%
+% \clearpage
+% \setcounter{IndexColumns}{2}
+% \phantomsection
+% \addcontentsline{toc}{section}{Index}
+% \PrintIndex
+%
+% \makeatletter
+%   \renewenvironment{theglossary}{%
+%   \glossary@prologue
+%   \setlength\emergencystretch{5em}
+%   \GlossaryParms \let\item\@idxitem \ignorespaces}{}
+% \makeatother
+% \clearpage
+% \phantomsection
+% \addcontentsline{toc}{section}{Change History}
+% \PrintChanges
+% \Finale
+%
+% \iffalse
+%<*doc-style>
+%    \begin{macrocode}
+\ProvidesPackage{contracard-style}
+\usepackage{fancyvrb,hologo,framed,multicol,url}
+\usepackage[pdfborder=0, bookmarks, colorlinks=false, hidelinks]{hyperref}
+\usepackage[parfill]{parskip}
+
+\fvset{gobble=2}
+
+\newcommand*{\githead}{%
+  \immediate\write18{%
+    rm githead.tex 2> /dev/null; git rev-parse --short HEAD > githead.tex
+  }%
+  \InputIfFileExists{githead.tex}{.}{}\unskip%
+  \immediate\write18{%
+    rm githead.tex 2> /dev/null
+  }%
+}
+
+\newcommand*{\gitdirty}{%
+  \immediate\write18{%
+    rm gitdirty.tex 2> /dev/null; git diff-files --quiet || echo "*" > gitdirty.tex
+  }%
+  \InputIfFileExists{gitdirty.tex}{\endlinechar=-1\relax}{}\unskip%
+  \immediate\write18{%
+    rm gitdirty.tex 2> /dev/null
+  }%
+}
+
+\newcommand*{\gituncommitted}{%
+  \immediate\write18{%
+    rm gituncommitted.tex 2> /dev/null; git diff-index --quiet --cached HEAD || echo "+" > gituncommitted.tex
+  }%
+  \InputIfFileExists{gituncommitted.tex}{\endlinechar=-1\relax}{}\unskip%
+  \immediate\write18{%
+    rm gituncommitted.tex 2> /dev/null
+  }%
+}
+
+\newcommand\XeTeX{\hologo{XeTeX}}
+\newcommand\XeLaTeX{\hologo{XeLaTeX}}
+\newcommand\LuaTeX{\hologo{LuaTeX}}
+\newcommand\LuaLaTeX{\hologo{LuaLaTeX}}
+
+\newcommand*\name[1]{\textsc{#1}}
+\newcommand*\fname[1]{\textsf{#1}}
+\newcommand*\pkg[1]{\textsf{#1}}
+\newcommand*\code[1]{\texttt{#1}}
+%    \end{macrocode}
+%</doc-style>
+%\fi
+\endinput
