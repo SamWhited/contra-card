@@ -189,12 +189,36 @@
 %
 % \part{Environment setup}
 %
-% First let's set up the basic environment.
-% We'll start by turning off those pesky page numbers:
+% First let's set up the basic environment. We'll start by turning off those
+% pesky page numbers, and setting up a format for titles:
 %
 %    \begin{macrocode}
+\AtBeginDocument{\titleformat{\section}{\normalsize\bfseries}{\thesection}{1em}{}}
 \AtBeginDocument{\pagenumbering{gobble}}
 %    \end{macrocode}
+%
+% and then we'll define the \code{contra} environment:
+%
+% \begin{macro}{contra}
+%    \begin{macrocode}
+\newenvironment{contra}[3]{%
+  \clearpage
+  \section*{#1}
+  {#2}
+  \begin{flushleft}
+}{%
+  \end{flushleft}
+}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\move}
+%    \begin{macrocode}
+\newcommand*{\move}[2][16]{%
+  #2
+  \newline
+}
+%    \end{macrocode}
+% \end{macro}
 %
 % Now that everything is defined we can process any
 % \hyperlink{CONTRACARD:OPTIONS}{options} that were passed in by the user:
