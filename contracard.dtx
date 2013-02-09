@@ -186,6 +186,15 @@
 % \end{macro}
 % \end{macro}
 %
+% \part{Environment setup}
+%
+% First let's set up the basic environment.
+% We'll start by turning off those pesky page numbers:
+%
+%    \begin{macrocode}
+\AtBeginDocument{\pagenumbering{gobble}}
+%    \end{macrocode}
+%
 % Now that everything is defined we can process any
 % \hyperlink{CONTRACARD:OPTIONS}{options} that were passed in by the user:
 %    \begin{macrocode}
