@@ -129,6 +129,7 @@
 %    \begin{macrocode}
 \AtEndOfClass{\RequirePackage{hyperref}}
 \AtEndOfClass{\RequirePackage{geometry}}
+\AtEndOfClass{\usepackage{fancyhdr}}
 \AtEndOfClass{\RequirePackage[compact]{titlesec}}
 %    \end{macrocode}
 % Once you have all the required packages, building \pkg{contracard} from source
@@ -195,6 +196,7 @@
 %    \begin{macrocode}
 \AtBeginDocument{\titleformat{\section}{\normalsize\bfseries}{\thesection}{1em}{}}
 \AtBeginDocument{\pagenumbering{gobble}}
+\AtBeginDocument{\renewcommand{\headrulewidth}{0pt}}
 %    \end{macrocode}
 %
 % and then we'll define the \code{contra} environment:
@@ -202,6 +204,8 @@
 % \begin{macro}{contra}
 %    \begin{macrocode}
 \newenvironment{contra}[3]{%
+  \pagestyle{fancy}
+  \rhead{#3}
   \clearpage
   \section*{#1}
   {#2}
