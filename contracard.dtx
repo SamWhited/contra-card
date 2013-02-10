@@ -127,7 +127,9 @@
 % dependencies are installed:
 %
 %    \begin{macrocode}
+\AtEndOfClass{\RequirePackage{intcalc}}
 \AtEndOfClass{\RequirePackage{hyperref}}
+\AtEndOfClass{\RequirePackage{ifthen}}
 \AtEndOfClass{\RequirePackage{geometry}}
 \AtEndOfClass{\usepackage{fancyhdr}}
 \AtEndOfClass{\RequirePackage[compact]{titlesec}}
@@ -201,11 +203,20 @@
 \AtBeginDocument{\renewcommand{\headrulewidth}{0pt}}
 %    \end{macrocode}
 %
+% \begin{macro}{dancecount}
+% Next, we'll create the \code{dancecount} counter that will help us keep track
+% of timing in the dance:
+%    \begin{macrocode}
+\newcounter{dancecount}
+%    \end{macrocode}
+% \end{macro}
+%
 % and then we'll define the \code{contra} environment:
 %
 % \begin{macro}{contra}
 %    \begin{macrocode}
 \newenvironment{contra}[3]{%
+  \setcounter{dancecount}{0}
   \pagestyle{fancy}
   \rhead{#3}
   \clearpage
@@ -220,8 +231,13 @@
 % \begin{macro}{\move}
 %    \begin{macrocode}
 \newcommand*{\move}[2][16]{%
-  #2
-  \newline
+  \addtocounter{dancecount}{#1}%
+  #2%
+  \ifthenelse{\intcalcMod{\value{dancecount}}{8}=0
+    \and\not\intcalcMod{\value{dancecount}}{16}=0}{;}{}%
+  \ifthenelse{\not\intcalcMod{\value{dancecount}}{8}=0}{,}{}%
+  \ifthenelse{\intcalcMod{\value{dancecount}}{32}=0}{\vspace*{1em}}{}%
+  \ifthenelse{\intcalcMod{\value{dancecount}}{16}=0}{\newline}{}%
 }
 %    \end{macrocode}
 % \end{macro}
