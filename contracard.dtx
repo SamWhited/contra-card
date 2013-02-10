@@ -162,16 +162,20 @@
 % The class can also be loaded with any of the following options:
 %    \begin{macrocode}
 \DeclareOption{small}{%
-  \PassOptionsToPackage{margin=0.25in,paperwidth=5in,paperheight=3in}{geometry}%
+  \AtBeginDocument{\titleformat{\section}{\normalsize\bfseries}{\thesection}{1em}{}}
+  \PassOptionsToPackage{margin=0.25in,top=0.75in,paperwidth=5in,paperheight=3in}{geometry}%
 }
 \DeclareOption{medium}{%
-  \PassOptionsToPackage{margin=0.5in,paperwidth=6in,paperheight=4in}{geometry}%
+  \AtBeginDocument{\large}
+  \PassOptionsToPackage{margin=0.5in,top=0.75in,paperwidth=6in,paperheight=4in}{geometry}%
 }
 \DeclareOption{large}{%
-  \PassOptionsToPackage{margin=0.75in,paperwidth=8in,paperheight=5in}{geometry}%
+  \AtBeginDocument{\Large}
+  \PassOptionsToPackage{margin=0.75in,top=1in,paperwidth=8in,paperheight=5in}{geometry}%
 }
 \DeclareOption{a7paper}{%
-  \PassOptionsToPackage{margin=0.25in,paperwidth=105mm,paperheight=74mm}{geometry}%
+  \AtBeginDocument{\titleformat{\section}{\normalsize\bfseries}{\thesection}{1em}{}}
+  \PassOptionsToPackage{margin=5mm,top=15mm,paperwidth=105mm,paperheight=74mm}{geometry}%
 }
 \DeclareOption*{%
   \PassOptionsToClass{\CurrentOption}{article}%
@@ -193,7 +197,6 @@
 % pesky page numbers, and setting up a format for titles:
 %
 %    \begin{macrocode}
-\AtBeginDocument{\titleformat{\section}{\normalsize\bfseries}{\thesection}{1em}{}}
 \AtBeginDocument{\pagenumbering{gobble}}
 \AtBeginDocument{\renewcommand{\headrulewidth}{0pt}}
 %    \end{macrocode}
