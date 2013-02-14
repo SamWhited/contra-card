@@ -243,6 +243,13 @@
 % \begin{macro}{\move}
 %    \begin{macrocode}
 \newcommand*{\move}[2][16]{%
+  \ifthenelse{\intcalcMod{\value{dancecount}}{64}=0}{A1.\ }{%
+    \ifthenelse{\intcalcMod{\value{dancecount}-16}{64}=0}{A2.\ }{%
+      \ifthenelse{\intcalcMod{\value{dancecount}-32}{64}=0}{B1.\ }{%
+        \ifthenelse{\intcalcMod{\value{dancecount}-48}{64}=0}{B2.\ }{}%
+      }%
+    }%
+  }%
   \addtocounter{dancecount}{#1}%
   #2%
   \ifthenelse{\intcalcMod{\value{dancecount}}{8}=0
