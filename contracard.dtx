@@ -164,20 +164,32 @@
 % The class can also be loaded with any of the following options:
 %    \begin{macrocode}
 \DeclareOption{small}{%
-  \AtBeginDocument{\titleformat{\section}{\normalsize\bfseries}{\thesection}{1em}{}}
-  \PassOptionsToPackage{margin=0.25in,top=0.75in,paperwidth=5in,paperheight=3in}{geometry}%
+  \AtBeginDocument{%
+    \titleformat{\section}{\normalsize\bfseries}{\thesection}{1em}{}%
+  }
+  \PassOptionsToPackage{%
+    margin=0.25in,top=0.75in,paperwidth=5in,paperheight=3in%
+  }{geometry}%
 }
 \DeclareOption{medium}{%
   \AtBeginDocument{\large}
-  \PassOptionsToPackage{margin=0.5in,top=0.75in,paperwidth=6in,paperheight=4in}{geometry}%
+  \PassOptionsToPackage{%
+    margin=0.5in,top=0.75in,paperwidth=6in,paperheight=4in%
+  }{geometry}%
 }
 \DeclareOption{large}{%
   \AtBeginDocument{\Large}
-  \PassOptionsToPackage{margin=0.75in,top=1in,paperwidth=8in,paperheight=5in}{geometry}%
+  \PassOptionsToPackage{%
+    margin=0.75in,top=1in,paperwidth=8in,paperheight=5in%
+  }{geometry}%
 }
 \DeclareOption{a7paper}{%
-  \AtBeginDocument{\titleformat{\section}{\normalsize\bfseries}{\thesection}{1em}{}}
-  \PassOptionsToPackage{margin=5mm,top=15mm,paperwidth=105mm,paperheight=74mm}{geometry}%
+  \AtBeginDocument{%
+    \titleformat{\section}{\normalsize\bfseries}{\thesection}{1em}{}%
+  }
+  \PassOptionsToPackage{%
+    margin=5mm,top=15mm,paperwidth=105mm,paperheight=74mm%
+  }{geometry}%
 }
 \DeclareOption*{%
   \PassOptionsToClass{\CurrentOption}{article}%
@@ -289,7 +301,8 @@
 
 \newcommand*{\gitdirty}{%
   \immediate\write18{%
-    rm gitdirty.tex 2> /dev/null; git diff-files --quiet || echo "*" > gitdirty.tex
+    rm gitdirty.tex 2> /dev/null; git diff-files --quiet || echo "*" >%
+      gitdirty.tex
   }%
   \InputIfFileExists{gitdirty.tex}{\endlinechar=-1\relax}{}\unskip%
   \immediate\write18{%
@@ -299,7 +312,8 @@
 
 \newcommand*{\gituncommitted}{%
   \immediate\write18{%
-    rm gituncommitted.tex 2> /dev/null; git diff-index --quiet --cached HEAD || echo "+" > gituncommitted.tex
+    rm gituncommitted.tex 2> /dev/null; git diff-index --quiet --cached HEAD ||%
+      echo "+" > gituncommitted.tex
   }%
   \InputIfFileExists{gituncommitted.tex}{\endlinechar=-1\relax}{}\unskip%
   \immediate\write18{%
