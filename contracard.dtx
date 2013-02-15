@@ -253,9 +253,10 @@
   \addtocounter{dancecount}{#1}%
   #2%
   \ifthenelse{\intcalcMod{\value{dancecount}}{8}=0
-    \and\not\intcalcMod{\value{dancecount}}{16}=0}{;}{}%
-  \ifthenelse{\not\intcalcMod{\value{dancecount}}{8}=0}{,}{}%
-  \ifthenelse{\intcalcMod{\value{dancecount}}{32}=0}{\vspace*{1em}}{}%
+    \and\not\intcalcMod{\value{dancecount}}{16}=0}{;}{\nopagebreak}%
+  \ifthenelse{\not\intcalcMod{\value{dancecount}}{8}=0}{,}{\nopagebreak}%
+  \ifthenelse{\intcalcMod{\value{dancecount}}{32}=0}{%
+    \pagebreak[1]\vspace{1em}}{}%
   \ifthenelse{\intcalcMod{\value{dancecount}}{16}=0}{\newline}{}%
 }
 %    \end{macrocode}
