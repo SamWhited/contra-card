@@ -138,21 +138,11 @@
 % can be accomplished in multiple ways. If the Makefile is present running
 % \code{make help} will tell you everything you need to know. To manually
 % extract the files and generate the documentation simply run \code{pdflatex}
-% or \XeLaTeX\ against \fname{contracard.dtx}:
+% against \fname{contracard.dtx} with the \code{-{}-shell-escape} option:
 %
 % \begin{Verbatim}
-%   pdflatex contracard.dtx
+%   $ pdflatex --shell-escape contracard.dtx
 % \end{Verbatim}
-%
-% You can also use the \code{-{}-shell-escape} option to generate documentation
-% which includes the current git commit short-hash in the version number:
-%
-% \begin{Verbatim}
-%   pdflatex --shell-escape contracard.dtx
-% \end{Verbatim}
-%
-% It should be noted that this option is extremely unsafe and you should only
-% use it if you understand the risks.
 %
 % \paragraph{Options}
 %
@@ -369,11 +359,6 @@
     rm gittag.tex 2> /dev/null
   }%
 }
-
-\newcommand\XeTeX{\hologo{XeTeX}}
-\newcommand\XeLaTeX{\hologo{XeLaTeX}}
-\newcommand\LuaTeX{\hologo{LuaTeX}}
-\newcommand\LuaLaTeX{\hologo{LuaLaTeX}}
 
 \newcommand*\name[1]{\textsc{#1}}
 \newcommand*\fname[1]{\textsf{#1}}
