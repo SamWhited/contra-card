@@ -37,7 +37,7 @@ REDIRECT = > /dev/null
 # Files grouped by generation mode
 COMPILED = $(DOC)
 UNPACKED = $(NAME).cls
-SOURCE = $(DTX) Makefile README
+SOURCE = $(DTX) Makefile README LICENSE
 GENERATED = $(COMPILED) $(UNPACKED)
 
 CTAN_FILES = $(SOURCE) $(COMPILED)
@@ -45,7 +45,7 @@ CTAN_FILES = $(SOURCE) $(COMPILED)
 UNPACKED_DOC =
 
 RUNFILES = $(filter-out $(UNPACKED_DOC), $(UNPACKED))
-DOCFILES = $(COMPILED) README $(UNPACKED_DOC)
+DOCFILES = $(COMPILED) README LICENSE $(UNPACKED_DOC)
 SRCFILES = $(DTX) Makefile
 
 ALL_FILES = $(RUNFILES) $(DOCFILES) $(SRCFILES)
@@ -131,6 +131,10 @@ $(TDS_ZIP): $(ALL_FILES)
 README: README.md
 	cp $< $@
 
+# Rename the LICENSE for CTAN
+LICENSE: LICENSE.md
+	cp $< $@
+
 .PHONY: install manifest clean mrproper
 
 install: $(ALL_FILES)
@@ -157,7 +161,7 @@ manifest:
 	@for f in $(GENERATED); do echo $$f; done
 
 clean:
-	@$(RM) -- *.log *.aux *.toc *.idx *.ind *.ilg *.glo *.gls *.example *.out *.synctex* *.tmp *.cls *.sty *.ins *.pdf *.dvi README *.lot
+	@$(RM) -- *.log *.aux *.toc *.idx *.ind *.ilg *.glo *.gls *.example *.out *.synctex* *.tmp *.cls *.sty *.ins *.pdf *.dvi README LICENSE *.lot
 	@$(RM) -- $(GENERATED) $(ZIPS)
 	@$(RM) -- $(builddir)/*
 
