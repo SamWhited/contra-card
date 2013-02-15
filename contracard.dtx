@@ -328,8 +328,7 @@
 
 \newcommand*{\gittag}{%
   \immediate\write18{%
-    rm gittag.tex 2> /dev/null; git describe --tags 2> /dev/null || echo "v0.0"%
-      > gittag.tex
+    rm gittag.tex 2> /dev/null; git describe --tags > gittag.tex
   }%
   \InputIfFileExists{gittag.tex}{}{}\unskip%
   \immediate\write18{%
