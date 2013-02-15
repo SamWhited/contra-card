@@ -100,13 +100,12 @@ $(DOC): $(DTX)
 $(UNPACKED): $(DTX)
 	@$(DO_TEX)
 
-$(CTAN_ZIP): $(CTAN_FILES) $(TDS_ZIP)
+$(CTAN_ZIP): $(CTAN_FILES)
 	@echo "Making $@ for CTAN upload."
 	@$(RM) -- $@
 	@mkdir -p $(NAME)/
 	@cp $^ $(NAME)/
-	@rm $(NAME)/*.zip
-	@zip -9 $@ $(NAME)/* $(NAME).tds.zip >/dev/null
+	@zip -9 $@ $(NAME)/* >/dev/null
 	@rm -rf $(NAME)/
 
 define run-install
