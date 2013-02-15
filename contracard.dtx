@@ -82,7 +82,7 @@
 %   \name{Sam Whited}\\
 %   \texttt{sam@samwhited.com}
 % }
-% \date{\today\\\gittag\gitdirty\gituncommitted}
+% \date{\today\\\gittag}
 %
 % \maketitle
 % \tableofcontents
@@ -328,33 +328,11 @@
 
 \newcommand*{\gittag}{%
   \immediate\write18{%
-    rm gittag.tex 2> /dev/null; git describe --tags > gittag.tex
+    rm gittag.tex 2> /dev/null; (git describe --tags --dirty || echo "v0.0") 2> /dev/null > gittag.tex
   }%
   \InputIfFileExists{gittag.tex}{}{}\unskip%
   \immediate\write18{%
     rm gittag.tex 2> /dev/null
-  }%
-}
-
-\newcommand*{\gitdirty}{%
-  \immediate\write18{%
-    rm gitdirty.tex 2> /dev/null; git diff-files --quiet || echo "*" >%
-      gitdirty.tex
-  }%
-  \InputIfFileExists{gitdirty.tex}{\endlinechar=-1\relax}{}\unskip%
-  \immediate\write18{%
-    rm gitdirty.tex 2> /dev/null
-  }%
-}
-
-\newcommand*{\gituncommitted}{%
-  \immediate\write18{%
-    rm gituncommitted.tex 2> /dev/null; git diff-index --quiet --cached HEAD ||%
-      echo "+" > gituncommitted.tex
-  }%
-  \InputIfFileExists{gituncommitted.tex}{\endlinechar=-1\relax}{}\unskip%
-  \immediate\write18{%
-    rm gituncommitted.tex 2> /dev/null
   }%
 }
 
