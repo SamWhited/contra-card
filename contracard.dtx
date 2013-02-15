@@ -207,10 +207,31 @@
 %    \end{macrocode}
 %
 % \begin{macro}{dancecount}
-% Next, we'll create the \code{dancecount} counter that will help us keep track
-% of timing in the dance:
+% \begin{macro}{partcount}
+% \changes{0.2}{2013/02/15}{Create a counter for the current musical part}
+% \begin{macro}{phrasecount}
+% \changes{0.2}{2013/02/15}{Create a counter for the current musical phrase}
+% Next, we'll create some counters that will help us keep track the counts (or
+% `steps') in the dance. The \code{dancecount} is reset at the start of each new
+% dance, the \code{partcount} is reset at the begining of each part (eg. \code{%
+% A1} or \code{B1}), and the \code{phrasecount} is reset every time the part
+% changes (eg. from \code{A} to \code{B}).
 %    \begin{macrocode}
 \newcounter{dancecount}
+\newcounter{partcount}
+\newcounter{phrasecount}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{progressed}
+% \changes{0.2}{2013/02/15}{Allow the user to reset the phrase}
+% The phrase will continue to increment (\code{A}, \code{B}, \code{C}) unless
+% the user resets it by calling \code{\textbackslash progressed}. This does not
+% strictly indicate progression, but it will be intuitive for most callers.
+%    \begin{macrocode}
+\newcommand*{\progressed}{\setcounter{phrasecount}{1}}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -238,11 +259,13 @@
 % \begin{macro}{contra}
 % \changes{0.1}{2013/02/14}{Create contra environment}
 % The contra environment is pretty simple. It clears the page, resets the
-% \code{dancecount} and displays some information about the dance.
+% various counters, and displays some information about the dance.
 %    \begin{macrocode}
 \newenvironment{contra}[4][\defaultcontraenv]{%
   \clearpage
   \setcounter{dancecount}{0}
+  \setcounter{partcount}{1}
+  \setcounter{phrasecount}{1}
   \thispagestyle{fancy}
   \rhead{#4}
   \section*{#2}
@@ -265,21 +288,19 @@
 % 16.
 %    \begin{macrocode}
 \newcommand*{\move}[2][16]{%
-  \ifthenelse{\intcalcMod{\value{dancecount}}{64}=0}{A1.\ }{%
-    \ifthenelse{\intcalcMod{\value{dancecount}-16}{64}=0}{A2.\ }{%
-      \ifthenelse{\intcalcMod{\value{dancecount}-32}{64}=0}{B1.\ }{%
-        \ifthenelse{\intcalcMod{\value{dancecount}-48}{64}=0}{B2.\ }{}%
-      }%
-    }%
-  }%
+  \ifthenelse{\intcalcMod{\value{dancecount}}{16}=0}{%
+    \Alph{phrasecount}\arabic{partcount}.\ %
+  }{}%
   \addtocounter{dancecount}{#1}%
   #2%
   \ifthenelse{\intcalcMod{\value{dancecount}}{8}=0
     \and\not\intcalcMod{\value{dancecount}}{16}=0}{;}{\nopagebreak}%
   \ifthenelse{\not\intcalcMod{\value{dancecount}}{8}=0}{,}{\nopagebreak}%
   \ifthenelse{\intcalcMod{\value{dancecount}}{32}=0}{%
-    \pagebreak[1]\vspace{1em}}{}%
-  \ifthenelse{\intcalcMod{\value{dancecount}}{16}=0}{\newline}{}%
+    \addtocounter{phrasecount}{1}\setcounter{partcount}{0}\pagebreak[1]%
+    \vspace{1em}}{}%
+  \ifthenelse{\intcalcMod{\value{dancecount}}{16}=0}{%
+    \addtocounter{partcount}{1}\newline}{}%
 }
 %    \end{macrocode}
 % \end{macro}
