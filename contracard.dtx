@@ -207,12 +207,13 @@
 %
 % \section{Environment setup}
 %
-% First let's set up the basic environment. We'll start by turning off those
-% pesky page numbers, and turning off the line under the header:
+% First let's set up the basic environment. We'll start by turning off headers,
+% and removing the header rule inserted by \pkg{fancyhdr} on pages that will
+% have headers later:
 %
 %    \begin{macrocode}
-\AtBeginDocument{\pagenumbering{gobble}}
 \AtBeginDocument{\renewcommand{\headrulewidth}{0pt}}
+\AtBeginDocument{\pagestyle{empty}}
 %    \end{macrocode}
 %
 % \begin{macro}{dancecount}
@@ -244,14 +245,14 @@
 % \subsection{The \code{contra} environment}
 %
 % \begin{macro}{contra}
-% The contra environment is pretty simple. It simply resets the \code{%
-% dancecount} and displays some information about the dance.
+% The contra environment is pretty simple. It clears the page, resets the
+% \code{dancecount} and displays some information about the dance.
 %    \begin{macrocode}
 \newenvironment{contra}[4][\defaultcontraenv]{%
-  \setcounter{dancecount}{0}
-  \pagestyle{fancy}
-  \rhead{#4}
   \clearpage
+  \setcounter{dancecount}{0}
+  \thispagestyle{fancy}
+  \rhead{#4}
   \section*{#2}
   {#3}
   \newcommand*{\@contraenv}{#1}
