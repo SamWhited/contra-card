@@ -89,10 +89,10 @@ preview: $(DOC)
 
 $(DOC): $(DTX)
 	@echo "Compiling documentation"
-	$(DO_LATEX)
+	$(DO_LATEX_WRITE18)
 	$(DO_MAKEINDEX)
 	$(DO_MAKECHANGES)
-	while ($(DO_LATEX) ; \
+	while ($(DO_LATEX_WRITE18) ; \
 	grep -q "Rerun to get" $(NAME).log ) do true; \
 	done
 
