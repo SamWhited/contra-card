@@ -205,7 +205,7 @@
 % \end{macro}
 % \end{macro}
 %
-% \part{Environment setup}
+% \section{Environment setup}
 %
 % First let's set up the basic environment. We'll start by turning off those
 % pesky page numbers, and turning off the line under the header:
@@ -223,24 +223,52 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% and then we'll define the \code{contra} environment:
+% \subsection{Formatting}
+%
+% There are also some options to determine how the environment will be
+% formatted.
+%
+% \begin{macro}{\defaultcontraenv}
+% By default, all contra moves are wrapped in the \code{flushleft} environment.
+% To change this you can renew \code{\textbackslash defaultcontraenv}.
+%    \begin{macrocode}
+\newcommand*{\defaultcontraenv}{flushleft}
+%    \end{macrocode}
+% \end{macro}
+%
+% \section{The Meat}
+%
+% Next we'll define the meat of the \pkg{contracard} package: The \code{contra}
+% environment and the \code{\textbackslash move} command.
+%
+% \subsection{The \code{contra} environment}
 %
 % \begin{macro}{contra}
+% The contra environment is pretty simple. It simply resets the \code{%
+% dancecount} and displays some information about the dance.
 %    \begin{macrocode}
-\newenvironment{contra}[3]{%
+\newenvironment{contra}[4][\defaultcontraenv]{%
   \setcounter{dancecount}{0}
   \pagestyle{fancy}
-  \rhead{#3}
+  \rhead{#4}
   \clearpage
-  \section*{#1}
-  {#2}
-  \begin{flushleft}
+  \section*{#2}
+  {#3}
+  \newcommand*{\@contraenv}{#1}
+  \begin{\@contraenv}
 }{%
-  \end{flushleft}
+  \end{\@contraenv}
 }
 %    \end{macrocode}
 % \end{macro}
+%
+% \subsection{The \code{\textbackslash move} command}
+%
 % \begin{macro}{\move}
+% The next thing we need to define is the \code{\textbackslash move} command.
+% This command takes in a move to display, and (optionally) the number of beats
+% the move takes. If no beats are specified, it is assumed it takes up a full
+% 16.
 %    \begin{macrocode}
 \newcommand*{\move}[2][16]{%
   \ifthenelse{\intcalcMod{\value{dancecount}}{64}=0}{A1.\ }{%
