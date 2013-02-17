@@ -225,7 +225,7 @@
 % \end{macro}
 % \end{macro}
 %
-% \begin{macro}{progressed}
+% \begin{macro}{\progressed}
 % \changes{0.2}{2013/02/15}{Allow the user to reset the phrase}
 % The phrase will continue to increment (\code{A}, \code{B}, \code{C}) unless
 % the user resets it by calling \code{\textbackslash progressed}. This does not
@@ -283,9 +283,8 @@
 % \begin{macro}{\move}
 % \changes{0.1}{2013/02/14}{Add move command}
 % The next thing we need to define is the \code{\textbackslash move} command.
-% This command takes in a move to display, and (optionally) the number of beats
-% the move takes. If no beats are specified, it is assumed it takes up a full
-% 16.
+% This command takes in a move to display, and (optionally) the number of counts
+% the move takes. If the count is not specified, 16 is used as the default.
 %    \begin{macrocode}
 \newcommand*{\move}[2][16]{%
   \ifthenelse{\intcalcMod{\value{dancecount}}{16}=0}{%
