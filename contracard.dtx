@@ -206,25 +206,63 @@
 % \end{macro}
 % \end{macro}
 %
-% \begin{macro}{\resetphrase}
-% \begin{macro}{\resetpart}
+% \begin{macro}{\resetdancephrase}
+% \begin{macro}{\resetdancepart}
 % \changes{0.2}{2013/02/15}{Allow the user to reset the phrase}
 % \changes{0.3}{2013/02/21}{Change name of \code{\textbackslash progressed}}
 % The phrase will continue to increment (\code{A}, \code{B}, \code{C}) unless
-% the user resets it by calling \code{\textbackslash resetphrase}. If the value
-% of the phrase or part would be the same after resetting, no action is taken.
+% the user resets it by calling \code{\textbackslash resetdancephrase}. The user
+% can also manually reset the part. If the value of the phrase or part would be
+% the same after resetting, no action is taken.
 %    \begin{macrocode}
-\newcommand*{\resetphrase}{%
+\newcommand*{\resetdancephrase}{%
+  \ifthenelse{\value{partcount}=16}{\newline}{}%
+  \@ifstar{\@resetdancephraseStar}{\@resetdancephraseNoStar}%
+}
+\newcommand*{\@resetdancephraseStar}{%
+  \setcounter{dancephrase}{1}%
+  \setcounter{phrasecount}{0}%
+  \resetdancepart*
+}
+\newcommand*{\@resetdancephraseNoStar}{%
   \ifthenelse{\value{dancephrase}=1}{}{%
-    \setcounter{dancephrase}{0}%
+    \setcounter{dancephrase}{1}%
     \setcounter{phrasecount}{0}%
+    \resetdancepart
   }%
 }
-\newcommand*{\resetpart}{%
+\newcommand*{\resetdancepart}{%
+  \@ifstar{\@resetdancepartStar}{\@resetdancepartNoStar}%
+}
+\newcommand*{\@resetdancepartStar}{%
+  \setcounter{dancepart}{1}%
+  \setcounter{partcount}{0}%
+}
+\newcommand*{\@resetdancepartNoStar}{%
   \ifthenelse{\value{dancepart}=1}{}{%
-    \setcounter{dancepart}{0}%
+    \setcounter{dancepart}{1}%
     \setcounter{partcount}{0}%
   }%
+}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\newdancephrase}
+% \changes{0.3}{2013/02/21}{Allow user to manually start a new phrase}
+% \begin{macro}{\newdancepart}
+% \changes{0.3}{2013/02/21}{Allow user to manually start a new part}
+% The user can also manually start a new phrase or part:
+%    \begin{macrocode}
+\newcommand*{\newdancephrase}{%
+  \ifthenelse{\not\value{phrasecount}=0\and\not\value{phrasecount}=32}{\newline}{}%
+  \addtocounter{dancephrase}{1}%
+  \setcounter{phrasecount}{0}%
+  \resetdancepart*
+}
+\newcommand*{\newdancepart}{%
+  \addtocounter{dancepart}{1}%
+  \setcounter{partcount}{0}%
 }
 %    \end{macrocode}
 % \end{macro}
@@ -281,10 +319,8 @@
 %    \begin{macrocode}
 \newenvironment{contra}[4][\defaultcontraenv]{%
   \setcounter{dancecount}{0}
-  \setcounter{partcount}{0}
-  \setcounter{phrasecount}{0}
-  \setcounter{dancepart}{0}
-  \setcounter{dancephrase}{0}
+  \resetdancepart*
+  \resetdancephrase*
   \ifdefined\@ccisclass\clearpage\fi%
   \begin{\dancetitleenv}
     {\dancetitleformat{#2}}%
@@ -316,15 +352,13 @@
 %    \begin{macrocode}
 \newcommand*{\move}[2][16]{%
   \ifthenelse{\value{partcount}=16}{\newline}{}%
-  \ifthenelse{\value{phrasecount}=32\or\value{phrasecount}=0}{%
-    \addtocounter{dancephrase}{1}%
-    \setcounter{phrasecount}{0}%
-    \setcounter{dancepart}{0}%
-  }{}
-  \ifthenelse{\value{partcount}=16\or\value{partcount}=0}{%
-    \addtocounter{dancepart}{1}%
-    \setcounter{partcount}{0}%
-  }{}%
+  \ifthenelse{\value{phrasecount}=32}{%
+    \newdancephrase%
+  }{%
+    \ifthenelse{\value{partcount}=16}{%
+     \newdancepart%
+    }{}%
+  }
   \ifthenelse{\intcalcMod{\value{dancecount}}{16}=0}{%
     \Alph{dancephrase}\arabic{dancepart}.\ %
   }{}%
