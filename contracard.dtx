@@ -315,6 +315,7 @@
 % the move takes. If the count is not specified, 16 is used as the default.
 %    \begin{macrocode}
 \newcommand*{\move}[2][16]{%
+  \ifthenelse{\value{partcount}=16}{\newline}{}%
   \ifthenelse{\value{phrasecount}=32\or\value{phrasecount}=0}{%
     \addtocounter{dancephrase}{1}%
     \setcounter{phrasecount}{0}%
@@ -335,7 +336,7 @@
     \pagebreak[1]\vspace{1em}%
   }{}%
   \ifthenelse{\value{partcount}=8}{;\nopagebreak}{%
-  \ifthenelse{\not\value{partcount}=16}{,\nopagebreak\nolinebreak[2]}{\newline}}%
+    \ifthenelse{\not\value{partcount}=16}{,\nopagebreak\nolinebreak[2]}{}}%
 }
 %    \end{macrocode}
 % \end{macro}
