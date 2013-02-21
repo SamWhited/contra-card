@@ -102,13 +102,14 @@
 % The project comprises a \LaTeX\ package (\fname{contracard.sty}) and a
 % \LaTeX\ class (\fname{contracard.cls}). The package provides the core
 % functionality of Contra Card while the class file acts as a convenience
-% wrapper for making calling cards themselves.
+% wrapper for making calling cards.
 %
-% In general, if you want to make a calling card, use the \pkg{contracard} class
-% and if you want to print a contra dance in a book or article, use a different
-% class and require the \pkg{contracard} package.
+% \subsection{About the source}
 %
-% \subsection{License / about the source}
+% Contributions are welcome, and the latest development version of the project
+% can always be found at \url{https://github.com/samwhited/contra-card}.
+%
+% \subsection{License}
 %
 % This project may be distributed and/or modified under the conditions of the
 % \LaTeX\ Project Public License, either version 1.3c of this license or (at
@@ -119,15 +120,13 @@
 % and version 1.3c or later is part of all distributions of \LaTeX\ version
 % 2008/05/04 or later.
 %
-% Contributions are welcome, and the latest development version of the project
-% can always be found at \url{https://github.com/samwhited/contra-card}.
-%
 % \StopEventually{}
 % \changes{0.1}{2013/02/09}{Created boilerplate for class}
 % \changes{0.3}{2013/02/20}{Split core functionality out into package}
+%
 % \section{Building and using \pkg{contracard}}
 %
-% Before building the \pkg{contracard} package you should verify that the
+% \paragraph{Dependencies} Before building the \pkg{contracard} package you should verify that the
 % following dependencies are installed:
 %
 %    \begin{macrocode}
@@ -149,8 +148,9 @@
 %    \end{macrocode}
 %    \begin{macrocode}
 %<*contracard-pkg>
-%    \end{macrocode}
-% Once you have all the required packages, building \pkg{contracard} from source
+%    \end{macrocode}d
+%
+% \paragraph{Building} Once you have all the required packages, building \pkg{contracard} from source
 % can be accomplished in multiple ways. If the Makefile is present running
 % \code{make help} will tell you everything you need to know. To manually
 % extract the files and generate the documentation simply run \code{pdflatex}
@@ -168,6 +168,10 @@
 %   $ git describe --tags
 % \end{Verbatim}
 %
+% \paragraph{Using \pkg{contracard}} Building results in two main files, a class
+% and a package. In general, if you want to make a calling card, use the
+% \pkg{contracard} class and if you want to print a contra dance in a book or
+% article, use a different class and require the \pkg{contracard} package.
 %
 % \section{Environment setup}
 %
