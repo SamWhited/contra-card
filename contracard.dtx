@@ -309,19 +309,21 @@
 %
 % \begin{macro}{\move}
 % \changes{0.1}{2013/02/14}{Add move command}
+% \changes{0.3}{2013/02/21}{Simplify dance logic using new counters}
 % The next thing we need to define is the \code{\textbackslash move} command.
 % This command takes in a move to display, and (optionally) the number of counts
 % the move takes. If the count is not specified, 16 is used as the default.
 %    \begin{macrocode}
 \newcommand*{\move}[2][16]{%
-  \ifthenelse{\intcalcMod{\value{dancecount}}{32}=0}{%
+  \ifthenelse{\value{phrasecount}=32\or\value{phrasecount}=0}{%
     \addtocounter{dancephrase}{1}%
-    \setcounter{dancepart}{0}%
     \setcounter{phrasecount}{0}%
-    \setcounter{partcount}{0}}{}%
-  \ifthenelse{\intcalcMod{\value{dancecount}}{16}=0}{%
+    \setcounter{dancepart}{0}%
+  }{}
+  \ifthenelse{\value{partcount}=16\or\value{partcount}=0}{%
     \addtocounter{dancepart}{1}%
-    \setcounter{partcount}{0}}{}%
+    \setcounter{partcount}{0}%
+  }{}%
   \ifthenelse{\intcalcMod{\value{dancecount}}{16}=0}{%
     \Alph{dancephrase}\arabic{dancepart}.\ %
   }{}%
@@ -329,13 +331,11 @@
   \addtocounter{phrasecount}{#1}%
   \addtocounter{partcount}{#1}%
   #2%
-  \ifthenelse{\intcalcMod{\value{dancecount}}{8}=0
-    \and\not\intcalcMod{\value{dancecount}}{16}=0}{;}{\nopagebreak}%
-  \ifthenelse{\not\intcalcMod{\value{dancecount}}{8}=0}{,}{\nopagebreak}%
-  \ifthenelse{\intcalcMod{\value{dancecount}}{32}=0}{%
-    \pagebreak[1]\vspace{1em}}{}%
-  \ifthenelse{\intcalcMod{\value{dancecount}}{16}=0}{%
-    \newline}{}%
+  \ifthenelse{\value{phrasecount}=32}{%
+    \pagebreak[1]\vspace{1em}%
+  }{}%
+  \ifthenelse{\value{partcount}=8}{;\nopagebreak}{%
+  \ifthenelse{\not\value{partcount}=16}{,\nopagebreak\nolinebreak[2]}{\newline}}%
 }
 %    \end{macrocode}
 % \end{macro}
