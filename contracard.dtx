@@ -206,14 +206,28 @@
 % \end{macro}
 % \end{macro}
 %
-% \begin{macro}{\progressed}
+% \begin{macro}{\resetphrase}
+% \begin{macro}{\resetpart}
 % \changes{0.2}{2013/02/15}{Allow the user to reset the phrase}
+% \changes{0.3}{2013/02/21}{Change name of \code{\textbackslash progressed}}
 % The phrase will continue to increment (\code{A}, \code{B}, \code{C}) unless
-% the user resets it by calling \code{\textbackslash progressed}. This does not
-% strictly indicate progression, but it will be intuitive for most callers.
+% the user resets it by calling \code{\textbackslash resetphrase}. If the value
+% of the phrase or part would be the same after resetting, no action is taken.
 %    \begin{macrocode}
-\newcommand*{\progressed}{\setcounter{phrasecount}{1}}
+\newcommand*{\resetphrase}{%
+  \ifthenelse{\value{dancephrase}=1}{}{%
+    \setcounter{dancephrase}{0}%
+    \setcounter{phrasecount}{0}%
+  }%
+}
+\newcommand*{\resetpart}{%
+  \ifthenelse{\value{dancepart}=1}{}{%
+    \setcounter{dancepart}{0}%
+    \setcounter{partcount}{0}%
+  }%
+}
 %    \end{macrocode}
+% \end{macro}
 % \end{macro}
 %
 % \subsection{Formatting}
