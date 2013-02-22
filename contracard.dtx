@@ -206,6 +206,23 @@
 % \end{macro}
 % \end{macro}
 %
+% \begin{macro}{\movedelimiter}
+% \changes{0.3}{2013/02/20}{Allow customizing the move delimiter character}
+% \begin{macro}{\partdelimiter}
+% \changes{0.3}{2013/02/20}{Allow customizing the part delimiter}
+% \begin{macro}{\midpartdelimiter}
+% \changes{0.3}{2013/02/20}{Allow customizing the mid-part delimiter}
+% These commands define delimiters that are used between moves, or at the midway
+% point in a part.
+%    \begin{macrocode}
+\newcommand*{\movedelimiter}{,}
+\newcommand*{\partdelimiter}{.}
+\newcommand*{\midpartdelimiter}{;}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
 % \section{The Meat}
 %
 % Next we'll define the meat of the \pkg{contracard} package. These are the
@@ -359,7 +376,7 @@
     }{}%
   }
   \ifthenelse{\intcalcMod{\value{dancecount}}{16}=0}{%
-    \Alph{dancephrase}\arabic{dancepart}.\ %
+    \Alph{dancephrase}\arabic{dancepart}\partdelimiter\ %
   }{}%
   \addtocounter{dancecount}{#1}%
   \addtocounter{phrasecount}{#1}%
@@ -368,8 +385,8 @@
   \ifthenelse{\value{phrasecount}=32}{%
     \pagebreak[1]\vspace{1em}%
   }{}%
-  \ifthenelse{\value{partcount}=8}{;\nopagebreak}{%
-    \ifthenelse{\not\value{partcount}=16}{,\nopagebreak\nolinebreak[2]}{}}%
+  \ifthenelse{\value{partcount}=8}{\midpartdelimiter\nopagebreak}{%
+    \ifthenelse{\not\value{partcount}=16}{\movedelimiter\nopagebreak\nolinebreak[2]}{}}%
 }
 %    \end{macrocode}
 % \end{macro}
@@ -500,6 +517,7 @@
 % \subsection{Untitled Blues Contras by Seth Tepfer}
 %
 % \begin{Verbatim}
+% \renewcommand*{\partdelimiter}{:}
 % \begin{contra}{Untitled Blues \textnumero\ 1}{Seth Tepfer}{Duple Minor Im.}
 %   \move[8]{Neighbor gypsy}
 %   \move[8]{Ladies gypsy}
@@ -531,6 +549,7 @@
 % \end{Verbatim}
 %
 % \begin{exampledance}
+% \renewcommand*{\partdelimiter}{:}
 % \begin{contra}{Untitled Blues \textnumero\ 1}{Seth Tepfer}{Duple Minor Im.}
 %   \move[8]{Neighbor gypsy}
 %   \move[8]{Ladies gypsy}
