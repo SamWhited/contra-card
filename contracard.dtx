@@ -474,7 +474,8 @@
 %   \move[8]{Left diagonal: Right and left through}
 %   \vspace*{2em}
 %   \begin{flushright}
-%   \href{http://creativecommons.org/licenses/by/3.0/}{\includegraphics[width=40px]{by.png}}
+%   \href{http://creativecommons.org/licenses/by/3.0/}{%
+%     \IfFileExists{by.png}{\includegraphics[width=40px]{by.png}}{\cc\by}}
 %   \end{flushright}
 % \end{contra}
 % \end{Verbatim}
@@ -490,7 +491,8 @@
 %   \move[8]{Left diagonal: Right and left through}
 %   \vspace*{2em}
 %   \begin{flushright}
-%   \href{http://creativecommons.org/licenses/by/3.0/}{\includegraphics[width=40px]{by.png}}
+%   \href{http://creativecommons.org/licenses/by/3.0/}{%
+%     \IfFileExists{by.png}{\includegraphics[width=40px]{by.png}}{\cc\by}}
 %   \end{flushright}
 % \end{contra}
 % \end{exampledance}
@@ -508,7 +510,8 @@
 %   \move[8]{Left hand star}
 %   \vspace*{2em}
 %   \begin{flushright}
-%   \href{http://creativecommons.org/licenses/by-nc/3.0/}{\includegraphics[width=40px]{by-nc.png}}
+%   \href{http://creativecommons.org/licenses/by-nc/3.0/}{%
+%     \IfFileExists{by-nc.png}{\includegraphics[width=40px]{by-nc.png}}{\cc\bync}}
 %   \end{flushright}
 % \end{contra}
 % \begin{contra}{Untitled Blues \textnumero\ 2}{Seth Tepfer}{Duple Minor Im.}
@@ -521,7 +524,8 @@
 %   \move[8]{Ladies chain}
 %   \vspace*{2em}
 %   \begin{flushright}
-%   \href{http://creativecommons.org/licenses/by-nc/3.0/}{\includegraphics[width=40px]{by-nc.png}}
+%   \href{http://creativecommons.org/licenses/by-nc/3.0/}{%
+%     \IfFileExists{by-nc.png}{\includegraphics[width=40px]{by-nc.png}}{\cc\bync}}
 %   \end{flushright}
 % \end{contra}
 % \end{Verbatim}
@@ -537,7 +541,8 @@
 %   \move[8]{Left hand star}
 %   \vspace*{2em}
 %   \begin{flushright}
-%   \href{http://creativecommons.org/licenses/by-nc/3.0/}{\includegraphics[width=40px]{by-nc.png}}
+%   \href{http://creativecommons.org/licenses/by-nc/3.0/}{%
+%     \IfFileExists{by-nc.png}{\includegraphics[width=40px]{by-nc.png}}{\cc\bync}}
 %   \end{flushright}
 % \end{contra}
 % \end{exampledance}
@@ -552,7 +557,8 @@
 %   \move[8]{Ladies chain}
 %   \vspace*{2em}
 %   \begin{flushright}
-%   \href{http://creativecommons.org/licenses/by-nc/3.0/}{\includegraphics[width=40px]{by-nc.png}}
+%   \href{http://creativecommons.org/licenses/by-nc/3.0/}{%
+%     \IfFileExists{by-nc.png}{\includegraphics[width=40px]{by-nc.png}}{\cc\bync}}
 %   \end{flushright}
 % \end{contra}
 % \end{exampledance}
@@ -580,7 +586,7 @@
 %    \begin{macrocode}
 \ProvidesPackage{contracard-style}
 \usepackage[utf8x]{inputenc}
-\usepackage{fancyvrb,hologo,framed,multicol,url,textcomp,graphicx,contracard}
+\usepackage{fancyvrb,hologo,framed,multicol,url,textcomp,cclicenses,graphicx,contracard}
 \usepackage[pdfborder=0, bookmarks, colorlinks=false, hidelinks]{hyperref}
 \usepackage[parfill]{parskip}
 
