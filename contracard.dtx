@@ -172,7 +172,47 @@
 % \pkg{contracard} class and if you want to print a contra dance in a book or
 % article, use a different class and require the \pkg{contracard} package.
 %
-% \section{Environment setup}
+% \section{Formatting}
+%
+% These options determine how the dance will look.
+%
+% \begin{macro}{\defaultcontraenv}
+% \begin{macro}{\dancetitleenv}
+% \changes{0.1}{2013/02/14}{Allow user to format moves}
+% \changes{0.3}{2013/02/20}{Allow user to format dance title block}
+% By default, all contra moves and the title block are wrapped in the
+% \code{flushleft} environment. To change this you can renew
+% the following macros:
+%    \begin{macrocode}
+\newcommand*{\defaultcontraenv}{flushleft}
+\newcommand*{\dancetitleenv}{flushleft}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\dancetitleformat}
+% \begin{macro}{\danceauthorformat}
+% \begin{macro}{\danceformformat}
+% \changes{0.3}{2013/02/20}{Allow the user to change the dance title format}
+% \changes{0.3}{2013/02/20}{Allow the user to change the dance form format}
+% To change the formatting of a dance's title, author, or form, redefine the
+% following macros:
+%    \begin{macrocode}
+\newcommand*{\dancetitleformat}{\section*}
+\newcommand*{\danceauthorformat}{\subsection*}
+\newcommand*{\danceformformat}{\hfill}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \section{The Meat}
+%
+% Next we'll define the meat of the \pkg{contracard} package. These are the
+% functions, counters, and environments that actually deal with generating a
+% dance.
+%
+% \subsection{Musical counts and phrases}
 %
 % \begin{macro}{dancecount}
 % \begin{macro}{partcount}
@@ -185,7 +225,7 @@
 % \changes{0.3}{2013/02/21}{Create a new counter for the current phrase}
 % \begin{macro}{dancephrase}
 % \changes{0.3}{2013/02/21}{Create a new counter for the current phrase}
-% Next, we'll create some counters that will help us keep track of the counts
+% First we'll create some counters that will help us keep track of the counts
 % (or `steps') in the dance. The \code{dancecount} is reset at the start of each
 % new dance, the \code{partcount} is reset at the begining of each part (eg.
 % \code{A1} or \code{B1}), and the \code{phrasecount} is reset every time the
@@ -267,46 +307,6 @@
 % \end{macro}
 % \end{macro}
 %
-% \subsection{Formatting}
-%
-% There are also some options to determine how the environment will be
-% formatted.
-%
-% \begin{macro}{\defaultcontraenv}
-% \begin{macro}{\dancetitleenv}
-% \changes{0.1}{2013/02/14}{Allow user to format moves}
-% \changes{0.3}{2013/02/20}{Allow user to format dance title block}
-% By default, all contra moves and the title block are wrapped in the
-% \code{flushleft} environment. To change this you can renew
-% the following macros:
-%    \begin{macrocode}
-\newcommand*{\defaultcontraenv}{flushleft}
-\newcommand*{\dancetitleenv}{flushleft}
-%    \end{macrocode}
-% \end{macro}
-% \end{macro}
-%
-% \begin{macro}{\dancetitleformat}
-% \begin{macro}{\danceauthorformat}
-% \begin{macro}{\danceformformat}
-% \changes{0.3}{2013/02/20}{Allow the user to change the dance title format}
-% \changes{0.3}{2013/02/20}{Allow the user to change the dance form format}
-% To change the formatting of a dance's title, author, or form, redefine the
-% following macros:
-%    \begin{macrocode}
-\newcommand*{\dancetitleformat}{\section*}
-\newcommand*{\danceauthorformat}{\subsection*}
-\newcommand*{\danceformformat}{\hfill}
-%    \end{macrocode}
-% \end{macro}
-% \end{macro}
-% \end{macro}
-%
-% \section{The Meat}
-%
-% Next we'll define the meat of the \pkg{contracard} package: The \code{contra}
-% environment and the \code{\textbackslash move} command.
-%
 % \subsection{The \code{contra} environment}
 %
 % \begin{macro}{contra}
@@ -322,7 +322,6 @@
   \resetdancephrase*
   \ifdefined\@ccisclass\clearpage\fi%
   \begin{\dancetitleenv}
-    {\dancetitleformat{#2}}%
     \ifdefined\@ccisclass%
       \pagestyle{myheadings}
       \thispagestyle{myheadings}
@@ -330,6 +329,7 @@
     \else%
       {\danceformformat{#4}}%
     \fi%
+    {\dancetitleformat{#2}}%
     {\danceauthorformat{#3}}%
   \end{\dancetitleenv}
   \newcommand*{\@contraenv}{#1}
@@ -373,40 +373,6 @@
 }
 %    \end{macrocode}
 % \end{macro}
-%
-% \section{Examples}
-%
-% A few examples are contained below:
-%
-% \subsection{Code's Compiling by Sam Whited}
-%
-% \begin{Verbatim}
-% \begin{contra}{Code's Compiling}{Sam Whited}{Duple becket}
-%   \move[8]{Neighbor dosido}
-%   \move[8]{Partner see saw}
-%   \move{Shadow swing}
-%   \move[8]{Balance and petronella}
-%   \move[8]{Balance and petronella}
-%   \move[8]{Partner swing}
-%   \move[8]{Left diagonal: Right and left through}
-% \end{contra}
-% \end{Verbatim}
-%
-% \subsection{Cherokee Shuffle by David Kaynor}
-%
-% \begin{Verbatim}
-% \begin{contra}{Cherokee Shuffle}{David Kaynor}{Duple improper}
-%   \move[8]{Circle left}
-%   \move[8]{Neighbor dosido}
-%   \move{Neighbor balance and swing}
-%   \move[4]{Men allemande left \textonehalf}
-%   \move[4]{Balance in a wave}
-%   \move[8]{Partner swing}
-%   \move[8]{Circle left \textthreequarters}
-%   \move[4]{Balance the ring}
-%   \move[4]{Partner california twirl}
-% \end{contra}
-% \end{Verbatim}
 %
 %    \begin{macrocode}
 %</contracard-pkg>
@@ -490,6 +456,107 @@
 \ProcessOptions\relax
 %</contracard-cls>
 %    \end{macrocode}
+%
+% \section{Examples}
+%
+% A few examples are contained below:
+%
+% \subsection{Code's Compiling by Sam Whited}
+%
+% \begin{Verbatim}
+% \begin{contra}{Code's Compiling}{Sam Whited}{Duple becket}
+%   \move[8]{Neighbor dosido}
+%   \move[8]{Partner see saw}
+%   \move{Shadow swing}
+%   \move[8]{Balance and petronella}
+%   \move[8]{Balance and petronella}
+%   \move[8]{Partner swing}
+%   \move[8]{Left diagonal: Right and left through}
+%   \vspace*{2em}
+%   \begin{flushright}
+%   \href{http://creativecommons.org/licenses/by/3.0/}{\includegraphics[width=40px]{by.png}}
+%   \end{flushright}
+% \end{contra}
+% \end{Verbatim}
+%
+% \begin{exampledance}
+% \begin{contra}{Code's Compiling}{Sam Whited}{Duple becket}
+%   \move[8]{Neighbor dosido}
+%   \move[8]{Partner see saw}
+%   \move{Shadow swing}
+%   \move[8]{Balance and petronella}
+%   \move[8]{Balance and petronella}
+%   \move[8]{Partner swing}
+%   \move[8]{Left diagonal: Right and left through}
+%   \vspace*{2em}
+%   \begin{flushright}
+%   \href{http://creativecommons.org/licenses/by/3.0/}{\includegraphics[width=40px]{by.png}}
+%   \end{flushright}
+% \end{contra}
+% \end{exampledance}
+%
+% \subsection{Untitled Blues Contras by Seth Tepfer}
+%
+% \begin{Verbatim}
+% \begin{contra}{Untitled Blues \textnumero\ 1}{Seth Tepfer}{Duple Minor Im.}
+%   \move[8]{Neighbor gypsy}
+%   \move[8]{Ladies gypsy}
+%   \newdancephrase
+%   \move[16]{Partner balance and swing}
+%   \newdancephrase
+%   \move[8]{Ladies chain}
+%   \move[8]{Left hand star}
+%   \vspace*{2em}
+%   \begin{flushright}
+%   \href{http://creativecommons.org/licenses/by-nc/3.0/}{\includegraphics[width=40px]{by-nc.png}}
+%   \end{flushright}
+% \end{contra}
+% \begin{contra}{Untitled Blues \textnumero\ 2}{Seth Tepfer}{Duple Minor Im.}
+%   \move[8]{Neighbor gypsy}
+%   \move[8]{Gents allemande left 1\textonehalf}
+%   \newdancephrase
+%   \move[16]{Partner balance and swing}
+%   \newdancephrase
+%   \move[8]{\textonehalf\ promenade across set}
+%   \move[8]{Ladies chain}
+%   \vspace*{2em}
+%   \begin{flushright}
+%   \href{http://creativecommons.org/licenses/by-nc/3.0/}{\includegraphics[width=40px]{by-nc.png}}
+%   \end{flushright}
+% \end{contra}
+% \end{Verbatim}
+%
+% \begin{exampledance}
+% \begin{contra}{Untitled Blues \textnumero\ 1}{Seth Tepfer}{Duple Minor Im.}
+%   \move[8]{Neighbor gypsy}
+%   \move[8]{Ladies gypsy}
+%   \newdancephrase
+%   \move[16]{Partner balance and swing}
+%   \newdancephrase
+%   \move[8]{Ladies chain}
+%   \move[8]{Left hand star}
+%   \vspace*{2em}
+%   \begin{flushright}
+%   \href{http://creativecommons.org/licenses/by-nc/3.0/}{\includegraphics[width=40px]{by-nc.png}}
+%   \end{flushright}
+% \end{contra}
+% \end{exampledance}
+% \begin{exampledance}
+% \begin{contra}{Untitled Blues \textnumero\ 2}{Seth Tepfer}{Duple Minor Im.}
+%   \move[8]{Neighbor gypsy}
+%   \move[8]{Gents allemande left 1\textonehalf}
+%   \newdancephrase
+%   \move[16]{Partner balance and swing}
+%   \newdancephrase
+%   \move[8]{\textonehalf\ promenade across set}
+%   \move[8]{Ladies chain}
+%   \vspace*{2em}
+%   \begin{flushright}
+%   \href{http://creativecommons.org/licenses/by-nc/3.0/}{\includegraphics[width=40px]{by-nc.png}}
+%   \end{flushright}
+% \end{contra}
+% \end{exampledance}
+%
 % \clearpage
 % \setcounter{IndexColumns}{2}
 % \phantomsection
@@ -512,11 +579,19 @@
 %<*doc-style>
 %    \begin{macrocode}
 \ProvidesPackage{contracard-style}
-\usepackage{fancyvrb,hologo,framed,multicol,url}
+\usepackage[utf8x]{inputenc}
+\usepackage{fancyvrb,hologo,framed,multicol,url,textcomp,graphicx,contracard}
 \usepackage[pdfborder=0, bookmarks, colorlinks=false, hidelinks]{hyperref}
 \usepackage[parfill]{parskip}
 
 \fvset{gobble=2}
+
+\newenvironment*{exampledance}{%
+  \begin{minipage}{\textwidth}
+  \vspace{3em}
+}{%
+  \end{minipage}
+}
 
 \newcommand*{\gittag}{%
   \immediate\write18{%

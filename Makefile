@@ -29,7 +29,7 @@ help:
 
 NAME = contracard
 DOC = $(NAME).pdf
-DTX = $(NAME).dtx
+DTX = $(NAME).dtx resources
 
 # Redefine this to print output if you need:
 REDIRECT = > /dev/null
@@ -73,6 +73,15 @@ unpack: $(UNPACKED)
 ctan: $(CTAN_ZIP)
 tds: $(TDS_ZIP)
 world: all ctan
+
+resources: by.png by-nc.png
+
+by.png:
+	wget http://mirrors.creativecommons.org/presskit/buttons/80x15/png/by.png
+
+by-nc.png:
+	wget http://mirrors.creativecommons.org/presskit/buttons/80x15/png/by-nc.png
+
 
 gendoc: $(DTX)
 	@echo "Compiling documentation"
