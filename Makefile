@@ -29,7 +29,7 @@ help:
 
 NAME = contracard
 DOC = $(NAME).pdf
-DTX = $(NAME).dtx resources
+DTX = $(NAME).dtx
 
 # Redefine this to print output if you need:
 REDIRECT = > /dev/null
@@ -83,7 +83,7 @@ by-nc.png:
 	wget http://mirrors.creativecommons.org/presskit/buttons/80x15/png/by-nc.png
 
 
-gendoc: $(DTX)
+gendoc: $(DTX) resources
 	@echo "Compiling documentation"
 	$(DO_LATEX_WRITE18)
 	$(DO_MAKEINDEX)
