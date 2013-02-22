@@ -510,9 +510,15 @@
 %
 % \section{Examples}
 %
-% A few examples are contained below:
+% A few examples are contained below. Note that the output is wrapped in a frame
+% for clarity; no attempt has been made to make the frame match the size,
+% margins, etc. that a calling card would have (these examples don't use
+% \fname{contracard.cls}, just the package).
 %
 % \subsection{Code's Compiling by Sam Whited}
+%
+% This is a simple dance from the caller's perspective (not so for the dancers!)
+% and doesn't do much to show off Contra Card's features.
 %
 % \begin{Verbatim}
 % \begin{contra}{Code's Compiling}{Sam Whited}{Duple becket}
@@ -560,6 +566,8 @@
 % \code{dancephraselength} and lets \pkg{contracard} handle figuring out how to
 % break up the phrases.
 %
+% \subsubsection*{Untitled Blues \textnumero\ 1}
+%
 % \begin{Verbatim}
 % \renewcommand*{\partdelimiter}{:}
 % \begin{contra}{Untitled Blues \textnumero\ 1}{Seth Tepfer}{Duple Minor Im.}
@@ -599,6 +607,8 @@
 %   \end{flushright}
 % \end{contra}
 % \end{exampledance}
+%
+% \subsubsection*{Untitled Blues \textnumero\ 2}
 %
 % \begin{Verbatim}
 % \setlength{\phrasevspace}{0em}
@@ -668,10 +678,12 @@
 \fvset{gobble=2}
 
 \newenvironment*{exampledance}{%
+  \begin{framed}
   \begin{minipage}{\textwidth}
   \vspace{3em}
 }{%
   \end{minipage}
+  \end{framed}
 }
 
 \newcommand*{\gittag}{%
