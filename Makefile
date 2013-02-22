@@ -169,7 +169,7 @@ manifest:
 	@for f in $(GENERATED); do echo $$f; done
 
 clean:
-	@$(RM) -- *.log *.aux *.toc *.idx *.ind *.ilg *.glo *.gls *.example *.out *.synctex* *.tmp *.cls *.sty *.ins *.pdf *.dvi README LICENSE *.lot
+	@$(RM) -- *.log *.aux *.toc *.idx *.ind *.ilg *.glo *.gls *.example *.out *.synctex* *.tmp *.cls *.sty *.ins *.pdf *.dvi README LICENSE *.lot *.png
 	@$(RM) -- $(GENERATED) $(ZIPS)
 	@$(RM) -- $(builddir)/*
 
