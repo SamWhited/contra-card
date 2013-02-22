@@ -224,6 +224,21 @@
 % \end{macro}
 % \end{macro}
 %
+% \begin{macro}{\phraseseparator}
+% \changes{0.4}{2013/02/22}{Allow custom phrase separator character}
+% \begin{macro}{\phrasevspace}
+% \changes{0.4}{2013/02/22}{Allow custom phrase separation length}
+% The \code{\textbackslash phraseseparator} macro is inserted between every
+% musical phrase and --- by default --- inserts \code{phrasevspace} ammount of
+% white space.
+% \end{macro}
+%    \begin{macrocode}
+\newlength{\phrasevspace}
+\setlength{\phrasevspace}{1em}
+\newcommand*{\phraseseparator}{\vspace{\phrasevspace}}
+%    \end{macrocode}
+% \end{macro}
+%
 % \section{The Meat}
 %
 % Next we'll define the meat of the \pkg{contracard} package. These are the
@@ -402,7 +417,7 @@
   \addtocounter{partcount}{#1}%
   #2%
   \ifthenelse{\value{phrasecount}=\value{dancephraselength}}{%
-    \pagebreak[1]\vspace{1em}%
+    \pagebreak[1]\phraseseparator%
   }{}%
   \ifthenelse{\value{partcount}=\intcalcDiv{\value{dancepartlength}}{2}}{\midpartdelimiter\nopagebreak}{%
     \ifthenelse{\not\value{partcount}=\value{dancepartlength}}{\movedelimiter\nopagebreak\nolinebreak[2]}{}}%
@@ -557,6 +572,7 @@
 %     \IfFileExists{by-nc.png}{\includegraphics[width=40px]{by-nc.png}}{\cc\bync}}
 %   \end{flushright}
 % \end{contra}
+% \setlength{\phrasevspace}{0em}
 % \setcounter{dancephraselength}{16}
 % \begin{contra}{Untitled Blues \textnumero\ 2}{\href{http://www.dancerhapsody.com/calling/dances.html}{Seth Tepfer}}{Duple Minor Im.}
 %   \move[8]{Neighbor gypsy}
@@ -590,6 +606,7 @@
 % \end{contra}
 % \end{exampledance}
 % \begin{exampledance}
+% \setlength{\phrasevspace}{0em}
 % \setcounter{dancephraselength}{16}
 % \begin{contra}{Untitled Blues \textnumero\ 2}{\href{http://www.dancerhapsody.com/calling/dances.html}{Seth Tepfer}}{Duple Minor Im.}
 %   \move[8]{Neighbor gypsy}
