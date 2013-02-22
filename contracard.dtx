@@ -123,6 +123,7 @@
 % \StopEventually{}
 % \changes{0.1}{2013/02/09}{Created boilerplate for class}
 % \changes{0.3}{2013/02/20}{Split core functionality out into package}
+% \changes{0.4}{2013/02/22}{Support swung dances}
 %
 % \section{Building and using \pkg{contracard}}
 %
@@ -262,6 +263,24 @@
 % \end{macro}
 % \end{macro}
 %
+% \begin{macro}{dancepartlength}
+% \changes{0.4}{2013/02/22}{Create a new counter for the part length}
+% \begin{macro}{dancephraselength}
+% \changes{0.4}{2013/02/22}{Create a new counter for the phrase length}
+% Most contra dances are composed of two 32 count phrases, each with two 16
+% count parts, however, it's sometimes useful to change these lengths (for swung
+% dances and the like). It's important to fully understand how the move command
+% works before modifying these values. Changing just one or the other can have
+% unexpected consequences.
+%    \begin{macrocode}
+\newcounter{dancepartlength}
+\setcounter{dancepartlength}{16}
+\newcounter{dancephraselength}
+\setcounter{dancephraselength}{32}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
 % \begin{macro}{\resetdancephrase}
 % \begin{macro}{\resetdancepart}
 % \changes{0.2}{2013/02/15}{Allow the user to reset the phrase}
@@ -311,12 +330,13 @@
 % The user can also manually start a new phrase or part:
 %    \begin{macrocode}
 \newcommand*{\newdancephrase}{%
-  \ifthenelse{\not\value{phrasecount}=0\and\not\value{phrasecount}=32}{\newline}{}%
+  \ifthenelse{\not\value{phrasecount}=0}{\newline}{}%
   \addtocounter{dancephrase}{1}%
   \setcounter{phrasecount}{0}%
   \resetdancepart*
 }
 \newcommand*{\newdancepart}{%
+  \newline
   \addtocounter{dancepart}{1}%
   \setcounter{partcount}{0}%
 }
@@ -367,26 +387,25 @@
 % the move takes. If the count is not specified, 16 is used as the default.
 %    \begin{macrocode}
 \newcommand*{\move}[2][16]{%
-  \ifthenelse{\value{partcount}=16}{\newline}{}%
-  \ifthenelse{\value{phrasecount}=32}{%
+  \ifthenelse{\value{phrasecount}=\value{dancephraselength}}{%
     \newdancephrase%
   }{%
-    \ifthenelse{\value{partcount}=16}{%
+    \ifthenelse{\value{partcount}=\value{dancepartlength}}{%
      \newdancepart%
     }{}%
   }
-  \ifthenelse{\intcalcMod{\value{dancecount}}{16}=0}{%
+  \ifthenelse{\intcalcMod{\value{dancecount}}{\value{dancepartlength}}=0}{%
     \Alph{dancephrase}\arabic{dancepart}\partdelimiter\ %
   }{}%
   \addtocounter{dancecount}{#1}%
   \addtocounter{phrasecount}{#1}%
   \addtocounter{partcount}{#1}%
   #2%
-  \ifthenelse{\value{phrasecount}=32}{%
+  \ifthenelse{\value{phrasecount}=\value{dancephraselength}}{%
     \pagebreak[1]\vspace{1em}%
   }{}%
-  \ifthenelse{\value{partcount}=8}{\midpartdelimiter\nopagebreak}{%
-    \ifthenelse{\not\value{partcount}=16}{\movedelimiter\nopagebreak\nolinebreak[2]}{}}%
+  \ifthenelse{\value{partcount}=\intcalcDiv{\value{dancepartlength}}{2}}{\midpartdelimiter\nopagebreak}{%
+    \ifthenelse{\not\value{partcount}=\value{dancepartlength}}{\movedelimiter\nopagebreak\nolinebreak[2]}{}}%
 }
 %    \end{macrocode}
 % \end{macro}
@@ -516,6 +535,12 @@
 %
 % \subsection{Untitled Blues Contras by Seth Tepfer}
 %
+% These blues contras consist of three, 16 count phrases (\code{A1}, \code{B1},
+% and \code{C1}). The first employs the \code{\textbackslash newdancephrase}
+% command to reset the phrase every 16 counts, the second changes the
+% \code{dancephraselength} and lets \pkg{contracard} handle figuring out how to
+% break up the phrases.
+%
 % \begin{Verbatim}
 % \renewcommand*{\partdelimiter}{:}
 % \begin{contra}{Untitled Blues \textnumero\ 1}{\href{http://www.dancerhapsody.com/calling/dances.html}{Seth Tepfer}}{Duple Minor Im.}
@@ -532,12 +557,11 @@
 %     \IfFileExists{by-nc.png}{\includegraphics[width=40px]{by-nc.png}}{\cc\bync}}
 %   \end{flushright}
 % \end{contra}
+% \setcounter{dancephraselength}{16}
 % \begin{contra}{Untitled Blues \textnumero\ 2}{\href{http://www.dancerhapsody.com/calling/dances.html}{Seth Tepfer}}{Duple Minor Im.}
 %   \move[8]{Neighbor gypsy}
 %   \move[8]{Gents allemande left 1\textonehalf}
-%   \newdancephrase
 %   \move[16]{Partner balance and swing}
-%   \newdancephrase
 %   \move[8]{\textonehalf\ promenade across set}
 %   \move[8]{Ladies chain}
 %   \vspace*{2em}
@@ -566,12 +590,11 @@
 % \end{contra}
 % \end{exampledance}
 % \begin{exampledance}
+% \setcounter{dancephraselength}{16}
 % \begin{contra}{Untitled Blues \textnumero\ 2}{\href{http://www.dancerhapsody.com/calling/dances.html}{Seth Tepfer}}{Duple Minor Im.}
 %   \move[8]{Neighbor gypsy}
 %   \move[8]{Gents allemande left 1\textonehalf}
-%   \newdancephrase
 %   \move[16]{Partner balance and swing}
-%   \newdancephrase
 %   \move[8]{\textonehalf\ promenade across set}
 %   \move[8]{Ladies chain}
 %   \vspace*{2em}
