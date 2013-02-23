@@ -1,6 +1,6 @@
 # Contra Card
 
-A TeX class for contra and square dances calls.
+A LaTeX package for contra and square dance calls.
 
 ## Download
 
