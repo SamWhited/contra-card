@@ -309,7 +309,7 @@
 % the same after resetting, no action is taken.
 %    \begin{macrocode}
 \newcommand*{\resetdancephrase}{%
-  \ifthenelse{\value{partcount}=16}{\newline}{}%
+	\ifthenelse{\value{partcount}=16}{\hspace*{\fill}\newline}{}%
   \@ifstar{\@resetdancephraseStar}{\@resetdancephraseNoStar}%
 }
 \newcommand*{\@resetdancephraseStar}{%
@@ -348,13 +348,13 @@
 % The user can also manually start a new phrase or part:
 %    \begin{macrocode}
 \newcommand*{\newdancephrase}{%
-  \ifthenelse{\not\value{phrasecount}=0}{\newline}{}%
+  \ifthenelse{\not\value{phrasecount}=0}{\hspace*{\fill}\newline}{}%
   \addtocounter{dancephrase}{1}%
   \setcounter{phrasecount}{0}%
   \resetdancepart*
 }
 \newcommand*{\newdancepart}{%
-  \newline
+  \hspace*{\fill}\newline
   \addtocounter{dancepart}{1}%
   \setcounter{partcount}{0}%
 }
