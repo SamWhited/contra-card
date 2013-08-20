@@ -59,11 +59,11 @@
 %
 %<*contracard-pkg>
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesPackage{contracard}[2013/02/20]
+\ProvidesPackage{contracard}[2013/08/20 v0.5]
 %</contracard-pkg>
 %<*contracard-cls>
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{contracard}[2013/02/20]
+\ProvidesClass{contracard}[2013/08/20 v0.5]
 \AtEndOfClass{\LoadClass{article}}
 %</contracard-cls>
 %
@@ -86,10 +86,10 @@
 %
 % \title{The Contra Card Project}
 % \author{
-%   \name{Sam Whited}\\
+%   \name{Sam Whited}\\*
 %   \texttt{sam@samwhited.com}
 % }
-% \date{\today\\\gittag}
+% \date{\today\\*\gittag}
 %
 % \maketitle
 % \tableofcontents
@@ -168,7 +168,7 @@
 % installed as the version is determined by running
 %
 % \begin{Verbatim}
-%   $ git describe --tags
+%   $ git describe --tags --dirty
 % \end{Verbatim}
 %
 % \paragraph{Using \pkg{contracard}} Building results in two main files, a class
@@ -301,12 +301,17 @@
 %
 % \begin{macro}{\resetdancephrase}
 % \begin{macro}{\resetdancepart}
+% \begin{macro}{\resetdancephrase*}
+% \begin{macro}{\resetdancepart*}
 % \changes{0.2}{2013/02/15}{Allow the user to reset the phrase}
 % \changes{0.3}{2013/02/21}{Change name of \code{\textbackslash progressed}}
 % The phrase will continue to increment (\code{A}, \code{B}, \code{C}) unless
 % the user resets it by calling \code{\textbackslash resetdancephrase}. The user
 % can also manually reset the part. If the value of the phrase or part would be
-% the same after resetting, no action is taken.
+% the same after resetting, no action is taken. You can use the splat version of
+% the commands to force a reset (eg. even if the \code{dancephrase} counter is
+% already at 1, the \code{dancephrase} and \code{phrasecount} counters will
+% still be reset).
 %    \begin{macrocode}
 \newcommand*{\resetdancephrase}{%
 	\ifthenelse{\value{partcount}=16}{\hspace*{\fill}\newline}{}%
@@ -338,6 +343,8 @@
   }%
 }
 %    \end{macrocode}
+% \end{macro}
+% \end{macro}
 % \end{macro}
 % \end{macro}
 %
