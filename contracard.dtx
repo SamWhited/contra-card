@@ -359,7 +359,7 @@
 % The user can also manually start a new phrase or part:
 %    \begin{macrocode}
 \newcommand*{\newdancephrase}{%
-  \ifthenelse{\not\value{phrasecount}=0}{\hspace*{\fill}\newline}{}%
+  \ifthenelse{\NOT\value{phrasecount}=0}{\hspace*{\fill}\newline}{}%
   \addtocounter{dancephrase}{1}%
   \setcounter{phrasecount}{0}%
   \setcounter{phrasemovenum}{0}%
@@ -465,7 +465,7 @@
     \pagebreak[1]\phraseseparator%
   }{}%
   \ifthenelse{\value{partcount}=\intcalcDiv{\value{dancepartlength}}{2}}{\midpartdelimiter\nopagebreak}{%
-    \ifthenelse{\not\value{partcount}=\value{dancepartlength}}{\movedelimiter\nopagebreak\nolinebreak[2]}{}}%
+    \ifthenelse{\NOT\value{partcount}=\value{dancepartlength}}{\movedelimiter\nopagebreak\nolinebreak[2]}{}}%
 }
 %    \end{macrocode}
 % \end{macro}
