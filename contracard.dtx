@@ -248,7 +248,7 @@
 % functions, counters, and environments that actually deal with generating a
 % dance.
 %
-% \subsection{Musical counts and phrases}
+% \subsection{Musical counts}
 %
 % \begin{macro}{dancecount}
 % \begin{macro}{partcount}
@@ -314,19 +314,21 @@
 % still be reset).
 %    \begin{macrocode}
 \newcommand*{\resetdancephrase}{%
-	\ifthenelse{\value{partcount}=16}{\hspace*{\fill}\newline}{}%
+  \ifthenelse{\value{partcount}=16}{\hspace*{\fill}\newline}{}%
   \@ifstar{\@resetdancephraseStar}{\@resetdancephraseNoStar}%
 }
 \newcommand*{\@resetdancephraseStar}{%
   \setcounter{dancephrase}{1}%
   \setcounter{phrasecount}{0}%
-  \resetdancepart*
+  \setcounter{phrasemovenum}{0}%
+  \resetdancepart*%
 }
 \newcommand*{\@resetdancephraseNoStar}{%
   \ifthenelse{\value{dancephrase}=1}{}{%
     \setcounter{dancephrase}{1}%
     \setcounter{phrasecount}{0}%
-    \resetdancepart
+    \setcounter{phrasemovenum}{0}%
+    \resetdancepart%
   }%
 }
 \newcommand*{\resetdancepart}{%
@@ -335,11 +337,13 @@
 \newcommand*{\@resetdancepartStar}{%
   \setcounter{dancepart}{1}%
   \setcounter{partcount}{0}%
+  \setcounter{partmovenum}{0}%
 }
 \newcommand*{\@resetdancepartNoStar}{%
   \ifthenelse{\value{dancepart}=1}{}{%
     \setcounter{dancepart}{1}%
     \setcounter{partcount}{0}%
+    \setcounter{partmovenum}{0}%
   }%
 }
 %    \end{macrocode}
@@ -358,14 +362,39 @@
   \ifthenelse{\not\value{phrasecount}=0}{\hspace*{\fill}\newline}{}%
   \addtocounter{dancephrase}{1}%
   \setcounter{phrasecount}{0}%
-  \resetdancepart*
+  \setcounter{phrasemovenum}{0}%
+  \resetdancepart*%
 }
 \newcommand*{\newdancepart}{%
   \hspace*{\fill}\newline
   \addtocounter{dancepart}{1}%
   \setcounter{partcount}{0}%
+  \setcounter{partmovenum}{0}%
 }
 %    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \subsection{Move counts}
+
+% \begin{macro}{phrasemovenum}
+% \changes{1.0.0}{2013/09/05}{Add counter for the number of moves in the phrase}
+% \begin{macro}{partmovenum}
+% \changes{1.0.0}{2013/09/05}{Add counter for the number of moves in the part}
+% \begin{macro}{dancemovenum}
+% \changes{1.0.0}{2013/09/05}{Add counter for the number of moves in the dance}
+% The following counters are used to keep track of the number of moves that have
+% occurred thus far in the given dance, phrase, or part. They are incremented
+% every time \code{\textbackslash move} is called.
+%    \begin{macrocode}
+\newcounter{phrasemovenum}
+\newcounter{partmovenum}
+\newcounter{dancemovenum}
+\setcounter{phrasemovenum}{0}
+\setcounter{partmovenum}{0}
+\setcounter{dancemovenum}{0}
+%    \end{macrocode}
+% \end{macro}
 % \end{macro}
 % \end{macro}
 %
@@ -382,6 +411,7 @@
   \refstepcounter{dance}
   \addcontentsline{lod}{dance}{\protect\numberline{\thedance}#2}
   \setcounter{dancecount}{0}
+  \setcounter{dancemovenum}{0}
   \resetdancepart*
   \resetdancephrase*
   \ifdefined\@ccisclass\clearpage\fi%
@@ -427,6 +457,9 @@
   \addtocounter{dancecount}{#1}%
   \addtocounter{phrasecount}{#1}%
   \addtocounter{partcount}{#1}%
+  \addtocounter{phrasemovenum}{1}%
+  \addtocounter{partmovenum}{1}%
+  \addtocounter{dancemovenum}{1}%
   #2%
   \ifthenelse{\value{phrasecount}=\value{dancephraselength}}{%
     \pagebreak[1]\phraseseparator%
