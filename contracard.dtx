@@ -470,6 +470,51 @@
 % \listofdances
 % \end{framed}
 %
+% \section{Move shortcuts}
+%
+% Often you may find yourself copy and pasting common moves that often have the
+% same timing, wording on the card, etc. For times like this \pkg{contracard}
+% provides a number of shortcut macros. Each of these macros takes an optional
+% first argument just like the \code{\textbackslash move} command; however, the
+% default number of beats may be different depending on the individual move.
+%
+% \begin{macro}{\allemande}
+% The allemande macro takes two mandatory arguments: the direction of the
+% allemande and the person to allemande (eg. partner, neighbor, shadow, etc.).
+% The default count for an allemande is 4, but you can change this with the
+% optional first argument.
+%    \begin{macrocode}
+\newcommand*{\allemande}[3][4]{\move[#1]{Allemande #2\ your #3}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\balance}
+% \begin{macro}{\balance*}
+% \begin{macro}{\balanceand}
+% The \code{\textbackslash balance} macro is fairly simple. It takes a single
+% mandatory argument and prints it after (or before if you use
+% \code{\textbackslash balance*}) the word `balance'. The \code{\textbackslash
+% balanceand} version of the command takes up 0 logical steps in the dance so
+% you can follow it up with another command (eg.  \code{\textbackslash
+% balanceand\textbackslash swing\{partner\}}).
+%    \begin{macrocode}
+\newcommand*{\balance}{\@ifstar\@balanceStar\@balanceNoStar}
+\newcommand*{\@balanceNoStar}[2][4]{\move[#1]{Balance #2}}
+\newcommand*{\@balanceStar}[2][4]{\move[#1]{#1 balance}}
+\newcommand*{\balanceand}[1]{%
+  \begingroup%
+  \renewcommand*{\movedelimiter}{}%
+  \renewcommand*{\partdelimiter}{}%
+  \renewcommand*{\midpartdelimiter}{}%
+  \move[0]{Balance and}%
+  \endgroup%
+  #1%
+}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
 %    \begin{macrocode}
 %</contracard-pkg>
 %    \end{macrocode}
