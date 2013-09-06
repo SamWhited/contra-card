@@ -445,13 +445,17 @@
 %    \begin{macrocode}
 \newcommand*{\move}[2][16]{%
   \ifthenelse{\value{phrasecount}=\value{dancephraselength}}{%
-    \newdancephrase%
+    \ifthenelse{\NOT\equal{#1}{0}}{%
+      \newdancephrase%
+    }{}%
   }{%
-    \ifthenelse{\value{partcount}=\value{dancepartlength}}{%
+    \ifthenelse{\(\value{partcount}=\value{dancepartlength}\)%
+      \AND\NOT\equal{#1}{0}}{%
      \newdancepart%
     }{}%
   }
-  \ifthenelse{\intcalcMod{\value{dancecount}}{\value{dancepartlength}}=0}{%
+  \ifthenelse{\(\intcalcMod{\value{dancecount}}{\value{dancepartlength}}=0\)%
+    \AND\(\value{partmovenum}=0\)}{%
     \Alph{dancephrase}\arabic{dancepart}\partdelimiter\ %
   }{}%
   \addtocounter{dancecount}{#1}%
@@ -461,11 +465,18 @@
   \addtocounter{partmovenum}{1}%
   \addtocounter{dancemovenum}{1}%
   #2%
-  \ifthenelse{\value{phrasecount}=\value{dancephraselength}}{%
-    \pagebreak[1]\phraseseparator%
+  \ifthenelse{\NOT\equal{#1}{0}}{%
+    \ifthenelse{\value{phrasecount}=\value{dancephraselength}}{%
+      \pagebreak[1]\phraseseparator%
+    }{}%
+    \ifthenelse{\value{partcount}=\intcalcDiv{\value{dancepartlength}}{2}}{%
+      \midpartdelimiter\nopagebreak%
+    }{%
+      \ifthenelse{\NOT\value{partcount}=\value{dancepartlength}}{%
+        \movedelimiter\nopagebreak\nolinebreak[2]%
+      }{}%
+    }%
   }{}%
-  \ifthenelse{\value{partcount}=\intcalcDiv{\value{dancepartlength}}{2}}{\midpartdelimiter\nopagebreak}{%
-    \ifthenelse{\NOT\value{partcount}=\value{dancepartlength}}{\movedelimiter\nopagebreak\nolinebreak[2]}{}}%
 }
 %    \end{macrocode}
 % \end{macro}
