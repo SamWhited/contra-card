@@ -99,6 +99,7 @@
 \newcommand*\pkg[1]{\textsf{#1}}
 \newcommand*\code[1]{\texttt{#1}}
 \newcommand*\regexp[1]{\texttt{#1}}
+\newcommand*\word[1]{\textit{#1}}
 \newcommand*{\XeLaTeX}{\hologo{XeLaTeX}}
 \newcommand*{\LuaLaTeX}{\hologo{LuaLaTeX}}
 \EnableCrossrefs
@@ -157,6 +158,7 @@
 % \changes{0.4}{2013/02/22}{Support swung dances}
 % \changes{0.4}{2013/02/22}{Add list of dances}
 % \changes{0.4}{2013/02/22}{Add \pkg{tocloft} package to requirements}
+% \changes{1.0.0}{2013/09/06}{Add Unicode (\XeLaTeX\ and \LuaLaTeX) support}
 %
 % \section{Building and using \pkg{contracard}}
 %
@@ -639,6 +641,69 @@
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\butterflywhirl}
+% \changes{1.0.0}{2013/09/06}{Add move shortcut}
+% \begin{macro}{\butterflywhirl*}
+% \changes{1.0.0}{2013/09/06}{Add move shortcut}
+% Two version of the \code{\textbackslash butterflywhirl} macro exist. Both
+% taken in an optional number of counts, and the other dancer that you're going
+% to be butterfly whirling. The normal macro prints the line:
+%
+% \begin{quote}
+% Butterfly whirl your \#2
+% \end{quote}
+%
+% While the starred version prints:
+%
+% \begin{quote}
+% With your \#2 butterfly whirl
+% \end{quote}
+%
+%    \begin{macrocode}
+\newcommand*{\butterflywhirl}{\@ifstar\@butterflyStar\@butterflyNoStar}
+\newcommand*{\@butterflyNoStar}[2][8]{\move[#1]{Butterfly whirl your #2}}
+\newcommand*{\@butterflyStar}[2][8]{%
+  \move[#1]{With your #2 butterfly whirl}%
+}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\courtesyturn}
+% \changes{1.0.0}{2013/09/06}{Add move shortcut}
+% \begin{macro}{\courtesyturn*}
+% \changes{1.0.0}{2013/09/06}{Add move shortcut}
+% Like the allemande, courtesy turns can go around for any number of beats.
+% While it's uncommon to have a courtesy turn stand on its own, or go around
+% more than once, the starred version, none the less, provides a way to list the
+% number of times around one should go.
+%    \begin{macrocode}
+\newcommand*{\courtesyturn}{\@ifstar\@courtesyturnStar\@courtesyturnNoStar}
+\newcommand*{\@courtesyturnNoStar}[2][8]{\move[#1]{Courtesy turn your #2}}
+\newcommand*{\@courtesyturnStar}[2][8]{%
+  \move[#1]{Courtesy turn your #2 \timesaround{4}{#1}}%
+}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\dosido}
+% \changes{1.0.0}{2013/09/06}{Add move shortcut}
+% \begin{macro}{\dosido*}
+% \changes{1.0.0}{2013/09/06}{Add move shortcut}
+% Dosido's (aka \word{do-si-do}, \word{do-se-do}, \word{dosado},
+% \word{dos-\`a-dos}, etc.) can also go any number of times around and the macro
+% behaves exactly like \code{\textbackslash courtesyturn}.
+%    \begin{macrocode}
+\newcommand*{\dosido}{\@ifstar\@dosidoStar\@dosidoNoStar}
+\newcommand*{\@dosidoNoStar}[2][8]{\move[#1]{Do-si-do your #2}}
+\newcommand*{\@dosidoStar}[2][8]{%
+  \move[#1]{Do-si-do your #2 \timesaround{4}{#1}}%
+}
+%    \end{macrocode}
 % \end{macro}
 % \end{macro}
 %
