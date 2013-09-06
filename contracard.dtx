@@ -572,17 +572,17 @@
 % \changes{1.0.0}{2013/09/05}{Add move shortcut}
 % \begin{macro}{\allemande*}
 % \changes{1.0.0}{2013/09/05}{Add move shortcut}
-% The allemande macro takes two mandatory arguments: the direction of the
-% allemande and the person to allemande (eg. partner, neighbor, shadow, etc.).
-% The default count for an allemande is 4, but you can change this with the
-% optional first argument. The star version of the command attempts to calculate
-% the number of times around based on the beats of the music (eg. 6 beats would
-% be 1.5 times around).
+
+% The allemande macro takes two mandatory arguments: the count, and the
+% direction to allemande. It also takes the person to allemande (eg. shadow,
+% partner, neighbor, etc.) as an optional first argument.
 %    \begin{macrocode}
 \newcommand*{\allemande}{\@ifstar\@allemandeStar\@allemandeNoStar}
-\newcommand*{\@allemandeNoStar}[3][4]{\move[#1]{Allemande #2 your #3}}
-\newcommand*{\@allemandeStar}[3][4]{%
-  \move[#1]{Allemande #2 your #3 \timesaround{4}{#1}}%
+\newcommand*{\@allemandeNoStar}[3][\unskip]{%
+  \move[#2]{Allemande \ignorespaces#3\unskip\ \ignorespaces#1\unskip}%
+}
+\newcommand*{\@allemandeStar}[3][\unskip]{%
+  \move[#2]{\ignorespaces#3\unskip\ \ignorespaces#1\unskip\ allemande}%
 }
 %    \end{macrocode}
 % \end{macro}
@@ -605,34 +605,18 @@
 % swing}).
 %    \begin{macrocode}
 \newcommand*{\balance}{\@ifstar\@balanceStar\@balanceNoStar}
-\newcommand*{\@balanceNoStar}[1][ccnull]{%
-  \ifthenelse{\equal{#1}{ccnull}}{%
-    \move[4]{Balance}%
-  }{%
-    \move[4]{Balance #1}%
-  }%
+\newcommand*{\@balanceNoStar}[1][\unskip]{%
+  \move[4]{Balance \ignorespaces#1\unskip}%
 }
-\newcommand*{\@balanceStar}[1][ccnull]{%
-  \ifthenelse{\equal{#1}{ccnull}}{%
-    \move[4]{Balance}%
-  }{%
-    \move[4]{#1 balance}%
-  }%
+\newcommand*{\@balanceStar}[1][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
+  \move[4]{\ignorespaces#1\unskip\ balance}%
 }
 \newcommand*{\balanceand}{\@ifstar\@balanceandStar\@balanceandNoStar}
-\newcommand*{\@balanceandNoStar}[1][ccnull]{%
-  \ifthenelse{\equal{#1}{ccnull}}{%
-    \move[0]{Balance and}%
-  }{%
-    \move[0]{Balance and #1}%
-  }%
+\newcommand*{\@balanceandNoStar}[1][]{%
+  \move[0]{Balance and \ignorespaces#1\unskip}%
 }
-\newcommand*{\@balanceandStar}[1][ccnull]{%
-  \ifthenelse{\equal{#1}{ccnull}}{%
-    \move[0]{Balance and}%
-  }{%
-    \move[0]{#1 balance and}%
-  }%
+\newcommand*{\@balanceandStar}[1][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
+  \move[0]{\ignorespaces#1\unskip\ balance and}%
 }
 %    \end{macrocode}
 % \end{macro}
@@ -645,24 +629,28 @@
 % \begin{macro}{\butterflywhirl*}
 % \changes{1.0.0}{2013/09/06}{Add move shortcut}
 % Two version of the \code{\textbackslash butterflywhirl} macro exist. Both
-% taken in an optional number of counts, and the other dancer that you're going
-% to be butterfly whirling. The normal macro prints the line:
+% taken in an optional argument that specifies the other dancer (eg. partner,
+% neighbor, etc.), and the count. The normal macro prints the line:
 %
 % \begin{quote}
-% Butterfly whirl your \#2
+% Butterfly whirl \#1
 % \end{quote}
 %
 % While the starred version prints:
 %
 % \begin{quote}
-% With your \#2 butterfly whirl
+% \#1 butterfly whirl
 % \end{quote}
+%
+% Both use proper spacing and capitalization if argument \#1 is left off.
 %
 %    \begin{macrocode}
 \newcommand*{\butterflywhirl}{\@ifstar\@butterflyStar\@butterflyNoStar}
-\newcommand*{\@butterflyNoStar}[2][8]{\move[#1]{Butterfly whirl your #2}}
-\newcommand*{\@butterflyStar}[2][8]{%
-  \move[#1]{With your #2 butterfly whirl}%
+\newcommand*{\@butterflyNoStar}[2][\unskip]{%
+  \move[#2]{Butterfly whirl \ignorespaces#1\unskip}%
+}
+\newcommand*{\@butterflyStar}[2][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
+  \move[#2]{\ignorespaces#1\unskip\ butterfly whirl}%
 }
 %    \end{macrocode}
 % \end{macro}
@@ -672,15 +660,16 @@
 % \changes{1.0.0}{2013/09/06}{Add move shortcut}
 % \begin{macro}{\courtesyturn*}
 % \changes{1.0.0}{2013/09/06}{Add move shortcut}
-% Like the allemande, courtesy turns can go around for any number of beats.
-% While it's uncommon to have a courtesy turn stand on its own, or go around
-% more than once, the starred version, none the less, provides a way to list the
-% number of times around one should go.
+% Like \code{\textbackslash butterflywhirl} these macros take an optional person
+% to turn, and the number of beats. The star version of the command tweaks the
+% wording a bit.
 %    \begin{macrocode}
 \newcommand*{\courtesyturn}{\@ifstar\@courtesyturnStar\@courtesyturnNoStar}
-\newcommand*{\@courtesyturnNoStar}[2][8]{\move[#1]{Courtesy turn your #2}}
-\newcommand*{\@courtesyturnStar}[2][8]{%
-  \move[#1]{Courtesy turn your #2 \timesaround{4}{#1}}%
+\newcommand*{\@courtesyturnNoStar}[2][\unskip]{%
+  \move[#2]{Courtesy turn \ignorespaces#1\unskip}%
+}
+\newcommand*{\@courtesyturnStar}[2][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
+  \move[#2]{\ignorespaces#1\unskip\ courtesy turn}%
 }
 %    \end{macrocode}
 % \end{macro}
@@ -690,14 +679,15 @@
 % \changes{1.0.0}{2013/09/06}{Add move shortcut}
 % \begin{macro}{\dosido*}
 % \changes{1.0.0}{2013/09/06}{Add move shortcut}
-% Dosido's (aka \word{do-si-do}, \word{do-se-do}, \word{dosado},
-% \word{dos-\`a-dos}, etc.) can also go any number of times around and the macro
-% behaves exactly like \code{\textbackslash courtesyturn}.
+% These commands create a dosido (aka \word{do-si-do}, \word{do-se-do},
+% \word{dosado}, \word{dos-\`a-dos}, etc.).
 %    \begin{macrocode}
 \newcommand*{\dosido}{\@ifstar\@dosidoStar\@dosidoNoStar}
-\newcommand*{\@dosidoNoStar}[2][8]{\move[#1]{Do-si-do your #2}}
-\newcommand*{\@dosidoStar}[2][8]{%
-  \move[#1]{Do-si-do your #2 \timesaround{4}{#1}}%
+\newcommand*{\@dosidoNoStar}[2][\unskip]{
+  \move[#2]{Do-si-do \ignorespaces#1\unskip}%
+}
+\newcommand*{\@dosidoStar}[2][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
+  \move[#2]{\ignorespaces#1\unskip\ do-si-do}%
 }
 %    \end{macrocode}
 % \end{macro}
