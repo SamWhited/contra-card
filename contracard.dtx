@@ -539,25 +539,7 @@
 \newcommand*{\allemande}{\@ifstar\@allemandeStar\@allemandeNoStar}
 \newcommand*{\@allemandeNoStar}[3][4]{\move[#1]{Allemande #2 your #3}}
 \newcommand*{\@allemandeStar}[3][4]{%
-  \newcounter{timesaround}%
-  \setcounter{timesaround}{\intcalcDiv{\intcalcNum{#1}}{4}}%
-  \newcounter{quartertimesaround}%
-  \setcounter{quartertimesaround}{\intcalcMod{\intcalcNum{#1}}{4}}%
-  \newcommand*{\timesaround}{%
-    \ifthenelse{\value{timesaround}>0}{\arabic{timesaround}}{}%
-    \ifthenelse{\value{quartertimesaround}=1}{\textonequarter}{%
-      \ifthenelse{\value{quartertimesaround}=2}{\textonehalf}{%
-        \ifthenelse{\value{quartertimesaround}=3}{\textthreequarters}{}%
-      }%
-    }%
-    \ifthenelse{%
-      \value{timesaround}>1\OR%
-      \(\value{timesaround}=1\AND\NOT\value{quartertimesaround}=0\)%
-    }{\ times}{%
-      \ifthenelse{\value{timesaround}=1}{\ time}{}%
-    }%
-  }%
-  \move[#1]{Allemande #2 your #3 \timesaround}%
+  \move[#1]{Allemande #2 your #3 \timesaround{4}{#1}}%
 }
 %    \end{macrocode}
 % \end{macro}
@@ -613,6 +595,48 @@
 % \end{macro}
 % \end{macro}
 % \end{macro}
+% \end{macro}
+%
+% \section{Helper macros}
+%
+% The following macros are used by the \pkg{contracard} package to perform
+% various tasks. Those that may also be of use to the contra dance writer have
+% been left unhidden.
+%
+% \begin{macro}{\timesaround}
+% \changes{1.0.0}{2013/09/05}{Split out ability to calculate times around}
+% Sometimes it's useful to calculate the approximate number of times a given
+% move can be done in a certain number of beats of music (eg. the number of
+% times around one can allemande in 6 beats). For this, the \code{\textbackslash
+% timesaround} macro was created. It takes two arguments: the number of beats it
+% takes to go one time around (eg. 4 for an allemande) and the total number of
+% beats you have to work with. It spits out an integer or a mixed number and a
+% word matching the pattern `\regexp{/time{[}s{]}?/}' with correct plurality.
+%
+% For example: \code{\textbackslash timesaround\{4\}\{6\}} produces:
+% ``\timesaround{4}{6}".
+%    \begin{macrocode}
+\newcommand*{\timesaround}[2]{%
+  \newcounter{timesaround}%
+  \setcounter{timesaround}{\intcalcDiv{\intcalcNum{#2}}{\intcalcNum{#1}}}%
+  \newcounter{quartertimesaround}%
+  \setcounter{quartertimesaround}{%
+    \intcalcMod{\intcalcNum{#2}}{\intcalcNum{#1}}%
+  }%
+  \ifthenelse{\value{timesaround}>0}{\arabic{timesaround}}{}%
+  \ifthenelse{\value{quartertimesaround}=1}{\textonequarter}{%
+    \ifthenelse{\value{quartertimesaround}=2}{\textonehalf}{%
+      \ifthenelse{\value{quartertimesaround}=3}{\textthreequarters}{}%
+    }%
+  }%
+  \ifthenelse{%
+    \value{timesaround}>1\OR%
+    \(\value{timesaround}=1\AND\NOT\value{quartertimesaround}=0\)%
+  }{\ times}{%
+    \ifthenelse{\value{timesaround}=1}{\ time}{}%
+  }%
+}%
+%    \end{macrocode}
 % \end{macro}
 %
 %    \begin{macrocode}
@@ -912,6 +936,7 @@
 \newcommand*\fname[1]{\textsf{#1}}
 \newcommand*\pkg[1]{\textsf{#1}}
 \newcommand*\code[1]{\texttt{#1}}
+\newcommand*\regexp[1]{\texttt{#1}}
 %    \end{macrocode}
 %</doc-style>
 %\fi
