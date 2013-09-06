@@ -518,9 +518,11 @@
 %
 % Often you may find yourself copy and pasting common moves that often have the
 % same timing, wording on the card, etc. For times like this \pkg{contracard}
-% provides a number of shortcut macros. Each of these macros takes an optional
-% first argument just like the \code{\textbackslash move} command; however, the
-% default number of beats may be different depending on the individual move.
+% provides a number of shortcut macros. Most of these macros take an optional
+% first argument just like the \code{\textbackslash move} command that specifies
+% the number of beats the move should take. The default number of beats may be
+% different depending on the individual move. The exceptions to this rule are
+% moves like the balance, which always take the same number of beats.
 %
 % \begin{macro}{\allemande}
 % \changes{1.0.0}{2013/09/05}{Add move shortcut}
@@ -539,18 +541,48 @@
 % \changes{1.0.0}{2013/09/05}{Add move shortcut}
 % \begin{macro}{\balanceand}
 % \changes{1.0.0}{2013/09/05}{Add move shortcut}
-% The \code{\textbackslash balance} macro is fairly simple. It takes a single
-% mandatory argument and prints it after (or before if you use
-% \code{\textbackslash balance*}) the word `balance'. The \code{\textbackslash
-% balanceand} version of the command takes up 0 logical steps in the dance so
-% you can follow it up with another command (eg.  \code{\textbackslash
-% balanceand\textbackslash swing\{partner\}}).
+% \begin{macro}{\balanceand*}
+% \changes{1.0.0}{2013/09/05}{Add move shortcut}
+% The \code{\textbackslash balance} macro is fairly simple: It takes a single
+% optional argument and prints it after (or before if you use
+% \code{\textbackslash balance*}) the word `balance'. Balances always take up 4
+% beats unless you use the \code{\textbackslash balanceand} version of the
+% command which takes up 0 logical counts.  This way you can follow it up with
+% another command (eg. \code{\textbackslash balanceand*[Partner]\textbackslash
+% swing}).
 %    \begin{macrocode}
 \newcommand*{\balance}{\@ifstar\@balanceStar\@balanceNoStar}
-\newcommand*{\@balanceNoStar}[2][4]{\move[#1]{Balance #2}}
-\newcommand*{\@balanceStar}[2][4]{\move[#1]{#1 balance}}
-\newcommand*{\balanceand}{\move[0]{Balance and}}
+\newcommand*{\@balanceNoStar}[1][ccnull]{%
+  \ifthenelse{\equal{#1}{ccnull}}{%
+    \move[4]{Balance}%
+  }{%
+    \move[4]{Balance #1}%
+  }%
+}
+\newcommand*{\@balanceStar}[1][ccnull]{%
+  \ifthenelse{\equal{#1}{ccnull}}{%
+    \move[4]{Balance}%
+  }{%
+    \move[4]{#1 balance}%
+  }%
+}
+\newcommand*{\balanceand}{\@ifstar\@balanceandStar\@balanceandNoStar}
+\newcommand*{\@balanceandNoStar}[1][ccnull]{%
+  \ifthenelse{\equal{#1}{ccnull}}{%
+    \move[0]{Balance and}%
+  }{%
+    \move[0]{Balance and #1}%
+  }%
+}
+\newcommand*{\@balanceandStar}[1][ccnull]{%
+  \ifthenelse{\equal{#1}{ccnull}}{%
+    \move[0]{Balance and}%
+  }{%
+    \move[0]{#1 balance and}%
+  }%
+}
 %    \end{macrocode}
+% \end{macro}
 % \end{macro}
 % \end{macro}
 % \end{macro}
