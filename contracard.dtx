@@ -731,6 +731,75 @@
 % \end{macro}
 % \end{macro}
 %
+% \begin{macro}{\ladieschain}
+% \changes{1.0.0}{2013/09/06}{Add move shortcut}
+% \begin{macro}{\ladieschain*}
+% \changes{1.0.0}{2013/09/06}{Add move shortcut}
+% \begin{macro}{\menchain}
+% \changes{1.0.0}{2013/09/06}{Add move shortcut}
+% \begin{macro}{\menchain*}
+% \changes{1.0.0}{2013/09/06}{Add move shortcut}
+% \begin{macro}{\halfladieschain}
+% \changes{1.0.0}{2013/09/06}{Add move shortcut}
+% \begin{macro}{\halfladieschain*}
+% \changes{1.0.0}{2013/09/06}{Add move shortcut}
+% \begin{macro}{\halfmenchain}
+% \changes{1.0.0}{2013/09/06}{Add move shortcut}
+% \begin{macro}{\halfmenchain*}
+% \changes{1.0.0}{2013/09/06}{Add move shortcut}
+% \begin{macro}{\fullladieschain}
+% \changes{1.0.0}{2013/09/06}{Add move shortcut}
+% \begin{macro}{\fullladieschain*}
+% \changes{1.0.0}{2013/09/06}{Add move shortcut}
+% \begin{macro}{\fullmenchain}
+% \changes{1.0.0}{2013/09/06}{Add move shortcut}
+% \begin{macro}{\fullmenchain*}
+% \changes{1.0.0}{2013/09/06}{Add move shortcut}
+% The ladies chain (and it's less common variant for men) is actually a half of
+% a ladies chain. The full ladies chain is often simply called as two ladies
+% chains, however, the alternate full ladies chain commands are provided
+% anyways. A set of commands for half ladies chains are also provided; these are
+% exactly like the normal ladies chain commands except they include the word
+% `half' in the output.
+%    \begin{macrocode}
+\newcommand*{\ladieschain}{\def\cc@who{ladies}\@ifstar\@chainStar\@chainNoStar}
+\newcommand*{\menchain}{\def\cc@who{men}\@ifstar\@chainStar\@chainNoStar}
+\newcommand*{\@chainNoStar}[1][\unskip]{%
+  \move[8]{\expandafter\MakeUppercase\cc@who\ chain \ignorespaces#1\unskip}%
+}
+\newcommand*{\@chainStar}[1][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
+  \move[8]{\ignorespaces#1\unskip\ \cc@who\ chain}%
+}
+\newcommand*{\halfladieschain}{\def\cc@who{ladies}\@ifstar\@halfchainStar\@halfchainNoStar}
+\newcommand*{\halfmenchain}{\def\cc@who{men}\@ifstar\@halfchainStar\@halfchainNoStar}
+\newcommand*{\@halfchainNoStar}[1][\unskip]{%
+  \move[8]{\expandafter\MakeUppercase\cc@who\ half chain \ignorespaces#1\unskip}%
+}
+\newcommand*{\@halfchainStar}[1][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
+  \move[8]{\ignorespaces#1\unskip\ \cc@who\ half chain}%
+}
+\newcommand*{\fullladieschain}{\def\cc@who{ladies}\@ifstar\@fullchainStar\@fullchainNoStar}
+\newcommand*{\fullmenchain}{\def\cc@who{men}\@ifstar\@fullchainStar\@fullchainNoStar}
+\newcommand*{\@fullchainNoStar}[1][\unskip]{%
+  \move[16]{\expandafter\MakeUppercase\cc@who\ full chain \ignorespaces#1\unskip}%
+}
+\newcommand*{\@fullchainStar}[1][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
+  \move[16]{\ignorespaces#1\unskip\ \cc@who\ full chain}%
+}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
 % \section{Helper macros}
 %
 % The following macros are used by the \pkg{contracard} package to perform
