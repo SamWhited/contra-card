@@ -137,6 +137,7 @@
 \RequirePackage{intcalc}
 \RequirePackage{ifthen}
 \RequirePackage{tocloft}
+\RequirePackage{textcomp}
 %</contracard-pkg>
 %    \end{macrocode}
 %
@@ -526,13 +527,40 @@
 %
 % \begin{macro}{\allemande}
 % \changes{1.0.0}{2013/09/05}{Add move shortcut}
+% \begin{macro}{\allemande*}
+% \changes{1.0.0}{2013/09/05}{Add move shortcut}
 % The allemande macro takes two mandatory arguments: the direction of the
 % allemande and the person to allemande (eg. partner, neighbor, shadow, etc.).
 % The default count for an allemande is 4, but you can change this with the
-% optional first argument.
+% optional first argument. The star version of the command attempts to calculate
+% the number of times around based on the beats of the music (eg. 6 beats would
+% be 1.5 times around).
 %    \begin{macrocode}
-\newcommand*{\allemande}[3][4]{\move[#1]{Allemande #2\ your #3}}
+\newcommand*{\allemande}{\@ifstar\@allemandeStar\@allemandeNoStar}
+\newcommand*{\@allemandeNoStar}[3][4]{\move[#1]{Allemande #2 your #3}}
+\newcommand*{\@allemandeStar}[3][4]{%
+  \newcounter{timesaround}%
+  \setcounter{timesaround}{\intcalcDiv{\intcalcNum{#1}}{4}}%
+  \newcounter{quartertimesaround}%
+  \setcounter{quartertimesaround}{\intcalcMod{\intcalcNum{#1}}{4}}%
+  \newcommand*{\timesaround}{%
+    \ifthenelse{\value{timesaround}>0}{\arabic{timesaround}}{}%
+    \ifthenelse{\value{quartertimesaround}=1}{\textonequarter}{%
+      \ifthenelse{\value{quartertimesaround}=2}{\textonehalf}{%
+        \ifthenelse{\value{quartertimesaround}=3}{\textthreequarters}{}%
+      }%
+    }%
+    \ifthenelse{%
+      \value{timesaround}>1\OR%
+      \(\value{timesaround}=1\AND\NOT\value{quartertimesaround}=0\)%
+    }{\ times}{%
+      \ifthenelse{\value{timesaround}=1}{\ time}{}%
+    }%
+  }%
+  \move[#1]{Allemande #2 your #3 \timesaround}%
+}
 %    \end{macrocode}
+% \end{macro}
 % \end{macro}
 %
 % \begin{macro}{\balance}
