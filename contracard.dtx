@@ -523,6 +523,7 @@
 % default number of beats may be different depending on the individual move.
 %
 % \begin{macro}{\allemande}
+% \changes{1.0.0}{2013/09/05}{Add move shortcut}
 % The allemande macro takes two mandatory arguments: the direction of the
 % allemande and the person to allemande (eg. partner, neighbor, shadow, etc.).
 % The default count for an allemande is 4, but you can change this with the
@@ -533,8 +534,11 @@
 % \end{macro}
 %
 % \begin{macro}{\balance}
+% \changes{1.0.0}{2013/09/05}{Add move shortcut}
 % \begin{macro}{\balance*}
+% \changes{1.0.0}{2013/09/05}{Add move shortcut}
 % \begin{macro}{\balanceand}
+% \changes{1.0.0}{2013/09/05}{Add move shortcut}
 % The \code{\textbackslash balance} macro is fairly simple. It takes a single
 % mandatory argument and prints it after (or before if you use
 % \code{\textbackslash balance*}) the word `balance'. The \code{\textbackslash
@@ -545,15 +549,7 @@
 \newcommand*{\balance}{\@ifstar\@balanceStar\@balanceNoStar}
 \newcommand*{\@balanceNoStar}[2][4]{\move[#1]{Balance #2}}
 \newcommand*{\@balanceStar}[2][4]{\move[#1]{#1 balance}}
-\newcommand*{\balanceand}[1]{%
-  \begingroup%
-  \renewcommand*{\movedelimiter}{}%
-  \renewcommand*{\partdelimiter}{}%
-  \renewcommand*{\midpartdelimiter}{}%
-  \move[0]{Balance and}%
-  \endgroup%
-  #1%
-}
+\newcommand*{\balanceand}{\move[0]{Balance and}}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
