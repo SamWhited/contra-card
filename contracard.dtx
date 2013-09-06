@@ -707,6 +707,44 @@
 % \end{macro}
 % \end{macro}
 %
+% \begin{macro}{\gypsy}
+% \changes{1.0.0}{2013/09/06}{Add move shortcut}
+% \begin{macro}{\gypsy*}
+% \changes{1.0.0}{2013/09/06}{Add move shortcut}
+% \begin{macro}{\gypsyleft}
+% \changes{1.0.0}{2013/09/06}{Add move shortcut}
+% \begin{macro}{\gypsyleft*}
+% \changes{1.0.0}{2013/09/06}{Add move shortcut}
+% \begin{macro}{\gypsyright}
+% \changes{1.0.0}{2013/09/06}{Add move shortcut}
+% \begin{macro}{\gypsyright*}
+% \changes{1.0.0}{2013/09/06}{Add move shortcut}
+% The \word{gypsy} macros take an optional argument (the person to gypsy) and
+% one required argument (the count).
+%    \begin{macrocode}
+\newcommand*{\gypsy}{\@ifstar\@gypsyStar\@gypsyNoStar}
+\newcommand*{\gypsyright}{\def\cc@thedir{right}\@ifstar\@gypsyDirStar\@gypsyDirNoStar}
+\newcommand*{\gypsyleft}{\def\cc@thedir{left}\@ifstar\@gypsyDirStar\@gypsyDirNoStar}
+\newcommand*{\@gypsyNoStar}[2][\unskip]{%
+  \move[#2]{Gypsy \ignorespaces#1\unskip}
+}
+\newcommand*{\@gypsyStar}[2][\expandafter{G}\expandafter\@gobble\@gobbletwo]{%
+  \move[#2]{\ignorespaces#1\unskip\ gypsy}
+}
+\newcommand*{\@gypsyDirNoStar}[2][\unskip]{%
+  \move[#2]{Gypsy \cc@thedir\ \ignorespaces#1\unskip}
+}
+\newcommand*{\@gypsyDirStar}[2][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
+  \move[#2]{\ignorespaces#1\unskip\ \cc@thedir\ gypsy}
+}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
 % \section{Helper macros}
 %
 % The following macros are used by the \pkg{contracard} package to perform
