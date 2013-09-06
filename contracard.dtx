@@ -37,7 +37,6 @@
 
 \generate{\file{contracard.sty}{\from{contracard.dtx}{contracard-pkg}}}
 \generate{\file{contracard.cls}{\from{contracard.dtx}{contracard-cls}}}
-\generate{\file{contracard-style.sty}{\from{contracard.dtx}{doc-style}}}
 
 \obeyspaces
 \Msg{****************************************************}
@@ -69,7 +68,39 @@
 %
 %<*driver>
 \documentclass[a4paper]{ltxdoc}
-\usepackage{contracard-style}
+\usepackage{fancyvrb,hologo,framed,multicol,url,graphicx,cclicenses,contracard}
+\ifccunicode\relax\else\usepackage[utf8x]{inputenc}\fi
+\usepackage[pdfborder=0, bookmarks, colorlinks=false, hidelinks]{hyperref}
+\usepackage[parfill]{parskip}
+
+\fvset{gobble=2}
+
+\newenvironment*{exampledance}{%
+  \vspace{3em}
+  \begin{framed}
+    \begin{minipage}[t][74mm][t]{\textwidth}
+}{%
+    \end{minipage}
+  \end{framed}
+}
+
+\newcommand*{\gittag}{%
+  \immediate\write18{%
+    rm gittag.tex 2> /dev/null; (git describe --tags --dirty || echo "v0.0") 2> /dev/null > gittag.tex
+  }%
+  \InputIfFileExists{gittag.tex}{}{}\unskip%
+  \immediate\write18{%
+    rm gittag.tex 2> /dev/null
+  }%
+}
+
+\newcommand*\name[1]{\textsc{#1}}
+\newcommand*\fname[1]{\textsf{#1}}
+\newcommand*\pkg[1]{\textsf{#1}}
+\newcommand*\code[1]{\texttt{#1}}
+\newcommand*\regexp[1]{\texttt{#1}}
+\newcommand*{\XeLaTeX}{\hologo{XeLaTeX}}
+\newcommand*{\LuaLaTeX}{\hologo{LuaLaTeX}}
 \EnableCrossrefs
 \CodelineIndex
 \RecordChanges
@@ -138,6 +169,20 @@
 \RequirePackage{ifthen}
 \RequirePackage{tocloft}
 \RequirePackage{textcomp}
+\RequirePackage{ifxetex,ifluatex}
+%</contracard-pkg>
+%    \end{macrocode}
+%
+% If you're using \XeLaTeX\ or \LuaLaTeX\ you should also make sure you have the
+% \pkg{unicode-math} package:
+%
+%    \begin{macrocode}
+%<*contracard-pkg>
+\newif\ifccunicode
+\ifxetex\ccunicodetrue\else\ifluatex\ccunicodetrue\fi\fi
+\ifccunicode
+  \RequirePackage{unicode-math}
+\fi
 %</contracard-pkg>
 %    \end{macrocode}
 %
@@ -610,8 +655,11 @@
 % times around one can allemande in 6 beats). For this, the \code{\textbackslash
 % timesaround} macro was created. It takes two arguments: the number of beats it
 % takes to go one time around (eg. 4 for an allemande) and the total number of
-% beats you have to work with. It spits out an integer or a mixed number and a
-% word matching the pattern `\regexp{/time{[}s{]}?/}' with correct plurality.
+% beats you have to work with. It spits out an integer, a fraction, or a mixed
+% number and a word matching the regular expression:
+% \regexp{/{[}1-9{]}*{[}\textonequarter\textonehalf%
+% \textthreequarters{]}(\textbackslash\ times?)?/}.
+
 %
 % For example: \code{\textbackslash timesaround\{4\}\{6\}} produces:
 % ``\timesaround{4}{6}".
@@ -762,7 +810,7 @@
 %   \begin{flushright}
 %   \href{http://creativecommons.org/licenses/by/3.0/}{%
 %     \IfFileExists{by.png}{%
-%       \includegraphics[width=40px]{by.png}%
+%       \includegraphics[width=1cm]{by.png}%
 %     }{\cc\by}}
 %   \end{flushright}
 % \end{contra}
@@ -788,7 +836,7 @@
 %   \begin{flushright}
 %   \href{http://creativecommons.org/licenses/by/3.0/}{%
 %     \IfFileExists{by.png}{%
-%       \includegraphics[width=40px]{by.png}%
+%       \includegraphics[width=1cm]{by.png}%
 %     }{\cc\by}}
 %   \end{flushright}
 % \end{contra}
@@ -818,7 +866,7 @@
 %   \begin{flushright}
 %     \href{http://creativecommons.org/licenses/by-nc/3.0/}{%
 %       \IfFileExists{by-nc.png}{%
-%         \includegraphics[width=40px]{by-nc.png}%
+%         \includegraphics[width=1cm]{by-nc.png}%
 %        }{\cc\bync}}
 %   \end{flushright}
 % \end{contra}
@@ -838,7 +886,7 @@
 %   \begin{flushright}
 %     \href{http://creativecommons.org/licenses/by-nc/3.0/}{%
 %       \IfFileExists{by-nc.png}{%
-%         \includegraphics[width=40px]{by-nc.png}%
+%         \includegraphics[width=1cm]{by-nc.png}%
 %        }{\cc\bync}}
 %   \end{flushright}
 % \end{contra}
@@ -859,7 +907,7 @@
 %   \begin{flushright}
 %     \href{http://creativecommons.org/licenses/by-nc/3.0/}{%
 %       \IfFileExists{by-nc.png}{%
-%         \includegraphics[width=40px]{by-nc.png}%
+%         \includegraphics[width=1cm]{by-nc.png}%
 %        }{\cc\bync}}
 %   \end{flushright}
 % \end{contra}
@@ -878,7 +926,7 @@
 %   \begin{flushright}
 %     \href{http://creativecommons.org/licenses/by-nc/3.0/}{%
 %       \IfFileExists{by-nc.png}{%
-%         \includegraphics[width=40px]{by-nc.png}%
+%         \includegraphics[width=1cm]{by-nc.png}%
 %        }{\cc\bync}}
 %   \end{flushright}
 % \end{contra}
@@ -903,41 +951,5 @@
 % \Finale
 %
 % \iffalse
-%<*doc-style>
-%    \begin{macrocode}
-\ProvidesPackage{contracard-style}
-\usepackage[utf8x]{inputenc}
-\usepackage{fancyvrb,hologo,framed,multicol,url,textcomp,cclicenses,graphicx,contracard}
-\usepackage[pdfborder=0, bookmarks, colorlinks=false, hidelinks]{hyperref}
-\usepackage[parfill]{parskip}
-
-\fvset{gobble=2}
-
-\newenvironment*{exampledance}{%
-  \vspace{3em}
-  \begin{framed}
-    \begin{minipage}[t][74mm][t]{\textwidth}
-}{%
-    \end{minipage}
-  \end{framed}
-}
-
-\newcommand*{\gittag}{%
-  \immediate\write18{%
-    rm gittag.tex 2> /dev/null; (git describe --tags --dirty || echo "v0.0") 2> /dev/null > gittag.tex
-  }%
-  \InputIfFileExists{gittag.tex}{}{}\unskip%
-  \immediate\write18{%
-    rm gittag.tex 2> /dev/null
-  }%
-}
-
-\newcommand*\name[1]{\textsc{#1}}
-\newcommand*\fname[1]{\textsf{#1}}
-\newcommand*\pkg[1]{\textsf{#1}}
-\newcommand*\code[1]{\texttt{#1}}
-\newcommand*\regexp[1]{\texttt{#1}}
-%    \end{macrocode}
-%</doc-style>
 %\fi
 \endinput
