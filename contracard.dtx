@@ -679,8 +679,12 @@
 % \changes{1.0.0}{2013/09/06}{Add move shortcut}
 % \begin{macro}{\dosido*}
 % \changes{1.0.0}{2013/09/06}{Add move shortcut}
+% \begin{macro}{\seesaw}
+% \changes{1.0.0}{2013/09/06}{Add move shortcut}
+% \begin{macro}{\seesaw*}
+% \changes{1.0.0}{2013/09/06}{Add move shortcut}
 % These commands create a dosido (aka \word{do-si-do}, \word{do-se-do},
-% \word{dosado}, \word{dos-\`a-dos}, etc.).
+% \word{dosado}, \word{dos-\`a-dos}, etc.) or a see saw (left shoulder dosido).
 %    \begin{macrocode}
 \newcommand*{\dosido}{\@ifstar\@dosidoStar\@dosidoNoStar}
 \newcommand*{\@dosidoNoStar}[2][\unskip]{
@@ -689,7 +693,16 @@
 \newcommand*{\@dosidoStar}[2][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
   \move[#2]{\ignorespaces#1\unskip\ do-si-do}%
 }
+\newcommand*{\seesaw}{\@ifstar\@seesawStar\@seesawNoStar}
+\newcommand*{\@seesawNoStar}[2][\unskip]{
+  \move[#2]{See saw \ignorespaces#1\unskip}%
+}
+\newcommand*{\@seesawStar}[2][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
+  \move[#2]{\ignorespaces#1\unskip\ see saw}%
+}
 %    \end{macrocode}
+% \end{macro}
+% \end{macro}
 % \end{macro}
 % \end{macro}
 %
@@ -705,8 +718,8 @@
 % \changes{1.0.0}{2013/09/06}{Add move shortcut}
 % \begin{macro}{\gypsyright*}
 % \changes{1.0.0}{2013/09/06}{Add move shortcut}
-% The \word{gypsy} macros take an optional argument (the person to gypsy) and
-% one required argument (the count).
+% The \code{\textbackslash gypsy} macros take an optional argument (the person
+% to gypsy) and one required argument (the count).
 %    \begin{macrocode}
 \newcommand*{\gypsy}{\@ifstar\@gypsyStar\@gypsyNoStar}
 \newcommand*{\gypsyright}{\def\cc@thedir{right}\@ifstar\@gypsyDirStar\@gypsyDirNoStar}
@@ -797,6 +810,58 @@
 % \end{macro}
 % \end{macro}
 % \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\promenade}
+% \changes{1.0.0}{2013/09/06}{Add move shortcut}
+% \begin{macro}{\promenade*}
+% \changes{1.0.0}{2013/09/06}{Add move shortcut}
+% \begin{macro}{\halfpromenade}
+% \changes{1.0.0}{2013/09/06}{Add move shortcut}
+% \begin{macro}{\halfpromenade*}
+% \changes{1.0.0}{2013/09/06}{Add move shortcut}
+% The \code{\textbackslash promenade} and \code{\textbackslash halfpromenade}
+% commands work slightly differently. Both take the person (or direction) you're
+% promenading as the optional argument, but the \code{\textbackslash promenade}
+% command also takes a mandatory argument (the number of beats) while
+% \code{\textbackslash halfpromenade} command is fixed at 8 beats.
+%    \begin{macrocode}
+\newcommand*{\promenade}{\@ifstar\@promenadeStar\@promenadeNoStar}
+\newcommand*{\@promenadeNoStar}[2][\unskip]{%
+  \move[#2]{Promenade \ignorespaces#1\unskip}%
+}
+\newcommand*{\@promenadeStar}[2][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
+  \move[#2]{\ignorespaces#1\unskip\ promenade}%
+}
+\newcommand*{\halfpromenade}{\@ifstar\@halfpromenadeStar\@halfpromenadeNoStar}
+\newcommand*{\@halfpromenadeNoStar}[2][\unskip]{%
+  \move[8]{Half promenade \ignorespaces#1\unskip}%
+}
+\newcommand*{\@halfpromenadeStar}[2][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
+  \move[8]{\ignorespaces#1\unskip\ half promenade}%
+}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\swing}
+% \changes{1.0.0}{2013/09/06}{Add move shortcut}
+% \begin{macro}{\swing*}
+% \changes{1.0.0}{2013/09/06}{Add move shortcut}
+% Creates a basic swing. Probably the most common move in modern contra dance,
+% and also one of the simplest commands in this package.
+%    \begin{macrocode}
+\newcommand*{\swing}{\@ifstar\@swingStar\@swingNoStar}
+\newcommand*{\@swingNoStar}[2][\unskip]{%
+  \move[#2]{Swing \ignorespaces#1\unskip}%
+}
+\newcommand*{\@swingStar}[2][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
+  \move[#2]{\ignorespaces#1\unskip\ Swing}%
+}
+%    \end{macrocode}
 % \end{macro}
 % \end{macro}
 %
