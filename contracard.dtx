@@ -224,6 +224,20 @@
 % \pkg{contracard} class and if you want to print a contra dance in a book or
 % article, use a different class and require the \pkg{contracard} package.
 %
+% \subsection{Options}
+%
+% \hypertarget{CCPACKAGE:OPTIONS}{}
+% \begin{macro}{showcountbefore}
+% \begin{macro}{showcountafter}
+% The package can also be declared with the following options. For more
+% information about each option, see the command which it calls.
+%    \begin{macrocode}
+\DeclareOption{showcountafter}{\showcountafter}
+\DeclareOption{showcountbefore}{\showcountbefore}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
 % \section{Formatting}
 %
 % These options determine how the dance will look.
@@ -942,6 +956,7 @@
 % \end{macro}
 %
 %    \begin{macrocode}
+\ProcessOptions\relax
 %</contracard-pkg>
 %    \end{macrocode}
 %
@@ -997,7 +1012,7 @@
   }{geometry}%
 }
 \DeclareOption*{%
-  \PassOptionsToClass{\CurrentOption}{article}%
+  \PassOptionsToPackage{\CurrentOption}{contracard}%
 }
 %    \end{macrocode}
 % The \code{small} option creates a 127.0 by 76.2 mm (5 by 3 in) card.
