@@ -522,18 +522,23 @@
 % \begin{macro}{\move}
 % \changes{0.1}{2013/02/14}{Add move command}
 % \changes{0.3}{2013/02/21}{Simplify dance logic using new counters}
+% \begin{macro}{\move*}
 % The next thing we need to define is the \code{\textbackslash move} command.
 % This command takes in a move to display, and (optionally) the number of counts
 % the move takes. If the count is not specified, 8 is used as the default.
 %    \begin{macrocode}
-\newcommand*{\move}[2][8]{%
+\newcommand*{\move}{\@ifstar\@moveStar\@moveNoStar}
+\newcommand*{\@moveStar}[2][8]{%
+  \def\cc@moveStar{}\@moveNoStar[#1]{#2}\let\cc@moveStar\undefined
+}
+\newcommand*{\@moveNoStar}[2][8]{%
   \ifthenelse{\value{phrasecount}=\value{dancephraselength}}{%
-    \ifthenelse{\NOT\equal{\ignorespaces#1\unskip}{0}}{%
+    \ifthenelse{\NOT\(#1=0\)}{%
       \newdancephrase%
     }{}%
   }{%
     \ifthenelse{\(\value{partcount}=\value{dancepartlength}\)%
-      \AND\NOT\equal{\ignorespaces#1\unskip}{0}}{%
+      \AND\NOT\(#1=0\)}{%
      \newdancepart%
     }{}%
   }
@@ -547,31 +552,33 @@
   \addtocounter{phrasemovenum}{1}%
   \addtocounter{partmovenum}{1}%
   \addtocounter{dancemovenum}{1}%
-  \ifx\@showcountbefore\undefined%
+  \ifthenelse{\isundefined{\@showcountbefore}\OR%
+    \(#1=0\)}{%
     \relax%
-  \else%
-    (\ignorespaces#1\unskip)\ %
-  \fi%
+  }{(\ignorespaces#1\unskip)\ }%
   \ignorespaces#2\unskip%
   \ifx\@showcountafter\undefined%
     \relax%
   \else%
     \ (\ignorespaces#1\unskip)%
   \fi%
-  \ifthenelse{\NOT\equal{\ignorespaces#1\unskip}{0}}{%
+  \ifthenelse{\NOT\(#1=0\)}{%
     \ifthenelse{\value{phrasecount}=\value{dancephraselength}}{%
       \pagebreak[1]\phraseseparator%
     }{}%
-    \ifthenelse{\value{partcount}=\intcalcDiv{\value{dancepartlength}}{2}}{%
-      \midpartdelimiter\nopagebreak%
-    }{%
-      \ifthenelse{\NOT\value{partcount}=\value{dancepartlength}}{%
-        \movedelimiter\nopagebreak\nolinebreak[2]%
-      }{}%
-    }%
+    \ifx\cc@moveStar\undefined%
+      \ifthenelse{\value{partcount}=\intcalcDiv{\value{dancepartlength}}{2}}{%
+        \midpartdelimiter\nopagebreak%
+      }{%
+        \ifthenelse{\NOT\value{partcount}=\value{dancepartlength}}{%
+          \movedelimiter\nopagebreak\nolinebreak[2]%
+        }{}%
+      }%
+    \fi%
   }{}%
 }
 %    \end{macrocode}
+% \end{macro}
 % \end{macro}
 %
 % \section{Lists and Indices}
@@ -658,10 +665,10 @@
 }
 \newcommand*{\balanceand}{\@ifstar\@balanceandStar\@balanceandNoStar}
 \newcommand*{\@balanceandNoStar}[1][]{%
-  \move[0]{Balance and \ignorespaces#1\unskip}%
+  \move*[0]{Balance and \ignorespaces#1\unskip}%
 }
 \newcommand*{\@balanceandStar}[1][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
-  \move[0]{\ignorespaces#1\unskip\ balance and}%
+  \move*[0]{\ignorespaces#1\unskip\ balance and}%
 }
 %    \end{macrocode}
 % \end{macro}
