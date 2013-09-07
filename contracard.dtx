@@ -290,6 +290,27 @@
 % \end{macro}
 % \end{macro}
 %
+% \begin{macro}{\showcountbefore}
+% \changes{1.0.0}{2013/09/07}{Allow showing the count before each move}
+% \begin{macro}{\showcountafter}
+% \changes{1.0.0}{2013/09/07}{Allow showing the count after each move}
+% \begin{macro}{\hidecountbefore}
+% \changes{1.0.0}{2013/09/07}{Allow hiding the count before each move}
+% \begin{macro}{\hidecountafter}
+% \changes{1.0.0}{2013/09/07}{Allow hiding the count after each move}
+% These macros allow the user to show or hide the moves duration before or after
+% each move.
+%    \begin{macrocode}
+\newcommand*{\showcountbefore}{\def\@showcountbefore{}}
+\newcommand*{\showcountafter}{\def\@showcountafter{}}
+\newcommand*{\hidecountbefore}{\let\@showcountbefore\undefined}
+\newcommand*{\hidecountafter}{\let\@showcountafter\undefined}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
 % \section{The Meat}
 %
 % Next we'll define the meat of the \pkg{contracard} package. These are the
@@ -512,7 +533,17 @@
   \addtocounter{phrasemovenum}{1}%
   \addtocounter{partmovenum}{1}%
   \addtocounter{dancemovenum}{1}%
+  \ifx\@showcountbefore\undefined%
+    \relax%
+  \else%
+    (\ignorespaces#1\unskip)\ %
+  \fi%
   \ignorespaces#2\unskip%
+  \ifx\@showcountafter\undefined%
+    \relax%
+  \else%
+    \ (\ignorespaces#1\unskip)%
+  \fi%
   \ifthenelse{\NOT\equal{\ignorespaces#1\unskip}{0}}{%
     \ifthenelse{\value{phrasecount}=\value{dancephraselength}}{%
       \pagebreak[1]\phraseseparator%
