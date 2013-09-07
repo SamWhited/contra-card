@@ -449,7 +449,7 @@
   \resetdancepart*%
 }
 \newcommand*{\newdancepart}{%
-  \hspace*{\fill}\newline
+  \hspace*{\fill}\\*
   \addtocounter{dancepart}{1}%
   \setcounter{partcount}{0}%
   \setcounter{partmovenum}{0}%
@@ -511,6 +511,10 @@
   \end{\dancetitleenv}
   \newcommand*{\@contraenv}{#1}
   \begin{\@contraenv}
+  \catcode10=9\relax % New line
+  \catcode11=9\relax % Vertical Tab
+  \catcode12=9\relax % Form Feed
+  \catcode13=9\relax % Carriage Return
 }{%
   \end{\@contraenv}
 }
