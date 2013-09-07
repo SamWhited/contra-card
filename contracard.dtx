@@ -457,7 +457,7 @@
 %    \begin{macrocode}
 \newenvironment{contra}[4][\defaultcontraenv]{%
   \refstepcounter{dance}
-  \addcontentsline{lod}{dance}{\protect\numberline{\thedance}#2}
+  \addcontentsline{lod}{dance}{\protect\numberline{\thedance}\ignorespaces#2\unskip}
   \setcounter{dancecount}{0}
   \setcounter{dancemovenum}{0}
   \resetdancepart*
@@ -467,12 +467,12 @@
     \ifdefined\@ccisclass%
       \pagestyle{myheadings}
       \thispagestyle{myheadings}
-      \markboth{}{\danceformformat{#4}}
+      \markboth{}{\danceformformat{\ignorespaces#4\unskip}}
     \else%
-      {\danceformformat{#4}}%
+      {\danceformformat{\ignorespaces#4\unskip}}%
     \fi%
-    {\dancetitleformat{#2}}%
-    {\danceauthorformat{#3}}%
+    {\dancetitleformat{\ignorespaces#2\unskip}}%
+    {\danceauthorformat{\ignorespaces#3\unskip}}%
   \end{\dancetitleenv}
   \newcommand*{\@contraenv}{#1}
   \begin{\@contraenv}
@@ -493,12 +493,12 @@
 %    \begin{macrocode}
 \newcommand*{\move}[2][16]{%
   \ifthenelse{\value{phrasecount}=\value{dancephraselength}}{%
-    \ifthenelse{\NOT\equal{#1}{0}}{%
+    \ifthenelse{\NOT\equal{\ignorespaces#1\unskip}{0}}{%
       \newdancephrase%
     }{}%
   }{%
     \ifthenelse{\(\value{partcount}=\value{dancepartlength}\)%
-      \AND\NOT\equal{#1}{0}}{%
+      \AND\NOT\equal{\ignorespaces#1\unskip}{0}}{%
      \newdancepart%
     }{}%
   }
@@ -512,8 +512,8 @@
   \addtocounter{phrasemovenum}{1}%
   \addtocounter{partmovenum}{1}%
   \addtocounter{dancemovenum}{1}%
-  #2%
-  \ifthenelse{\NOT\equal{#1}{0}}{%
+  \ignorespaces#2\unskip%
+  \ifthenelse{\NOT\equal{\ignorespaces#1\unskip}{0}}{%
     \ifthenelse{\value{phrasecount}=\value{dancephraselength}}{%
       \pagebreak[1]\phraseseparator%
     }{}%
