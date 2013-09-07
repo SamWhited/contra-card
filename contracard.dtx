@@ -663,7 +663,16 @@
 \newcommand*{\@balanceStar}[1][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
   \move[4]{\ignorespaces#1\unskip\ balance}%
 }
-\newcommand*{\balanceand}{\@ifstar\@balanceandStar\@balanceandNoStar}
+\newcommand*{\balanceand}{%
+\ifthenelse{\value{phrasecount}=\value{dancephraselength}}{%
+  \newdancephrase%
+}{%
+  \ifthenelse{\(\value{partcount}=\value{dancepartlength}\)}{%
+   \newdancepart%
+  }{}%
+}%
+\@ifstar\@balanceandStar\@balanceandNoStar%
+}
 \newcommand*{\@balanceandNoStar}[1][]{%
   \move*[0]{Balance and \ignorespaces#1\unskip}%
 }
