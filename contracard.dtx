@@ -1,5 +1,26 @@
 % \iffalse
 %<*internal>
+\iffalse
+%</internal>
+%<*readme>
+# Contra Card
+
+A LaTeX package for contra and square dance calls.
+
+## Download
+
+Development of this package occurs primarily on
+[GitHub](https://github.com/SamWhited/contra-card). Issues and pull requests
+should be submitted there.
+
+The current [release
+version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
+**Contra Card** and associated
+[documentation](http://mirrors.ctan.org/macros/latex/contrib/contracard/contracard.pdf)
+[PDF] is available from [CTAN](http://ctan.org/pkg/contracard).
+%</readme>
+%<*internal>
+\fi
 \begingroup
 \input docstrip.tex
 \keepsilent
@@ -37,6 +58,8 @@
 
 \generate{\file{contracard.sty}{\from{contracard.dtx}{contracard-pkg}}}
 \generate{\file{contracard.cls}{\from{contracard.dtx}{contracard-cls}}}
+\nopreamble\nopostamble
+\generate{\file{README.md}{\from{contracard.dtx}{readme}}}
 
 \obeyspaces
 \Msg{****************************************************}

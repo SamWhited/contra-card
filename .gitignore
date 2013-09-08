@@ -29,9 +29,7 @@ temp
 *.ilg
 *.ind
 *.ist
-*.lof
-*.log
-*.lot
+*.lo[fgtd]
 *.nav
 *.nlo
 *.out
