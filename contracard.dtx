@@ -91,7 +91,8 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 %
 %<*driver>
 \documentclass[a4paper]{ltxdoc}
-\usepackage{fancyvrb,hologo,framed,multicol,url,graphicx,cclicenses,contracard}
+\usepackage{fancyvrb,hologo,framed,multicol,url,graphicx,cclicenses}
+\usepackage[enableidx]{contracard}
 \ifccunicode\relax\else\usepackage[utf8x]{inputenc}\fi
 \usepackage[pdfborder=0, bookmarks, colorlinks=false, hidelinks]{hyperref}
 \usepackage[parfill]{parskip}
@@ -257,6 +258,7 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 %    \begin{macrocode}
 \DeclareOption{showcountafter}{\showcountafter}
 \DeclareOption{showcountbefore}{\showcountbefore}
+\DeclareOption{enableidx}{\AtEndOfPackage{\enableidx}}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -521,6 +523,8 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
   \resetdancepart*
   \resetdancephrase*
   \ifdefined\@ccisclass\clearpage\fi%
+  \index[dbt]{\ignorespaces#4\unskip}
+  \index[dba]{\ignorespaces#3\unskip}
   \begin{\dancetitleenv}
     \ifdefined\@ccisclass%
       \pagestyle{myheadings}
@@ -537,7 +541,6 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
   \catcode10=9\relax % New line
   \catcode11=9\relax % Vertical Tab
   \catcode12=9\relax % Form Feed
-  \catcode13=9\relax % Carriage Return
 }{%
   \end{\@contraenv}
 }
@@ -556,7 +559,7 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 %    \begin{macrocode}
 \newcommand*{\move}{\@ifstar\@moveStar\@moveNoStar}
 \newcommand*{\@moveStar}[2][8]{%
-  \def\cc@moveStar{}\@moveNoStar[#1]{#2}\let\cc@moveStar\undefined
+  \def\cc@moveStar{}\@moveNoStar[#1]{#2}\let\cc@moveStar\undefined%
 }
 \newcommand*{\@moveNoStar}[2][8]{%
   \ifthenelse{\value{phrasecount}=\value{dancephraselength}}{%
@@ -566,9 +569,9 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
   }{%
     \ifthenelse{\(\value{partcount}=\value{dancepartlength}\)%
       \AND\NOT\(#1=0\)}{%
-     \newdancepart%
+      \newdancepart%
     }{}%
-  }
+  }%
   \ifthenelse{\(\intcalcMod{\value{dancecount}}{\value{dancepartlength}}=0\)%
     \AND\(\value{partmovenum}=0\)}{%
     \Alph{dancephrase}\arabic{dancepart}\partdelimiter\ %
@@ -595,10 +598,11 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
     }{}%
     \ifx\cc@moveStar\undefined%
       \ifthenelse{\value{partcount}=\intcalcDiv{\value{dancepartlength}}{2}}{%
-        \midpartdelimiter\nopagebreak%
+        \midpartdelimiter\nopagebreak\ \nopagebreak\ignorespaces%
       }{%
         \ifthenelse{\NOT\value{partcount}=\value{dancepartlength}}{%
-          \movedelimiter\nopagebreak\nolinebreak[2]%
+          \movedelimiter\nopagebreak\nolinebreak[2]\ %
+          \nopagebreak\nolinebreak[2]\ignorespaces%
         }{}%
       }%
     \fi%
@@ -641,6 +645,97 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % \listofdances
 % \end{framed}
 %
+% \subsection{Indices}
+% \changes{1.0.0}{2013/09/08}{Added support for indices}
+%
+% \pkg{Contra Card} has the ability to produce several different indices that
+% might be useful for your book or collection of dances. They are:
+%
+% \begin{center}
+% \begin{tabular}{ l l }
+%  Shortcut & Name \\
+%  \hline
+%  dbt & \hyperlink{CC:DBT}{Dances by Type} \\
+%  dba & \hyperlink{CC:DBA}{Dances by Author} \\
+%  mvp & \hyperlink{CC:MVP}{Moves by Page} \\
+%  mvd & \hyperlink{CC:MVD}{Moves by Dance} \\
+% \end{tabular}
+% \end{center}
+%
+% An example of each type of index can be found at the end of this document.
+%
+% \begin{macro}{\enableidx}
+% \changes{1.0.0}{2013/09/08}{New command}
+% \begin{macro}{\cc@createindices}
+% \changes{1.0.0}{2013/09/08}{New command}
+% Indexing is not turned on by default in Contra Card. When you enable it, the
+% \href{http://ctan.org/pkg/imakeidx}{\pkg{imakeidx}} package is loaded, and the
+% indices are created. This means that \code{\textbackslash enableidx} should
+% \emph{always} be called in the preamble.
+%    \begin{macrocode}
+\newcommand*{\enableidx}{%
+  \PassOptionsToPackage{splitindex}{imakeidx}
+  \RequirePackage{imakeidx}
+  \cc@createindices
+}%
+\newcommand*{\cc@createindices}{%
+  \makeindex[name=\cc@dbt,title=\dbtname]
+  \makeindex[name=\cc@dba,title=\dbaname]
+  \makeindex[name=\cc@mvp,title=\mvpname]
+  \makeindex[name=\cc@mvd,title=\mvdname]
+}%
+%    \end{macrocode}
+% Because we use the \code{splitindex} option, you'll need to run the
+% \fname{splitindex} command against the index file. For instance, if your
+% project is called \fname{root.tex} you'll want to run: \code{splitindex root}.
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\cc@dbt}
+% \changes{1.0.0}{2013/09/08}{New command}
+% \begin{macro}{\cc@dba}
+% \changes{1.0.0}{2013/09/08}{New command}
+% \begin{macro}{\cc@mvp}
+% \changes{1.0.0}{2013/09/08}{New command}
+% \begin{macro}{\cc@mvd}
+% \changes{1.0.0}{2013/09/08}{New command}
+% Though you probably don't need to change this, the shortcut for each index can
+% be changed by redefining the following commands (before you turn on indexing
+% functionality):
+%    \begin{macrocode}
+\newcommand*{\cc@dbt}{dbt}
+\newcommand*{\cc@dba}{dba}
+\newcommand*{\cc@mvp}{mvp}
+\newcommand*{\cc@mvd}{mvd}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\dbtname}
+% \changes{1.0.0}{2013/09/08}{New command}
+% \begin{macro}{\dbaname}
+% \changes{1.0.0}{2013/09/08}{New command}
+% \begin{macro}{\mvpname}
+% \changes{1.0.0}{2013/09/08}{New command}
+% \begin{macro}{\mvdname}
+% \changes{1.0.0}{2013/09/08}{New command}
+% The names of each index can also be changed by redefining these commands. This
+% should also be done \emph{before} the indexing functionality is turned on.
+% This means that if you're loading \pkg{Contra Card} with the \code{enableidx}
+% package option, you shouldn't mess with these commands.
+%    \begin{macrocode}
+\newcommand*{\dbtname}{Dances by Type}
+\newcommand*{\dbaname}{Dances by Author}
+\newcommand*{\mvpname}{Moves by Page}
+\newcommand*{\mvdname}{Moves by Dance}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
 % \section{Move shortcuts}
 %
 % Often you may find yourself copy and pasting common moves that often have the
@@ -656,7 +751,11 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % direction to allemande. It also takes the person to allemande (eg. shadow,
 % partner, neighbor, etc.) as an optional first argument.
 %    \begin{macrocode}
-\newcommand*{\allemande}{\@ifstar\@allemandeStar\@allemandeNoStar}
+\newcommand*{\allemande}{%
+  \index[mvp]{Allemande}%
+  \imki@wrindexentry{mvd}{Allemande}{\arabic{dance}}%
+  \@ifstar\@allemandeStar\@allemandeNoStar%
+}
 \newcommand*{\@allemandeNoStar}[3][\unskip]{%
   \move[#2]{Allemande \ignorespaces#3\unskip\ \ignorespaces#1\unskip}%
 }
@@ -683,7 +782,11 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % another command (eg. \code{\textbackslash balanceand*[Partner]\textbackslash
 % swing}).
 %    \begin{macrocode}
-\newcommand*{\balance}{\@ifstar\@balanceStar\@balanceNoStar}
+\newcommand*{\balance}{%
+  \index[mvp]{Balance}%
+  \imki@wrindexentry{mvd}{Balance}{\arabic{dance}}%
+  \@ifstar\@balanceStar\@balanceNoStar%
+}
 \newcommand*{\@balanceNoStar}[1][\unskip]{%
   \move[4]{Balance \ignorespaces#1\unskip}%
 }
@@ -691,20 +794,22 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
   \move[4]{\ignorespaces#1\unskip\ balance}%
 }
 \newcommand*{\balanceand}{%
-\ifthenelse{\value{phrasecount}=\value{dancephraselength}}{%
-  \newdancephrase%
-}{%
-  \ifthenelse{\(\value{partcount}=\value{dancepartlength}\)}{%
-   \newdancepart%
-  }{}%
-}%
-\@ifstar\@balanceandStar\@balanceandNoStar%
+  \ifthenelse{\value{phrasecount}=\value{dancephraselength}}{%
+    \newdancephrase%
+  }{%
+    \ifthenelse{\(\value{partcount}=\value{dancepartlength}\)}{%
+     \newdancepart%
+    }{}%
+  }%
+  \index[mvp]{Balance}%
+  \imki@wrindexentry{mvd}{Balance}{\arabic{dance}}%
+  \@ifstar\@balanceandStar\@balanceandNoStar%
 }
 \newcommand*{\@balanceandNoStar}[1][]{%
-  \move*[0]{Balance and \ignorespaces#1\unskip}%
+  \move*[0]{Balance and \ignorespaces#1\unskip\ \ \ignorespaces}%
 }
 \newcommand*{\@balanceandStar}[1][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
-  \move*[0]{\ignorespaces#1\unskip\ balance and}%
+  \move*[0]{\ignorespaces#1\unskip\ balance and\ \ \ignorespaces}%
 }
 %    \end{macrocode}
 % \end{macro}
@@ -733,7 +838,11 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % Both use proper spacing and capitalization if argument \#1 is left off.
 %
 %    \begin{macrocode}
-\newcommand*{\butterflywhirl}{\@ifstar\@butterflyStar\@butterflyNoStar}
+\newcommand*{\butterflywhirl}{%
+  \index[mvp]{Butterfly Whirl}%
+  \imki@wrindexentry{mvd}{Butterfly Whirl}{\arabic{dance}}%
+  \@ifstar\@butterflyStar\@butterflyNoStar%
+}
 \newcommand*{\@butterflyNoStar}[2][\unskip]{%
   \move[#2]{Butterfly whirl \ignorespaces#1\unskip}%
 }
@@ -752,7 +861,11 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % to turn, and the number of beats. The star version of the command tweaks the
 % wording a bit.
 %    \begin{macrocode}
-\newcommand*{\courtesyturn}{\@ifstar\@courtesyturnStar\@courtesyturnNoStar}
+\newcommand*{\courtesyturn}{%
+  \index[mvp]{Courtesy Turn}%
+  \imki@wrindexentry{mvd}{Courtesy Turn}{\arabic{dance}}%
+  \@ifstar\@courtesyturnStar\@courtesyturnNoStar%
+}
 \newcommand*{\@courtesyturnNoStar}[2][\unskip]{%
   \move[#2]{Courtesy turn \ignorespaces#1\unskip}%
 }
@@ -774,15 +887,23 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % These commands create a dosido (aka \word{do-si-do}, \word{do-se-do},
 % \word{dosado}, \word{dos-\`a-dos}, etc.) or a see saw (left shoulder dosido).
 %    \begin{macrocode}
-\newcommand*{\dosido}{\@ifstar\@dosidoStar\@dosidoNoStar}
-\newcommand*{\@dosidoNoStar}[2][\unskip]{
+\newcommand*{\dosido}{%
+  \index[mvp]{Do-si-do}%
+  \imki@wrindexentry{mvd}{Do-si-do}{\arabic{dance}}%
+  \@ifstar\@dosidoStar\@dosidoNoStar%
+}
+\newcommand*{\@dosidoNoStar}[2][\unskip]{%
   \move[#2]{Do-si-do \ignorespaces#1\unskip}%
 }
 \newcommand*{\@dosidoStar}[2][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
   \move[#2]{\ignorespaces#1\unskip\ do-si-do}%
 }
-\newcommand*{\seesaw}{\@ifstar\@seesawStar\@seesawNoStar}
-\newcommand*{\@seesawNoStar}[2][\unskip]{
+\newcommand*{\seesaw}{%
+  \index[mvp]{See Saw}%
+  \imki@wrindexentry{mvd}{See Saw}{\arabic{dance}}%
+  \@ifstar\@seesawStar\@seesawNoStar%
+}
+\newcommand*{\@seesawNoStar}[2][\unskip]{%
   \move[#2]{See saw \ignorespaces#1\unskip}%
 }
 \newcommand*{\@seesawStar}[2][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
@@ -809,9 +930,27 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % The \code{\textbackslash gypsy} macros take an optional argument (the person
 % to gypsy) and one required argument (the count).
 %    \begin{macrocode}
-\newcommand*{\gypsy}{\@ifstar\@gypsyStar\@gypsyNoStar}
-\newcommand*{\gypsyright}{\def\cc@thedir{right}\@ifstar\@gypsyDirStar\@gypsyDirNoStar}
-\newcommand*{\gypsyleft}{\def\cc@thedir{left}\@ifstar\@gypsyDirStar\@gypsyDirNoStar}
+\newcommand*{\gypsy}{%
+  \index[mvp]{Gypsy}%
+  \imki@wrindexentry{mvd}{Gypsy}{\arabic{dance}}%
+  \@ifstar\@gypsyStar\@gypsyNoStar%
+}
+\newcommand*{\gypsyright}{%
+  \index[mvp]{Gypsy}%
+  \imki@wrindexentry{mvd}{Gypsy}{\arabic{dance}}%
+  \index[mvp]{Gypsy Right}%
+  \imki@wrindexentry{mvd}{Gypsy Right}{\arabic{dance}}%
+  \def\cc@thedir{right}%
+  \@ifstar\@gypsyDirStar\@gypsyDirNoStar%
+}
+\newcommand*{\gypsyleft}{%
+  \index[mvp]{Gypsy}%
+  \imki@wrindexentry{mvd}{Gypsy}{\arabic{dance}}%
+  \index[mvp]{Gypsy Left}%
+  \imki@wrindexentry{mvd}{Gypsy Left}{\arabic{dance}}%
+  \def\cc@thedir{left}%
+  \@ifstar\@gypsyDirStar\@gypsyDirNoStar%
+}
 \newcommand*{\@gypsyNoStar}[2][\unskip]{%
   \move[#2]{Gypsy \ignorespaces#1\unskip}
 }
@@ -863,24 +1002,54 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % exactly like the normal ladies chain commands except they include the word
 % `half' in the output.
 %    \begin{macrocode}
-\newcommand*{\ladieschain}{\def\cc@who{ladies}\@ifstar\@chainStar\@chainNoStar}
-\newcommand*{\menchain}{\def\cc@who{men}\@ifstar\@chainStar\@chainNoStar}
+\newcommand*{\ladieschain}{%
+  \index[mvp]{Ladies Chain}%
+  \imki@wrindexentry{mvd}{Ladies Chain}{\arabic{dance}}%
+  \def\cc@who{ladies}%
+  \@ifstar\@chainStar\@chainNoStar%
+}
+\newcommand*{\menchain}{%
+  \index[mvp]{Men Chain}%
+  \imki@wrindexentry{mvd}{Men Chain}{\arabic{dance}}%
+  \def\cc@who{men}%
+  \@ifstar\@chainStar\@chainNoStar%
+}
 \newcommand*{\@chainNoStar}[1][\unskip]{%
   \move[8]{\expandafter\MakeUppercase\cc@who\ chain \ignorespaces#1\unskip}%
 }
 \newcommand*{\@chainStar}[1][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
   \move[8]{\ignorespaces#1\unskip\ \cc@who\ chain}%
 }
-\newcommand*{\halfladieschain}{\def\cc@who{ladies}\@ifstar\@halfchainStar\@halfchainNoStar}
-\newcommand*{\halfmenchain}{\def\cc@who{men}\@ifstar\@halfchainStar\@halfchainNoStar}
+\newcommand*{\halfladieschain}{%
+  \index[mvp]{Half Ladies Chain}%
+  \imki@wrindexentry{mvd}{Ladies Chain}{\arabic{dance}}%
+  \def\cc@who{ladies}%
+  \@ifstar\@halfchainStar\@halfchainNoStar%
+}
+\newcommand*{\halfmenchain}{%
+  \index[mvp]{Half Men Chain}%
+  \imki@wrindexentry{mvd}{Half Men Chain}{\arabic{dance}}%
+  \def\cc@who{men}%
+  \@ifstar\@halfchainStar\@halfchainNoStar%
+}
 \newcommand*{\@halfchainNoStar}[1][\unskip]{%
   \move[8]{\expandafter\MakeUppercase\cc@who\ half chain \ignorespaces#1\unskip}%
 }
 \newcommand*{\@halfchainStar}[1][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
   \move[8]{\ignorespaces#1\unskip\ \cc@who\ half chain}%
 }
-\newcommand*{\fullladieschain}{\def\cc@who{ladies}\@ifstar\@fullchainStar\@fullchainNoStar}
-\newcommand*{\fullmenchain}{\def\cc@who{men}\@ifstar\@fullchainStar\@fullchainNoStar}
+\newcommand*{\fullladieschain}{%
+  \index[mvp]{Full Ladies Chain}%
+  \imki@wrindexentry{mvd}{Full Ladies Chain}{\arabic{dance}}%
+  \def\cc@who{ladies}%
+  \@ifstar\@fullchainStar\@fullchainNoStar%
+}
+\newcommand*{\fullmenchain}{%
+  \index[mvp]{Full Men Chain}%
+  \imki@wrindexentry{mvd}{Full Men Chain}{\arabic{dance}}%
+  \def\cc@who{men}%
+  \@ifstar\@fullchainStar\@fullchainNoStar%
+}
 \newcommand*{\@fullchainNoStar}[1][\unskip]{%
   \move[16]{\expandafter\MakeUppercase\cc@who\ full chain \ignorespaces#1\unskip}%
 }
@@ -901,6 +1070,52 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % \end{macro}
 % \end{macro}
 %
+% \begin{macro}{\petronella}
+% \changes{1.0.0}{2013/09/08}{Add move shortcut}
+% \begin{macro}{\petronella*}
+% \changes{1.0.0}{2013/09/08}{Add move shortcut}
+% \begin{macro}{\longpetronella}
+% \changes{1.0.0}{2013/09/08}{Add move shortcut}
+% \begin{macro}{\longpetronella*}
+% \changes{1.0.0}{2013/09/08}{Add move shortcut}
+% Petronella's are normally performed in rings of four, and aren't with another
+% individual, however, the \code{\textbackslash petronella} macro still takes a
+% single optional argument for those rare occasions when two individuals are
+% turning in a diamond pattern. Petronella's themselves take 4 beats, but they
+% are normally prefixed by a balance. Since the \code{\textbackslash balanceand}
+% macro takes up zero logical beats, we also provide \code{\textbackslash
+% longpetronella} which takes up the full 8 counts. This way you can write
+% \code{\textbackslash balanceand\textbackslash longpetronella} and the timing
+% will be correct.
+%    \begin{macrocode}
+\newcommand*{\petronella}{%
+  \index[mvp]{Petronella}%
+  \imki@wrindexentry{mvd}{Petronella}{\arabic{dance}}%
+  \@ifstar\@petronellaStar\@petronellaNoStar%
+}
+\newcommand*{\@petronellaNoStar}[1][\unskip]{%
+  \move[4]{Petronella \ignorespaces#1\unskip}%
+}
+\newcommand*{\@petronellaStar}[1][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
+  \move[4]{\ignorespaces#1\unskip\ petronella}%
+}
+\newcommand*{\longpetronella}{%
+  \index[mvp]{Petronella}%
+  \imki@wrindexentry{mvd}{Petronella}{\arabic{dance}}%
+  \@ifstar\@longpetronellaStar\@longpetronellaNoStar%
+}
+\newcommand*{\@longpetronellaNoStar}[1][\unskip]{%
+  \move[8]{Petronella \ignorespaces#1\unskip}%
+}
+\newcommand*{\@longpetronellaStar}[1][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
+  \move[8]{\ignorespaces#1\unskip\ petronella}%
+}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
 % \begin{macro}{\promenade}
 % \changes{1.0.0}{2013/09/06}{Add move shortcut}
 % \begin{macro}{\promenade*}
@@ -915,19 +1130,65 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % command also takes a mandatory argument (the number of beats) while
 % \code{\textbackslash halfpromenade} command is fixed at 8 beats.
 %    \begin{macrocode}
-\newcommand*{\promenade}{\@ifstar\@promenadeStar\@promenadeNoStar}
+\newcommand*{\promenade}{%
+  \index[mvp]{Promenade}%
+  \imki@wrindexentry{mvd}{Promenade}{\arabic{dance}}%
+  \@ifstar\@promenadeStar\@promenadeNoStar%
+}
 \newcommand*{\@promenadeNoStar}[2][\unskip]{%
   \move[#2]{Promenade \ignorespaces#1\unskip}%
 }
 \newcommand*{\@promenadeStar}[2][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
   \move[#2]{\ignorespaces#1\unskip\ promenade}%
 }
-\newcommand*{\halfpromenade}{\@ifstar\@halfpromenadeStar\@halfpromenadeNoStar}
+\newcommand*{\halfpromenade}{%
+  \index[mvp]{Promenade}%
+  \imki@wrindexentry{mvd}{Promenade}{\arabic{dance}}%
+  \index[mvp]{Half Promenade}%
+  \imki@wrindexentry{mvd}{Half Promenade}{\arabic{dance}}%
+  \@ifstar\@halfpromenadeStar\@halfpromenadeNoStar%
+}
 \newcommand*{\@halfpromenadeNoStar}[2][\unskip]{%
   \move[8]{Half promenade \ignorespaces#1\unskip}%
 }
 \newcommand*{\@halfpromenadeStar}[2][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
   \move[8]{\ignorespaces#1\unskip\ half promenade}%
+}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\rightandleftthrough}
+% \changes{1.0.0}{2013/09/08}{Add move shortcut}
+% \begin{macro}{\rightandleftthrough*}
+% \changes{1.0.0}{2013/09/08}{Add move shortcut}
+% \begin{macro}{\rightsandlefts}
+% \changes{1.0.0}{2013/09/08}{Add move shortcut}
+% \begin{macro}{\rightsandlefts*}
+% \changes{1.0.0}{2013/09/08}{Add move shortcut}
+% Creates a right and left through (aka. rights and lefts).
+%    \begin{macrocode}
+\newcommand*{\rightandleftthrough}{%
+  \index[mvp]{Right and left through}%
+  \index[mvp]{Rights and lefts|seealso{Right and left through}}%
+  \imki@wrindexentry{mvd}{Right and left through}{\arabic{dance}}%
+  \index[mvd]{Rights and lefts|seealso{Right and left through}}%
+  \@ifstar\@rlStar\@rlNoStar%
+}
+\newcommand*{\rightsandlefts}{%
+  \index[mvp]{Right and left through}%
+  \index[mvp]{Rights and lefts|seealso{Right and left through}}%
+  \imki@wrindexentry{mvd}{Right and left through}{\arabic{dance}}%
+  \index[mvd]{Rights and lefts|seealso{Right and left through}}%
+  \@ifstar\@rlStar\@rlNoStar%
+}
+\newcommand*{\@rlNoStar}[1][\unskip]{%
+  \move[8]{Right and left through \ignorespaces#1\unskip}%
+}
+\newcommand*{\@rlStar}[1][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
+  \move[8]{\ignorespaces#1\unskip\ right and left through}%
 }
 %    \end{macrocode}
 % \end{macro}
@@ -942,12 +1203,16 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % Creates a basic swing. Probably the most common move in modern contra dance,
 % and also one of the simplest commands in this package.
 %    \begin{macrocode}
-\newcommand*{\swing}{\@ifstar\@swingStar\@swingNoStar}
+\newcommand*{\swing}{%
+  \index[mvp]{Swing}%
+  \imki@wrindexentry{mvd}{Swing}{\arabic{dance}}%
+  \@ifstar\@swingStar\@swingNoStar%
+}
 \newcommand*{\@swingNoStar}[2][\unskip]{%
   \move[#2]{Swing \ignorespaces#1\unskip}%
 }
 \newcommand*{\@swingStar}[2][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
-  \move[#2]{\ignorespaces#1\unskip\ Swing}%
+  \move[#2]{\ignorespaces#1\unskip\ swing}%
 }
 %    \end{macrocode}
 % \end{macro}
@@ -1099,18 +1364,17 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % and it uses standard phrasing. Teaching it may be more difficult; at first
 % glance it appears not to flow, but by adding a few turns and making sure that
 % dancers know they don't have to stop and face forward before doing the see saw
-% (almost as if it were a mad robin) it will flow smoothly. Overall it's a bit
-% busy, and probably needs revision.
+% (almost as if it were a mad robin) it will flow smoothly.
 %
 % \begin{Verbatim}
 % \begin{contra}{Code's Compiling}{Sam Whited}{Duple becket}
-%   \move{Neighbor dosido}
-%   \move{Partner see saw}
-%   \move[16]{Shadow swing}
-%   \move{Balance and petronella}
-%   \move{Balance and petronella}
-%   \move{Partner swing}
-%   \move{Left diagonal: Right and left through}
+%   \dosido*[Neighbor]{8}
+%   \seesaw*[Partner]{8}
+%   \swing*[Shadow]{16}
+%   \balanceand\longpetronella
+%   \balanceand\longpetronella
+%   \swing*[Partner]{8}
+%   \rightandleftthrough*[Left diagonal:]
 %   \begin{flushleft}
 %     {\footnotesize \textbf{Notes} The Neighbor dosido into a partner see saw
 %     should be one fluid motion. Resist spinning in the dosido, and start
@@ -1130,13 +1394,13 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 %
 % \begin{exampledance}
 % \begin{contra}{Code's Compiling}{Sam Whited}{Duple becket}
-%   \move{Neighbor dosido}
-%   \move{Partner see saw}
-%   \move[16]{Shadow swing}
-%   \move{Balance and petronella}
-%   \move{Balance and petronella}
-%   \move{Partner swing}
-%   \move{Left diagonal: Right and left through}
+%   \dosido*[Neighbor]{8}
+%   \seesaw*[Partner]{8}
+%   \swing*[Shadow]{16}
+%   \balanceand\longpetronella
+%   \balanceand\longpetronella
+%   \swing*[Partner]{8}
+%   \rightandleftthrough*[Left diagonal:]
 %   \begin{flushleft}
 %     {\footnotesize \textbf{Notes} The Neighbor dosido into a partner see saw
 %     should be one fluid motion. Resist spinning in the dosido, and start
@@ -1170,7 +1434,7 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 %   \move[8]{Neighbor gypsy}
 %   \move[8]{Ladies gypsy}
 %   \newdancephrase
-%   \move[16]{Partner balance and swing}
+%   \balanceand*[Partner]\swing{16}
 %   \newdancephrase
 %   \move[8]{Ladies chain}
 %   \move[8]{Left hand star}
@@ -1190,7 +1454,7 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 %   \move[8]{Neighbor gypsy}
 %   \move[8]{Ladies gypsy}
 %   \newdancephrase
-%   \move[16]{Partner balance and swing}
+%   \balanceand*[Partner]\swing{16}
 %   \newdancephrase
 %   \move[8]{Ladies chain}
 %   \move[8]{Left hand star}
@@ -1249,6 +1513,26 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % \phantomsection
 % \addcontentsline{toc}{section}{Index}
 % \PrintIndex
+% \clearpage
+% \phantomsection
+% \addcontentsline{toc}{section}{\dbtname}
+% \hypertarget{CC:DBT}{}
+% \printindex[\cc@dbt]
+% \clearpage
+% \phantomsection
+% \addcontentsline{toc}{section}{\dbaname}
+% \hypertarget{CC:DBA}{}
+% \printindex[\cc@dba]
+% \clearpage
+% \phantomsection
+% \addcontentsline{toc}{section}{\mvpname}
+% \hypertarget{CC:MVP}{}
+% \printindex[\cc@mvp]
+% \clearpage
+% \phantomsection
+% \addcontentsline{toc}{section}{\mvdname}
+% \hypertarget{CC:MVD}{}
+% \printindex[\cc@mvd]
 %
 % \makeatletter
 %   \renewenvironment{theglossary}{%

@@ -64,7 +64,7 @@ ZIPS = $(CTAN_ZIP) $(TDS_ZIP)
 DO_LATEX = pdflatex --interaction=nonstopmode $<  $(REDIRECT)
 DO_LATEX_WRITE18 = pdflatex --shell-escape --interaction=nonstopmode $<  $(REDIRECT)
 DO_TEX = tex --interaction=nonstopmode $< $(REDIRECT)
-DO_MAKEINDEX = makeindex -s gind.ist $(subst .dtx,,$<)  $(REDIRECT)  2>&1
+DO_SPLITINDEX = splitindex $(subst .dtx,,$<) $(REDIRECT)  2>&1
 DO_MAKECHANGES = makeindex -s gglo.ist -o $(NAME).gls $(NAME).glo $< $(REDIRECT) 2>&1
 
 all: $(GENERATED)
@@ -86,7 +86,7 @@ by-nc.png:
 gendoc: $(DTX) resources
 	@echo "Compiling documentation"
 	$(DO_LATEX_WRITE18)
-	$(DO_MAKEINDEX)
+	$(DO_SPLITINDEX)
 	$(DO_MAKECHANGES)
 	while ($(DO_LATEX_WRITE18) ; \
 	grep -q "Rerun to get" $(NAME).log ) do true; \
