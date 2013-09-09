@@ -149,6 +149,10 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 %
 % \maketitle
 % \tableofcontents
+% \phantomsection
+% \addcontentsline{toc}{section}{\lodtitle}
+% \hypertarget{CC:LOD}{}
+% \listofdances
 %
 % \section{Introduction}
 %
@@ -350,11 +354,7 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % \end{macro}
 % \end{macro}
 %
-% \section{The Meat}
-%
-% Next we'll define the meat of the \pkg{contracard} package. These are the
-% functions, counters, and environments that actually deal with generating a
-% dance.
+% \section{Counters}
 %
 % \subsection{Musical counts}
 %
@@ -506,7 +506,7 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % \end{macro}
 % \end{macro}
 %
-% \subsection{The \code{contra} environment}
+% \section{The \code{contra} environment}
 %
 % \begin{macro}{contra}
 % \changes{0.1}{2013/02/14}{Create contra environment}
@@ -546,6 +546,8 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 }
 %    \end{macrocode}
 % \end{macro}
+%
+% \section{Moves}
 %
 % \subsection{The \code{\textbackslash move} command}
 %
@@ -612,158 +614,7 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % \end{macro}
 % \end{macro}
 %
-% \section{Lists and Indices}
-%
-% \subsection{Lists}
-%
-% Just as many classes allow you to build a table of contents, or a list of
-% figures, \pkg{contracard} allows you to create a list of dances.
-%
-% \begin{macro}{\listofdances}
-% The list of dances is created by a call to \code{\textbackslash listofdance}
-% by default, however, we define an alias: \code{\textbackslash listofdances}
-% to prevent confusion.
-%    \begin{macrocode}
-\newlistof{dance}{lod}{\lodtitle}
-\newcommand*{\listofdances}{\listofdance}
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\lodtitle}
-% The title of the list of dances will be:
-%    \begin{macrocode}
-\newcommand*{\lodtitle}{List of Dances}
-%    \end{macrocode}
-% \end{macro}
-%
-% When printed, the list of dances looks something like this:
-%
-% \clearpage
-% \begin{framed}
-% \phantomsection
-% \addcontentsline{toc}{subsubsection}{\lodtitle}
-% \listofdances
-% \end{framed}
-%
-% \subsection{Indices}
-% \changes{1.0.0}{2013/09/08}{Added support for indices}
-%
-% \pkg{Contra Card} has the ability to produce several different indices that
-% might be useful for your book or collection of dances. They are:
-%
-% \begin{center}
-% \begin{tabular}{ l l }
-%  Shortcut & Name \\
-%  \hline
-%  dbt & \hyperlink{CC:DBT}{Dances by Type} \\
-%  dba & \hyperlink{CC:DBA}{Dances by Author} \\
-%  mvp & \hyperlink{CC:MVP}{Moves by Page} \\
-%  mvd & \hyperlink{CC:MVD}{Moves by Dance} \\
-% \end{tabular}
-% \end{center}
-%
-% An example of each type of index can be found at the end of this document.
-%
-% \begin{macro}{\enableidx}
-% \changes{1.0.0}{2013/09/08}{New command}
-% \begin{macro}{\cc@createindices}
-% \changes{1.0.0}{2013/09/08}{New command}
-% Indexing is not turned on by default in Contra Card. When you enable it, the
-% \href{http://ctan.org/pkg/imakeidx}{\pkg{imakeidx}} package is loaded, and the
-% indices are created. This means that \code{\textbackslash enableidx} should
-% \emph{always} be called in the preamble.
-%    \begin{macrocode}
-\newcommand*{\enableidx}{%
-  \PassOptionsToPackage{splitindex}{imakeidx}
-  \RequirePackage{imakeidx}
-  \cc@createindices
-}%
-\newcommand*{\cc@createindices}{%
-  \makeindex[name=\cc@dbt,title=\dbtname]
-  \makeindex[name=\cc@dba,title=\dbaname]
-  \makeindex[name=\cc@mvp,title=\mvpname]
-  \makeindex[name=\cc@mvd,title=\mvdname]
-}%
-%    \end{macrocode}
-% Because we use the \code{splitindex} option, you'll need to run the
-% \fname{splitindex} command against the index file. For instance, if your
-% project is called \fname{root.tex} you'll want to run: \code{splitindex root}.
-% \end{macro}
-% \end{macro}
-%
-% \begin{macro}{\cc@dbt}
-% \changes{1.0.0}{2013/09/08}{New command}
-% \begin{macro}{\cc@dba}
-% \changes{1.0.0}{2013/09/08}{New command}
-% \begin{macro}{\cc@mvp}
-% \changes{1.0.0}{2013/09/08}{New command}
-% \begin{macro}{\cc@mvd}
-% \changes{1.0.0}{2013/09/08}{New command}
-% Though you probably don't need to change this, the shortcut for each index can
-% be changed by redefining the following commands (before you turn on indexing
-% functionality):
-%    \begin{macrocode}
-\newcommand*{\cc@dbt}{dbt}
-\newcommand*{\cc@dba}{dba}
-\newcommand*{\cc@mvp}{mvp}
-\newcommand*{\cc@mvd}{mvd}
-%    \end{macrocode}
-% \end{macro}
-% \end{macro}
-% \end{macro}
-% \end{macro}
-%
-% \begin{macro}{\dbtname}
-% \changes{1.0.0}{2013/09/08}{New command}
-% \begin{macro}{\dbaname}
-% \changes{1.0.0}{2013/09/08}{New command}
-% \begin{macro}{\mvpname}
-% \changes{1.0.0}{2013/09/08}{New command}
-% \begin{macro}{\mvdname}
-% \changes{1.0.0}{2013/09/08}{New command}
-% The names of each index can also be changed by redefining these commands. This
-% should also be done \emph{before} the indexing functionality is turned on.
-% This means that if you're loading \pkg{Contra Card} with the \code{enableidx}
-% package option, you shouldn't mess with these commands.
-%    \begin{macrocode}
-\newcommand*{\dbtname}{Dances by Type}
-\newcommand*{\dbaname}{Dances by Author}
-\newcommand*{\mvpname}{Moves by Page}
-\newcommand*{\mvdname}{Moves by Dance}
-%    \end{macrocode}
-% \end{macro}
-% \end{macro}
-% \end{macro}
-% \end{macro}
-%
-% \begin{macro}{\moveindex}
-% \changes{1.0.0}{2013/09/08}{New command}
-% \begin{macro}{\moveindex*}
-% \changes{1.0.0}{2013/09/08}{New command}
-% For any of the move shortcuts discussed in the next section, index entries are
-% automatically added for the given move. However, for moves that you define
-% yourself with the \code{\textbackslash move} command, you'll need to add index
-% entries manually. This can be done with \code{\textbackslash moveindex}. This
-% macro takes a single argument (the index entry to add) and should only be
-% called from within the \code{contra} environment. The star version of the
-% command also typesets the first argument (so you don't have to write it
-% twice).
-%    \begin{macrocode}
-\newcommand*{\moveindex}{\@ifstar\moveindexStar\moveindexNoStar}
-\newcommand*{\moveindexStar}[1]{%
-  #1%
-  \index[mvp]{#1}%
-  \imki@wrindexentry{mvd}{#1}{\arabic{dance}}%
-}
-\newcommand*{\moveindexNoStar}[1]{%
-  \index[mvp]{#1}%
-  \imki@wrindexentry{mvd}{#1}{\arabic{dance}}%
-}
-%    \end{macrocode}
-% \end{macro}
-% \end{macro}
-%
-% \section{Move shortcuts}
+% \subsection{Move shortcuts}
 %
 % Often you may find yourself copy and pasting common moves that often have the
 % same timing, wording on the card, etc. For times like this \pkg{contracard}
@@ -1212,6 +1063,152 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 }
 \newcommand*{\@swingStar}[2][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
   \move[#2]{\ignorespaces#1\unskip\ swing}%
+}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+%
+% \section{Lists and Indices}
+%
+% \subsection{Lists}
+%
+% Just as many classes allow you to build a table of contents, or a list of
+% figures, \pkg{contracard} allows you to create a list of dances.
+%
+% \begin{macro}{\listofdances}
+% The list of dances is created by a call to \code{\textbackslash listofdance}
+% by default, however, we define an alias: \code{\textbackslash listofdances}
+% to prevent confusion.
+%    \begin{macrocode}
+\newlistof{dance}{lod}{\cfttoctitlefont\lodtitle}
+\newcommand*{\listofdances}{\listofdance}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\lodtitle}
+% The title of the list of dances will be:
+%    \begin{macrocode}
+\newcommand*{\lodtitle}{List of Dances}
+%    \end{macrocode}
+% \end{macro}
+%
+% An \hyperlink{CC:LOD}{example list of dances} can be found at the top of this
+% document.
+%
+% \subsection{Indices}
+% \changes{1.0.0}{2013/09/08}{Added support for indices}
+%
+% \pkg{Contra Card} has the ability to produce several different indices that
+% might be useful for your book or collection of dances. They are:
+%
+% \begin{center}
+% \begin{tabular}{ l l }
+%  Shortcut & Name \\
+%  \hline
+%  dbt & \hyperlink{CC:DBT}{Dances by Type} \\
+%  dba & \hyperlink{CC:DBA}{Dances by Author} \\
+%  mvp & \hyperlink{CC:MVP}{Moves by Page} \\
+%  mvd & \hyperlink{CC:MVD}{Moves by Dance} \\
+% \end{tabular}
+% \end{center}
+%
+% An example of each type of index can be found at the end of this document.
+%
+% \begin{macro}{\enableidx}
+% \changes{1.0.0}{2013/09/08}{New command}
+% \begin{macro}{\cc@createindices}
+% \changes{1.0.0}{2013/09/08}{New command}
+% Indexing is not turned on by default in Contra Card. When you enable it, the
+% \href{http://ctan.org/pkg/imakeidx}{\pkg{imakeidx}} package is loaded, and the
+% indices are created. This means that \code{\textbackslash enableidx} should
+% \emph{always} be called in the preamble.
+%    \begin{macrocode}
+\newcommand*{\enableidx}{%
+  \PassOptionsToPackage{splitindex}{imakeidx}
+  \RequirePackage{imakeidx}
+  \cc@createindices
+}%
+\newcommand*{\cc@createindices}{%
+  \makeindex[name=\cc@dbt,title=\dbtname]
+  \makeindex[name=\cc@dba,title=\dbaname]
+  \makeindex[name=\cc@mvp,title=\mvpname]
+  \makeindex[name=\cc@mvd,title=\mvdname]
+}%
+%    \end{macrocode}
+% Because we use the \code{splitindex} option, you'll need to run the
+% \fname{splitindex} command against the index file. For instance, if your
+% project is called \fname{root.tex} you'll want to run: \code{splitindex root}.
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\cc@dbt}
+% \changes{1.0.0}{2013/09/08}{New command}
+% \begin{macro}{\cc@dba}
+% \changes{1.0.0}{2013/09/08}{New command}
+% \begin{macro}{\cc@mvp}
+% \changes{1.0.0}{2013/09/08}{New command}
+% \begin{macro}{\cc@mvd}
+% \changes{1.0.0}{2013/09/08}{New command}
+% Though you probably don't need to change this, the shortcut for each index can
+% be changed by redefining the following commands (before you turn on indexing
+% functionality):
+%    \begin{macrocode}
+\newcommand*{\cc@dbt}{dbt}
+\newcommand*{\cc@dba}{dba}
+\newcommand*{\cc@mvp}{mvp}
+\newcommand*{\cc@mvd}{mvd}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\dbtname}
+% \changes{1.0.0}{2013/09/08}{New command}
+% \begin{macro}{\dbaname}
+% \changes{1.0.0}{2013/09/08}{New command}
+% \begin{macro}{\mvpname}
+% \changes{1.0.0}{2013/09/08}{New command}
+% \begin{macro}{\mvdname}
+% \changes{1.0.0}{2013/09/08}{New command}
+% The names of each index can also be changed by redefining these commands. This
+% should also be done \emph{before} the indexing functionality is turned on.
+% This means that if you're loading \pkg{Contra Card} with the \code{enableidx}
+% package option, you shouldn't mess with these commands.
+%    \begin{macrocode}
+\newcommand*{\dbtname}{Dances by Type}
+\newcommand*{\dbaname}{Dances by Author}
+\newcommand*{\mvpname}{Moves by Page}
+\newcommand*{\mvdname}{Moves by Dance}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\moveindex}
+% \changes{1.0.0}{2013/09/08}{New command}
+% \begin{macro}{\moveindex*}
+% \changes{1.0.0}{2013/09/08}{New command}
+% For any of the move shortcuts discussed in the next section, index entries are
+% automatically added for the given move. However, for moves that you define
+% yourself with the \code{\textbackslash move} command, you'll need to add index
+% entries manually. This can be done with \code{\textbackslash moveindex}. This
+% macro takes a single argument (the index entry to add) and should only be
+% called from within the \code{contra} environment. The star version of the
+% command also typesets the first argument (so you don't have to write it
+% twice).
+%    \begin{macrocode}
+\newcommand*{\moveindex}{\@ifstar\moveindexStar\moveindexNoStar}
+\newcommand*{\moveindexStar}[1]{%
+  #1%
+  \index[mvp]{#1}%
+  \imki@wrindexentry{mvd}{#1}{\arabic{dance}}%
+}
+\newcommand*{\moveindexNoStar}[1]{%
+  \index[mvp]{#1}%
+  \imki@wrindexentry{mvd}{#1}{\arabic{dance}}%
 }
 %    \end{macrocode}
 % \end{macro}
