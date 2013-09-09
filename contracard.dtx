@@ -258,8 +258,8 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % \hypertarget{CCPACKAGE:OPTIONS}{}
 % \begin{macro}{showcountbefore}
 % \begin{macro}{showcountafter}
-% The package can also be declared with the following options. For more
-% information about each option, see the command which it calls.
+% The package (or class) can also be declared with the following options. For
+% more information about each option, see the command which it calls.
 %    \begin{macrocode}
 \DeclareOption{showcountafter}{\showcountafter}
 \DeclareOption{showcountbefore}{\showcountbefore}
@@ -326,8 +326,8 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % \begin{macro}{\phrasevspace}
 % \changes{0.4}{2013/02/22}{Allow custom phrase separation length}
 % The \code{\textbackslash phraseseparator} macro is inserted between every
-% musical phrase and --- by default --- inserts \code{phrasevspace} amount of
-% white space.
+% musical phrase and --- by default --- inserts \code{\textbackslash
+% phrasevspace} amount of white space.
 %    \begin{macrocode}
 \newlength{\phrasevspace}
 \setlength{\phrasevspace}{1em}
@@ -374,9 +374,9 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % \changes{0.3}{2013/02/21}{Create a new counter for the current phrase}
 % First we'll create some counters that will help us keep track of the counts
 % (or `steps') in the dance. The \code{dancecount} is reset at the start of each
-% new dance, the \code{partcount} is reset at the begining of each part (eg.
+% new dance, the \code{partcount} is reset at the begining of each part (eg.\
 % \code{A1} or \code{B1}), and the \code{phrasecount} is reset every time the
-% part changes (eg. from \code{A} to \code{B}). The \code{dancepart} and
+% part changes (eg.~from \code{A} to \code{B}). The \code{dancepart} and
 % \code{dancephrase} counters contain the number of the part of phrase in the dance
 % (instead of the number of steps).
 %    \begin{macrocode}
@@ -420,7 +420,7 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % the user resets it by calling \code{\textbackslash resetdancephrase}. The user
 % can also manually reset the part. If the value of the phrase or part would be
 % the same after resetting, no action is taken. You can use the splat version of
-% the commands to force a reset (eg. even if the \code{dancephrase} counter is
+% the commands to force a reset (eg.~even if the \code{dancephrase} counter is
 % already at 1, the \code{dancephrase} and \code{phrasecount} counters will
 % still be reset).
 %    \begin{macrocode}
@@ -629,7 +629,7 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % \changes{1.0.0}{2013/09/05}{Add move shortcut}
 
 % The allemande macro takes two mandatory arguments: the count, and the
-% direction to allemande. It also takes the person to allemande (eg. shadow,
+% direction to allemande. It also takes the person to allemande (eg.~shadow,
 % partner, neighbor, etc.) as an optional first argument.
 %    \begin{macrocode}
 \newcommand*{\allemande}{%
@@ -659,7 +659,7 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % \code{\textbackslash balance*}) the word `balance'. Balances always take up 4
 % beats unless you use the \code{\textbackslash balanceand} version of the
 % command which takes up 0 logical counts.  This way you can follow it up with
-% another command (eg. \code{\textbackslash balanceand*[Partner]\textbackslash
+% another command (eg.~\code{\textbackslash balanceand*[Partner]\textbackslash
 % swing}).
 %    \begin{macrocode}
 \newcommand*{\balance}{%
@@ -700,7 +700,7 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % \begin{macro}{\butterflywhirl*}
 % \changes{1.0.0}{2013/09/06}{Add move shortcut}
 % Two version of the \code{\textbackslash butterflywhirl} macro exist. Both
-% taken in an optional argument that specifies the other dancer (eg. partner,
+% taken in an optional argument that specifies the other dancer (eg.~partner,
 % neighbor, etc.), and the count. The normal macro prints the line:
 %
 % \begin{quote}
@@ -1125,7 +1125,7 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % Indexing is not turned on by default in Contra Card. When you enable it, the
 % \href{http://ctan.org/pkg/imakeidx}{\pkg{imakeidx}} package is loaded, and the
 % indices are created. This means that \code{\textbackslash enableidx} should
-% \emph{always} be called in the preamble.
+% \emph{only} be called in the preamble.
 %    \begin{macrocode}
 \newcommand*{\enableidx}{%
   \PassOptionsToPackage{splitindex}{imakeidx}
@@ -1226,10 +1226,10 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % \begin{macro}{\timesaround}
 % \changes{1.0.0}{2013/09/05}{Split out ability to calculate times around}
 % Sometimes it's useful to calculate the approximate number of times a given
-% move can be done in a certain number of beats of music (eg. the number of
+% move can be done in a certain number of beats of music (eg.~the number of
 % times around one can allemande in 6 beats). For this, the \code{\textbackslash
 % timesaround} macro was created. It takes two arguments: the number of beats it
-% takes to go one time around (eg. 4 for an allemande) and the total number of
+% takes to go one time around (eg.~4 for an allemande) and the total number of
 % beats you have to work with. It spits out an integer, a fraction, or a mixed
 % number and a word matching the regular expression:
 % \regexp{/{[}1-9{]}*{[}\textonequarter\textonehalf%
