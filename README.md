@@ -5,7 +5,7 @@ A LaTeX package for contra and square dance calls.
 ## Download
 
 Development of this package occurs primarily on
-[GitHub](https://github.com/SamWhited/contra-card). Issues and pull requests
+[GitHub](https://github.com/SamWhited/contracard). Issues and pull requests
 should be submitted there.
 
 The current [release
