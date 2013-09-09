@@ -1052,6 +1052,39 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % \end{macro}
 % \end{macro}
 %
+% \begin{macro}{\starleft}
+% \changes{1.0.0}{2013/09/09}{Add move shortcut}
+% \begin{macro}{\starleft*}
+% \changes{1.0.0}{2013/09/09}{Add move shortcut}
+% \begin{macro}{\starright}
+% \changes{1.0.0}{2013/09/09}{Add move shortcut}
+% \begin{macro}{\starright*}
+% \changes{1.0.0}{2013/09/09}{Add move shortcut}
+%    \begin{macrocode}
+\newcommand*{\starleft}{%
+  \moveindex{Star}%
+  \moveindex{Left hand star}%
+  \def\cc@dir{Left}%
+  \@ifstar\@starStar\@starNoStar%
+}
+\newcommand*{\starright}{%
+  \moveindex{Star}%
+  \moveindex{Right hand star}%
+  \def\cc@dir{right}%
+  \@ifstar\@starStar\@starNoStar%
+}
+\newcommand*{\@starNoStar}[1]{%
+  \move[#1]{\cc@dir\ hand star}%
+}
+\newcommand*{\@starStar}[1]{%
+  \move[#1]{Star \cc@dir}%
+}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
 % \begin{macro}{\swing}
 % \changes{1.0.0}{2013/09/06}{Add move shortcut}
 % \begin{macro}{\swing*}
@@ -1442,13 +1475,13 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % \begin{Verbatim}
 % \renewcommand*{\partdelimiter}{:}
 % \begin{contra}{Untitled Blues \textnumero\ 1}{Seth Tepfer}{Duple Minor Im.}
-%   \move[8]{Neighbor gypsy}
-%   \move[8]{Ladies gypsy}
+%   \gypsy*[Neighbor]{8}
+%   \gypsy*[Ladies]{8}
 %   \newdancephrase
 %   \balanceand*[Partner]\swing{16}
 %   \newdancephrase
-%   \move[8]{Ladies chain}
-%   \move[8]{Left hand star}
+%   \ladieschain
+%   \starleft{8}
 %   \vspace*{\fill}
 %   \begin{flushright}
 %     \href{http://creativecommons.org/licenses/by-nc/3.0/}{%
@@ -1462,13 +1495,13 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % \begin{exampledance}
 % \renewcommand*{\partdelimiter}{:}
 % \begin{contra}{Untitled Blues \textnumero\ 1}{\href{http://www.dancerhapsody.com/calling/dances.html}{Seth Tepfer}}{Duple Minor Im.}
-%   \move[8]{Neighbor gypsy}
-%   \move[8]{Ladies gypsy}
+%   \gypsy*[Neighbor]{8}
+%   \gypsy*[Ladies]{8}
 %   \newdancephrase
 %   \balanceand*[Partner]\swing{16}
 %   \newdancephrase
-%   \move[8]{Ladies chain}
-%   \move[8]{Left hand star}
+%   \ladieschain
+%   \starleft{8}
 %   \vspace*{\fill}
 %   \begin{flushright}
 %     \href{http://creativecommons.org/licenses/by-nc/3.0/}{%
@@ -1485,11 +1518,11 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % \setlength{\phrasevspace}{0em}
 % \setcounter{dancephraselength}{16}
 % \begin{contra}{Untitled Blues \textnumero\ 2}{Seth Tepfer}{Duple Minor Im.}
-%   \move[8]{Neighbor gypsy}
-%   \move[8]{Gents allemande left 1\textonehalf}
-%   \move[16]{Partner balance and swing}
-%   \move[8]{\textonehalf\ promenade across set}
-%   \move[8]{Ladies chain}
+%   \gypsy*[Neighbor]{8}
+%   \move[8]{Gents allemande\moveindex{Allemande} left 1\textonehalf}
+%   \balanceand*[Partner]\swing{16}
+%   \move[8]{\textonehalf\ promenade\moveindex{Half Promenade}\moveindex{Promenade} across set}
+%   \ladieschain
 %   \vspace*{\fill}
 %   \begin{flushright}
 %     \href{http://creativecommons.org/licenses/by-nc/3.0/}{%
@@ -1504,11 +1537,11 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % \setlength{\phrasevspace}{0em}
 % \setcounter{dancephraselength}{16}
 % \begin{contra}{Untitled Blues \textnumero\ 2}{\href{http://www.dancerhapsody.com/calling/dances.html}{Seth Tepfer}}{Duple Minor Im.}
-%   \move[8]{Neighbor gypsy}
-%   \move[8]{Gents allemande left 1\textonehalf}
-%   \move[16]{Partner balance and swing}
-%   \move[8]{\textonehalf\ promenade across set}
-%   \move[8]{Ladies chain}
+%   \gypsy*[Neighbor]{8}
+%   \move[8]{Gents allemande\moveindex{Allemande} left 1\textonehalf}
+%   \balanceand*[Partner]\swing{16}
+%   \move[8]{\textonehalf\ promenade\moveindex{Half Promenade}\moveindex{Promenade} across set}
+%   \ladieschain
 %   \vspace*{\fill}
 %   \begin{flushright}
 %     \href{http://creativecommons.org/licenses/by-nc/3.0/}{%
