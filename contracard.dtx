@@ -96,6 +96,7 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 \ifccunicode\relax\else\usepackage[utf8x]{inputenc}\fi
 \usepackage[pdfborder=0, bookmarks, colorlinks=false, hidelinks]{hyperref}
 \usepackage[parfill]{parskip}
+\usepackage{bookmark}
 
 \fvset{gobble=2}
 
@@ -266,6 +267,8 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
+%
+% \part{The \pkg{contracard} package}
 %
 % \section{Formatting}
 %
@@ -1264,7 +1267,7 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 %</contracard-pkg>
 %    \end{macrocode}
 %
-% \section{The \pkg{contracard} class}
+% \part{The \pkg{contracard} class}
 %
 %    \begin{macrocode}
 %<*contracard-cls>
@@ -1323,7 +1326,7 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % The \code{medium} option creates a 152.4 by 101.6 mm (6 by 4 in) card.
 % The \code{large} option creates a 203.2 by 27.0 mm (8 by 5 in) card.
 % The \code{a7paper} option creates a 105 by 74 mm (4.1 by 2.9 in) card.
-% Any unrecognized options are passed to the \pkg{article} class.
+% Any unrecognized options are passed to the \pkg{contracard} package.
 % \end{macro}
 % \end{macro}
 % \end{macro}
@@ -1346,6 +1349,8 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 %</contracard-cls>
 %    \end{macrocode}
 %
+% \bookmarksetup{startatroot}%
+% \addtocontents{toc}{\bigskip}%
 % \section{Examples}
 %
 % A few examples are contained below. Note that the output is wrapped in a frame
