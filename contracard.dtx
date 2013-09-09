@@ -736,6 +736,33 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % \end{macro}
 % \end{macro}
 %
+% \begin{macro}{\moveindex}
+% \changes{1.0.0}{2013/09/08}{New command}
+% \begin{macro}{\moveindex*}
+% \changes{1.0.0}{2013/09/08}{New command}
+% For any of the move shortcuts discussed in the next section, index entries are
+% automatically added for the given move. However, for moves that you define
+% yourself with the \code{\textbackslash move} command, you'll need to add index
+% entries manually. This can be done with \code{\textbackslash moveindex}. This
+% macro takes a single argument (the index entry to add) and should only be
+% called from within the \code{contra} environment. The star version of the
+% command also typesets the first argument (so you don't have to write it
+% twice).
+%    \begin{macrocode}
+\newcommand*{\moveindex}{\@ifstar\moveindexStar\moveindexNoStar}
+\newcommand*{\moveindexStar}[1]{%
+  #1%
+  \index[mvp]{#1}%
+  \imki@wrindexentry{mvd}{#1}{\arabic{dance}}%
+}
+\newcommand*{\moveindexNoStar}[1]{%
+  \index[mvp]{#1}%
+  \imki@wrindexentry{mvd}{#1}{\arabic{dance}}%
+}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
 % \section{Move shortcuts}
 %
 % Often you may find yourself copy and pasting common moves that often have the
@@ -752,8 +779,7 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % partner, neighbor, etc.) as an optional first argument.
 %    \begin{macrocode}
 \newcommand*{\allemande}{%
-  \index[mvp]{Allemande}%
-  \imki@wrindexentry{mvd}{Allemande}{\arabic{dance}}%
+  \moveindex{Allemande}%
   \@ifstar\@allemandeStar\@allemandeNoStar%
 }
 \newcommand*{\@allemandeNoStar}[3][\unskip]{%
@@ -783,8 +809,7 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % swing}).
 %    \begin{macrocode}
 \newcommand*{\balance}{%
-  \index[mvp]{Balance}%
-  \imki@wrindexentry{mvd}{Balance}{\arabic{dance}}%
+  \moveindex{Balance}%
   \@ifstar\@balanceStar\@balanceNoStar%
 }
 \newcommand*{\@balanceNoStar}[1][\unskip]{%
@@ -801,8 +826,7 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
      \newdancepart%
     }{}%
   }%
-  \index[mvp]{Balance}%
-  \imki@wrindexentry{mvd}{Balance}{\arabic{dance}}%
+  \moveindex{Balance}%
   \@ifstar\@balanceandStar\@balanceandNoStar%
 }
 \newcommand*{\@balanceandNoStar}[1][]{%
@@ -839,8 +863,7 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 %
 %    \begin{macrocode}
 \newcommand*{\butterflywhirl}{%
-  \index[mvp]{Butterfly Whirl}%
-  \imki@wrindexentry{mvd}{Butterfly Whirl}{\arabic{dance}}%
+  \moveindex{Butterfly Whirl}%
   \@ifstar\@butterflyStar\@butterflyNoStar%
 }
 \newcommand*{\@butterflyNoStar}[2][\unskip]{%
@@ -862,8 +885,7 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % wording a bit.
 %    \begin{macrocode}
 \newcommand*{\courtesyturn}{%
-  \index[mvp]{Courtesy Turn}%
-  \imki@wrindexentry{mvd}{Courtesy Turn}{\arabic{dance}}%
+  \moveindex{Courtesy Turn}%
   \@ifstar\@courtesyturnStar\@courtesyturnNoStar%
 }
 \newcommand*{\@courtesyturnNoStar}[2][\unskip]{%
@@ -888,8 +910,7 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % \word{dosado}, \word{dos-\`a-dos}, etc.) or a see saw (left shoulder dosido).
 %    \begin{macrocode}
 \newcommand*{\dosido}{%
-  \index[mvp]{Do-si-do}%
-  \imki@wrindexentry{mvd}{Do-si-do}{\arabic{dance}}%
+  \moveindex{Do-si-do}%
   \@ifstar\@dosidoStar\@dosidoNoStar%
 }
 \newcommand*{\@dosidoNoStar}[2][\unskip]{%
@@ -899,8 +920,7 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
   \move[#2]{\ignorespaces#1\unskip\ do-si-do}%
 }
 \newcommand*{\seesaw}{%
-  \index[mvp]{See Saw}%
-  \imki@wrindexentry{mvd}{See Saw}{\arabic{dance}}%
+  \moveindex{See Saw}%
   \@ifstar\@seesawStar\@seesawNoStar%
 }
 \newcommand*{\@seesawNoStar}[2][\unskip]{%
@@ -931,23 +951,18 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % to gypsy) and one required argument (the count).
 %    \begin{macrocode}
 \newcommand*{\gypsy}{%
-  \index[mvp]{Gypsy}%
-  \imki@wrindexentry{mvd}{Gypsy}{\arabic{dance}}%
+  \moveindex{Gypsy}%
   \@ifstar\@gypsyStar\@gypsyNoStar%
 }
 \newcommand*{\gypsyright}{%
-  \index[mvp]{Gypsy}%
-  \imki@wrindexentry{mvd}{Gypsy}{\arabic{dance}}%
-  \index[mvp]{Gypsy Right}%
-  \imki@wrindexentry{mvd}{Gypsy Right}{\arabic{dance}}%
+  \moveindex{Gypsy}%
+  \moveindex{Gypsy Right}%
   \def\cc@thedir{right}%
   \@ifstar\@gypsyDirStar\@gypsyDirNoStar%
 }
 \newcommand*{\gypsyleft}{%
-  \index[mvp]{Gypsy}%
-  \imki@wrindexentry{mvd}{Gypsy}{\arabic{dance}}%
-  \index[mvp]{Gypsy Left}%
-  \imki@wrindexentry{mvd}{Gypsy Left}{\arabic{dance}}%
+  \moveindex{Gypsy}%
+  \moveindex{Gypsy Left}%
   \def\cc@thedir{left}%
   \@ifstar\@gypsyDirStar\@gypsyDirNoStar%
 }
@@ -1003,14 +1018,12 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % `half' in the output.
 %    \begin{macrocode}
 \newcommand*{\ladieschain}{%
-  \index[mvp]{Ladies Chain}%
-  \imki@wrindexentry{mvd}{Ladies Chain}{\arabic{dance}}%
+  \moveindex{Ladies Chain}%
   \def\cc@who{ladies}%
   \@ifstar\@chainStar\@chainNoStar%
 }
 \newcommand*{\menchain}{%
-  \index[mvp]{Men Chain}%
-  \imki@wrindexentry{mvd}{Men Chain}{\arabic{dance}}%
+  \moveindex{Men Chain}%
   \def\cc@who{men}%
   \@ifstar\@chainStar\@chainNoStar%
 }
@@ -1021,14 +1034,12 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
   \move[8]{\ignorespaces#1\unskip\ \cc@who\ chain}%
 }
 \newcommand*{\halfladieschain}{%
-  \index[mvp]{Half Ladies Chain}%
-  \imki@wrindexentry{mvd}{Ladies Chain}{\arabic{dance}}%
+  \moveindex{Half Ladies Chain}%
   \def\cc@who{ladies}%
   \@ifstar\@halfchainStar\@halfchainNoStar%
 }
 \newcommand*{\halfmenchain}{%
-  \index[mvp]{Half Men Chain}%
-  \imki@wrindexentry{mvd}{Half Men Chain}{\arabic{dance}}%
+  \moveindex{Half Men Chain}%
   \def\cc@who{men}%
   \@ifstar\@halfchainStar\@halfchainNoStar%
 }
@@ -1039,14 +1050,12 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
   \move[8]{\ignorespaces#1\unskip\ \cc@who\ half chain}%
 }
 \newcommand*{\fullladieschain}{%
-  \index[mvp]{Full Ladies Chain}%
-  \imki@wrindexentry{mvd}{Full Ladies Chain}{\arabic{dance}}%
+  \moveindex{Full Ladies Chain}%
   \def\cc@who{ladies}%
   \@ifstar\@fullchainStar\@fullchainNoStar%
 }
 \newcommand*{\fullmenchain}{%
-  \index[mvp]{Full Men Chain}%
-  \imki@wrindexentry{mvd}{Full Men Chain}{\arabic{dance}}%
+  \moveindex{Full Men Chain}%
   \def\cc@who{men}%
   \@ifstar\@fullchainStar\@fullchainNoStar%
 }
@@ -1089,8 +1098,7 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % will be correct.
 %    \begin{macrocode}
 \newcommand*{\petronella}{%
-  \index[mvp]{Petronella}%
-  \imki@wrindexentry{mvd}{Petronella}{\arabic{dance}}%
+  \moveindex{Petronella}%
   \@ifstar\@petronellaStar\@petronellaNoStar%
 }
 \newcommand*{\@petronellaNoStar}[1][\unskip]{%
@@ -1100,8 +1108,7 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
   \move[4]{\ignorespaces#1\unskip\ petronella}%
 }
 \newcommand*{\longpetronella}{%
-  \index[mvp]{Petronella}%
-  \imki@wrindexentry{mvd}{Petronella}{\arabic{dance}}%
+  \moveindex{Petronella}%
   \@ifstar\@longpetronellaStar\@longpetronellaNoStar%
 }
 \newcommand*{\@longpetronellaNoStar}[1][\unskip]{%
@@ -1131,8 +1138,7 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % \code{\textbackslash halfpromenade} command is fixed at 8 beats.
 %    \begin{macrocode}
 \newcommand*{\promenade}{%
-  \index[mvp]{Promenade}%
-  \imki@wrindexentry{mvd}{Promenade}{\arabic{dance}}%
+  \moveindex{Promenade}
   \@ifstar\@promenadeStar\@promenadeNoStar%
 }
 \newcommand*{\@promenadeNoStar}[2][\unskip]{%
@@ -1142,10 +1148,8 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
   \move[#2]{\ignorespaces#1\unskip\ promenade}%
 }
 \newcommand*{\halfpromenade}{%
-  \index[mvp]{Promenade}%
-  \imki@wrindexentry{mvd}{Promenade}{\arabic{dance}}%
-  \index[mvp]{Half Promenade}%
-  \imki@wrindexentry{mvd}{Half Promenade}{\arabic{dance}}%
+  \moveindex{Promenade}%
+  \moveindex{Half Promenade}%
   \@ifstar\@halfpromenadeStar\@halfpromenadeNoStar%
 }
 \newcommand*{\@halfpromenadeNoStar}[2][\unskip]{%
@@ -1171,17 +1175,13 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % Creates a right and left through (aka. rights and lefts).
 %    \begin{macrocode}
 \newcommand*{\rightandleftthrough}{%
-  \index[mvp]{Right and left through}%
-  \index[mvp]{Rights and lefts|seealso{Right and left through}}%
-  \imki@wrindexentry{mvd}{Right and left through}{\arabic{dance}}%
-  \index[mvd]{Rights and lefts|seealso{Right and left through}}%
+  \moveindex{Right and left through}%
+  \moveindex{Rights and lefts|seealso{Right and left through}}%
   \@ifstar\@rlStar\@rlNoStar%
 }
 \newcommand*{\rightsandlefts}{%
-  \index[mvp]{Right and left through}%
-  \index[mvp]{Rights and lefts|seealso{Right and left through}}%
-  \imki@wrindexentry{mvd}{Right and left through}{\arabic{dance}}%
-  \index[mvd]{Rights and lefts|seealso{Right and left through}}%
+  \moveindex{Right and left through}%
+  \moveindex{Rights and lefts|seealso{Right and left through}}%
   \@ifstar\@rlStar\@rlNoStar%
 }
 \newcommand*{\@rlNoStar}[1][\unskip]{%
@@ -1204,8 +1204,7 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % and also one of the simplest commands in this package.
 %    \begin{macrocode}
 \newcommand*{\swing}{%
-  \index[mvp]{Swing}%
-  \imki@wrindexentry{mvd}{Swing}{\arabic{dance}}%
+  \moveindex{Swing}%
   \@ifstar\@swingStar\@swingNoStar%
 }
 \newcommand*{\@swingNoStar}[2][\unskip]{%
