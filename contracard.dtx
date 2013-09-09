@@ -188,6 +188,8 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % \changes{0.4}{2013/02/22}{Add list of dances}
 % \changes{0.4}{2013/02/22}{Add \pkg{tocloft} package to requirements}
 % \changes{1.0.0}{2013/09/06}{Add Unicode (\XeLaTeX\ and \LuaLaTeX) support}
+% \changes{1.0.0}{2013/09/06}{Start using \href{http://semver.org}{Semantic
+% Versioning}}
 %
 % \section{Building and using \pkg{contracard}}
 %
@@ -1322,11 +1324,19 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
   \PassOptionsToPackage{\CurrentOption}{contracard}%
 }
 %    \end{macrocode}
-% The \code{small} option creates a 127.0 by 76.2 mm (5 by 3 in) card.
-% The \code{medium} option creates a 152.4 by 101.6 mm (6 by 4 in) card.
-% The \code{large} option creates a 203.2 by 27.0 mm (8 by 5 in) card.
-% The \code{a7paper} option creates a 105 by 74 mm (4.1 by 2.9 in) card.
-% Any unrecognized options are passed to the \pkg{contracard} package.
+% These options produce cards with the sizes summarized in the table below. Any
+% unrecognized options are passed to the \pkg{contracard} package.
+%
+% \begin{center}
+% \begin{tabular}{ l l l }
+%  Option & Size (mm) & Size (in) \\
+%  \hline
+%  \code{small}   & 127.0 $\times$ 76.2  & 5.0 $\times$ 3.0 \\
+%  \code{medium}  & 152.4 $\times$ 101.6 & 6.0 $\times$ 4.0 \\
+%  \code{large}   & 203.2 $\times$ 27.0  & 8.0 $\times$ 5.0 \\
+%  \code{a7paper} & 105.0 $\times$ 74.0  & 4.1 $\times$ 2.9 \\
+% \end{tabular}
+% \end{center}
 % \end{macro}
 % \end{macro}
 % \end{macro}
