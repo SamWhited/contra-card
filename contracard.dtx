@@ -370,6 +370,56 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % \end{macro}
 % \end{macro}
 % \end{macro}
+
+% \begin{macro}{\countleftbracket}
+% \changes{1.0.0}{2013/09/10}{Add ability to change count brackets}
+% \begin{macro}{\countrightbracket}
+% \changes{1.0.0}{2013/09/10}{Add ability to change count brackets}
+% These commands can be used to change the left and right brackets which are
+% inserted on around the count as discussed above. By default, they are set to
+% plain left and right parenthesis.
+%    \begin{macrocode}
+\def\cc@countleftbracket{(}
+\def\cc@countrightbracket{)}
+\newcommand*{\countleftbracket}[1]{\def\cc@countleftbracket{#1}}
+\newcommand*{\countrightbracket}[1]{\def\cc@countrightbracket{#1}}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% For instance, a dance with the count shown afterwards (and the default
+% brackets) looks like this:
+%
+% \begin{exampledance}
+% \showcountafter%
+% \begin{contra}{Whirling dervish}{Sam Whited}{Duple improper}
+%   \gypsy[neighbor 1\textthreequarters]{8}
+%   \move[8]{Men half hey ricochet while ladies cross%
+%   \unskip\moveindex{Hey For Four}%
+%   \unskip\moveindex{Half Hey}%
+%   }
+%   \swing[your partners all]{16}
+%   \move[8]{Spin like a Whirling Dervish\moveindex{Whirling Dervish}}
+%   \balanceand\longpetronella
+%   \balanceand\move[8]{gents roll neighbor away with a half sashay\moveindex{Half
+%   Sashay}\moveindex{Roll Away}\moveindex{Roll Away\ldots Half Sashay}}
+%   \move[8]{Balance neighbor and gypsy left 1 time to new
+%   neighbors\moveindex{Balance}\moveindex{Gypsy}\moveindex{Gypsy Left}}
+%   \vspace*{\fill}
+%   \begin{flushleft}
+%     {\footnotesize \textbf{Notes} A ``Whirling Dervish" is just a circle left
+%     in single file except that you should spin over your left shoulder the
+%     entire time you're doing it.}
+%   \end{flushleft}
+%   \vspace*{\fill}
+%   \begin{flushright}
+%   \href{http://creativecommons.org/licenses/by/3.0/}{%
+%     \IfFileExists{by.png}{%
+%       \includegraphics[width=1cm]{by.png}%
+%     }{\cc\by}}
+%   \end{flushright}
+% \end{contra}
+% \end{exampledance}
 %
 % \section{Counters}
 %
@@ -607,11 +657,11 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
   \addtocounter{dancemovenum}{1}%
   \ifthenelse{\isundefined{\@showcountbefore}\OR\(#1=0\)}{%
     \relax%
-  }{(\ignorespaces#1\unskip)~}%
+  }{\cc@countleftbracket\ignorespaces#1\unskip\cc@countrightbracket~}%
   \ignorespaces#2\unskip%
   \ifthenelse{\isundefined{\@showcountafter}\OR\(#1=0\)}{%
     \relax%
-  }{~(\ignorespaces#1\unskip)}%
+  }{~\cc@countleftbracket\ignorespaces#1\unskip\cc@countrightbracket}%
   \ifthenelse{\NOT\(#1=0\)}{%
     \ifthenelse{\value{phrasecount}=\value{dancephraselength}}{%
       \pagebreak[1]\phraseseparator%
