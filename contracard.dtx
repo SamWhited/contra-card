@@ -654,8 +654,8 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 \newcommand*{\@allemandeNoStar}[3][\unskip]{%
   \move[#2]{Allemande \ignorespaces#3\unskip\ \ignorespaces#1\unskip}%
 }
-\newcommand*{\@allemandeStar}[3][\unskip]{%
-  \move[#2]{\ignorespaces#3\unskip\ \ignorespaces#1\unskip\ allemande}%
+\newcommand*{\@allemandeStar}[3][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
+  \move[#2]{\ignorespaces#1\unskip\ allemande \ignorespaces#3\unskip}%
 }
 %    \end{macrocode}
 % \end{macro}
