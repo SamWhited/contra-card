@@ -601,16 +601,13 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
   \addtocounter{phrasemovenum}{1}%
   \addtocounter{partmovenum}{1}%
   \addtocounter{dancemovenum}{1}%
-  \ifthenelse{\isundefined{\@showcountbefore}\OR%
-    \(#1=0\)}{%
+  \ifthenelse{\isundefined{\@showcountbefore}\OR\(#1=0\)}{%
     \relax%
   }{(\ignorespaces#1\unskip)\ }%
   \ignorespaces#2\unskip%
-  \ifx\@showcountafter\undefined%
+  \ifthenelse{\isundefined{\@showcountafter}\OR\(#1=0\)}{%
     \relax%
-  \else%
-    \ (\ignorespaces#1\unskip)%
-  \fi%
+  }{\ (\ignorespaces#1\unskip)}%
   \ifthenelse{\NOT\(#1=0\)}{%
     \ifthenelse{\value{phrasecount}=\value{dancephraselength}}{%
       \pagebreak[1]\phraseseparator%
