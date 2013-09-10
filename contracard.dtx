@@ -540,8 +540,12 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
   \resetdancepart*
   \resetdancephrase*
   \ifdefined\@ccisclass\clearpage\fi%
-  \index[dbt]{\ignorespaces#4\unskip}
-  \index[dba]{\ignorespaces#3\unskip}
+  \ifthenelse{\isundefined{\imki@wrindexentry}}{%
+    \index{\ignorespaces#4\unskip}
+  }{%
+    \index[dbt]{\ignorespaces#4\unskip}
+    \index[dba]{\ignorespaces#3\unskip}
+  }%
   \begin{\dancetitleenv}
     \ifdefined\@ccisclass%
       \pagestyle{myheadings}
@@ -1250,12 +1254,20 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 \newcommand*{\moveindex}{\@ifstar\moveindexStar\moveindexNoStar}
 \newcommand*{\moveindexStar}[1]{%
   #1%
-  \index[mvp]{#1}%
-  \imki@wrindexentry{mvd}{#1}{\arabic{dance}}%
+  \ifthenelse{\isundefined{\imki@wrindexentry}}{%
+    \index{#1}%
+  }{%
+    \index[mvp]{#1}%
+    \imki@wrindexentry{mvd}{#1}{\arabic{dance}}%
+  }%
 }
 \newcommand*{\moveindexNoStar}[1]{%
-  \index[mvp]{#1}%
-  \imki@wrindexentry{mvd}{#1}{\arabic{dance}}%
+  \ifthenelse{\isundefined{\imki@wrindexentry}}{%
+    \index{#1}%
+  }{%
+    \index[mvp]{#1}%
+    \imki@wrindexentry{mvd}{#1}{\arabic{dance}}%
+  }%
 }
 %    \end{macrocode}
 % \end{macro}
