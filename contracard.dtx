@@ -527,12 +527,14 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
   \setcounter{dancepart}{1}%
   \setcounter{partcount}{0}%
   \setcounter{partmovenum}{0}%
+  \setcounter{halfpartmovenum}{0}%
 }
 \newcommand*{\@resetdancepartNoStar}{%
   \ifthenelse{\value{dancepart}=1}{}{%
     \setcounter{dancepart}{1}%
     \setcounter{partcount}{0}%
     \setcounter{partmovenum}{0}%
+    \setcounter{halfpartmovenum}{0}%
   }%
 }
 %    \end{macrocode}
@@ -555,10 +557,11 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
   \resetdancepart*%
 }
 \newcommand*{\newdancepart}{%
-  \hspace*{\fill}\\*
+  \hspace*{\fill}\par\nopagebreak
   \addtocounter{dancepart}{1}%
   \setcounter{partcount}{0}%
   \setcounter{partmovenum}{0}%
+  \setcounter{halfpartmovenum}{0}%
 }
 %    \end{macrocode}
 % \end{macro}
@@ -570,6 +573,8 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % \changes{1.0.0}{2013/09/05}{Add counter for the number of moves in the phrase}
 % \begin{macro}{partmovenum}
 % \changes{1.0.0}{2013/09/05}{Add counter for the number of moves in the part}
+% \begin{macro}{halfpartmovenum}
+% \changes{1.0.0}{2013/09/10}{Add counter for the number of moves in half the part}
 % \begin{macro}{dancemovenum}
 % \changes{1.0.0}{2013/09/05}{Add counter for the number of moves in the dance}
 % The following counters are used to keep track of the number of moves that have
@@ -578,11 +583,14 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 %    \begin{macrocode}
 \newcounter{phrasemovenum}
 \newcounter{partmovenum}
+\newcounter{halfpartmovenum}
 \newcounter{dancemovenum}
 \setcounter{phrasemovenum}{0}
 \setcounter{partmovenum}{0}
+\setcounter{halfpartmovenum}{0}
 \setcounter{dancemovenum}{0}
 %    \end{macrocode}
+% \end{macro}
 % \end{macro}
 % \end{macro}
 % \end{macro}
@@ -674,6 +682,7 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
   \addtocounter{partcount}{#1}%
   \addtocounter{phrasemovenum}{1}%
   \addtocounter{partmovenum}{1}%
+  \addtocounter{halfpartmovenum}{1}%
   \addtocounter{dancemovenum}{1}%
   \ifthenelse{\isundefined{\@showcountbefore}\OR\(#1=0\)}{%
     \relax%
@@ -685,6 +694,9 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
   \ifthenelse{\NOT\(#1=0\)}{%
     \ifthenelse{\value{phrasecount}=\value{dancephraselength}}{%
       \pagebreak[1]\phraseseparator%
+    }{}%
+    \ifthenelse{\value{partcount}=\intcalcDiv{\value{dancepartlength}}{2}}{%
+      \setcounter{halfpartmovenum}{0}%
     }{}%
     \ifx\cc@moveStar\undefined%
       \ifthenelse{\value{partcount}=\intcalcDiv{\value{dancepartlength}}{2}}{%
@@ -1433,6 +1445,10 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % \begin{macro}{a7paper}
 % The class can be loaded with any of the following options:
 %    \begin{macrocode}
+\AtBeginDocument{\large}
+\PassOptionsToPackage{%
+  margin=0.5in,top=0.75in,paperwidth=6in,paperheight=4in%
+}{geometry}%
 \DeclareOption{small}{%
   \AtBeginDocument{%
     \titleformat{\section}{\normalsize\bfseries}{\thesection}{1em}{}%
