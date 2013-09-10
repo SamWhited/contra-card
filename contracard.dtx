@@ -210,7 +210,7 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 %
 %    \begin{macrocode}
 %<*contracard-pkg>
-\RequirePackage{intcalc}
+\RequirePackage{calc,intcalc}
 \RequirePackage{ifthen}
 \RequirePackage{tocloft}
 \RequirePackage{textcomp}
@@ -405,12 +405,9 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 %   Sashay}\moveindex{Roll Away}\moveindex{Roll Away\ldots Half Sashay}}
 %   \move[8]{Balance neighbor and gypsy left 1 time to new
 %   neighbors\moveindex{Balance}\moveindex{Gypsy}\moveindex{Gypsy Left}}
-%   \vspace*{\fill}
-%   \begin{flushleft}
-%     {\footnotesize \textbf{Notes} A ``Whirling Dervish" is just a circle left
-%     in single file except that you should spin over your left shoulder the
-%     entire time you're doing it.}
-%   \end{flushleft}
+%   \notes{A ``Whirling Dervish" is just a circle left in single file except
+%   that you should spin over your left shoulder the entire time you're doing
+%   it.}
 %   \vspace*{\fill}
 %   \begin{flushright}
 %   \href{http://creativecommons.org/licenses/by/3.0/}{%
@@ -420,6 +417,23 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 %   \end{flushright}
 % \end{contra}
 % \end{exampledance}
+%
+% \begin{macro}{\setdefaultnotesenv}
+% \changes{1.0.0}{2013/09/10}{Allow changing the default notes environment}
+% \begin{macro}{\setprenotevspace}
+% \changes{1.0.0}{2013/09/10}{Allow changing the default notes vspace}
+% You might have noticed the nicely formatted notes in the previous example. By
+% default, all notes are set using the \code{flushleft} environment, and with
+% \code{\textbackslash fill} amount of vspace before them. This can be changed
+% with these commands.
+%    \begin{macrocode}
+\def\cc@defaultnotesenv{flushleft}
+\newcommand*{\setdefaultnotesenv}[1]{\def\cc@defaultnotesenv{#1}}
+\def\cc@prenotevspace{\fill}
+\newcommand*{\setprenotevspace}[1]{\def\cc@prenotesvpsace{#1}}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
 %
 % \section{Counters}
 %
@@ -534,7 +548,7 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % The user can also manually start a new phrase or part:
 %    \begin{macrocode}
 \newcommand*{\newdancephrase}{%
-  \ifthenelse{\NOT\value{phrasecount}=0}{\hspace*{\fill}\newline}{}%
+  \ifthenelse{\NOT\value{phrasecount}=0}{\par}{}%
   \addtocounter{dancephrase}{1}%
   \setcounter{phrasecount}{0}%
   \setcounter{phrasemovenum}{0}%
@@ -625,6 +639,7 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % \begin{macro}{\move}
 % \changes{0.1}{2013/02/14}{Add move command}
 % \changes{0.3}{2013/02/21}{Simplify dance logic using new counters}
+% \changes{1.0.0}{2013/09/10}{Improve indentation and line spacing}
 % \begin{macro}{\move*}
 % The next thing we need to define is the \code{\textbackslash move} command.
 % This command takes in a move to display, and (optionally) the number of counts
@@ -634,7 +649,12 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 \newcommand*{\@moveStar}[2][8]{%
   \def\cc@moveStar{}\@moveNoStar[#1]{#2}\let\cc@moveStar\undefined%
 }
+\newlength{\cc@partsepwidth}%
 \newcommand*{\@moveNoStar}[2][8]{%
+  \parindent=0pt%
+  \setlength{\cc@partsepwidth}{\widthof{\Alph{dancephrase}\arabic{dancepart}%
+    \partdelimiter\ }}%
+  \hangindent=\cc@partsepwidth%
   \ifthenelse{\value{phrasecount}=\value{dancephraselength}}{%
     \ifthenelse{\NOT\(#1=0\)}{%
       \newdancephrase%
@@ -1368,6 +1388,25 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}{\notes}
+% \changes{1.0.0}{2013/09/10}{Make adding notes easier}
+% This macro can be used to insert some nicely formatted notes at the end of
+% your calling cards. Just use it in the \code{contra} environment right after
+% your last move.
+%    \begin{macrocode}
+\newcommand*{\notes}[2][\cc@defaultnotesenv]{%
+  \nopagebreak\par\nopagebreak\vspace*{\cc@prenotevspace}
+  \begin{\cc@defaultnotesenv}
+    \def\cc@notestitle{\textbf{\ignorespaces Notes\unskip}}%
+    \parindent=0pt%
+    \setlength{\cc@partsepwidth}{\widthof{\footnotesize \cc@notestitle~}}%
+    \hangindent=\cc@partsepwidth%
+    {\footnotesize \cc@notestitle~\ignorespaces#2\unskip}%
+  \end{\cc@defaultnotesenv}
+}
+%    \end{macrocode}
+% \end{macro}
+%
 %    \begin{macrocode}
 \ProcessOptions\relax
 %</contracard-pkg>
@@ -1490,13 +1529,10 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 %   \balanceand\longpetronella
 %   \swing*[Partner]{8}
 %   \rightandleftthrough*[Left diagonal:]
-%   \begin{flushleft}
-%     {\footnotesize \textbf{Notes} The Neighbor dosido into a partner see saw
-%     should be one fluid motion. Resist spinning in the dosido, and start
-%     revolving slowly over your right shoulder as you enter the see saw and
-%     everything will flow. Make sure lines have \textbf{lots} of space for the
-%     dosido.}
-%   \end{flushleft}
+%   \notes{The Neighbor dosido into a partner see saw should be one fluid
+%   motion. Resist spinning in the dosido, and start revolving slowly over your
+%   right shoulder as you enter the see saw and everything will flow. Make sure
+%   lines have \textbf{lots} of space for the dosido.}
 %   \vspace*{\fill}
 %   \begin{flushright}
 %   \href{http://creativecommons.org/licenses/by/3.0/}{%
@@ -1516,13 +1552,10 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 %   \balanceand\longpetronella
 %   \swing*[Partner]{8}
 %   \rightandleftthrough*[Left diagonal:]
-%   \begin{flushleft}
-%     {\footnotesize \textbf{Notes} The Neighbor dosido into a partner see saw
-%     should be one fluid motion. Resist spinning in the dosido, and start
-%     revolving slowly over your right shoulder as you enter the see saw and
-%     everything will flow. Make sure lines have \textbf{lots} of space for the
-%     dosido.}
-%   \end{flushleft}
+%   \notes{The Neighbor dosido into a partner see saw should be one fluid
+%   motion. Resist spinning in the dosido, and start revolving slowly over your
+%   right shoulder as you enter the see saw and everything will flow. Make sure
+%   lines have \textbf{lots} of space for the dosido.}
 %   \vspace*{\fill}
 %   \begin{flushright}
 %   \href{http://creativecommons.org/licenses/by/3.0/}{%
