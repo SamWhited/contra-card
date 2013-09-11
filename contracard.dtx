@@ -1460,7 +1460,20 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % \begin{macro}{medium}
 % \begin{macro}{large}
 % \begin{macro}{a7paper}
-% The class can be loaded with any of the following options:
+% The class can be loaded with any of the following options.  These options
+% produce cards with the sizes summarized in the table below. Any unrecognized
+% options are passed to the \pkg{contracard} package.
+%
+% \begin{center}
+% \begin{tabular}{ l l l }
+%  Option & Size (mm) & Size (in) \\
+%  \hline
+%  \code{small}   & 127.0 $\times$ 76.2  & 5.0 $\times$ 3.0 \\
+%  \code{medium}  & 152.4 $\times$ 101.6 & 6.0 $\times$ 4.0 \\
+%  \code{large}   & 203.2 $\times$ 27.0  & 8.0 $\times$ 5.0 \\
+%  \code{a7paper} & 105.0 $\times$ 74.0  & 4.1 $\times$ 2.9 \\
+% \end{tabular}
+% \end{center}
 %    \begin{macrocode}
 \AtBeginDocument{\large}
 \PassOptionsToPackage{%
@@ -1500,19 +1513,6 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
   \PassOptionsToPackage{\CurrentOption}{contracard}%
 }
 %    \end{macrocode}
-% These options produce cards with the sizes summarized in the table below. Any
-% unrecognized options are passed to the \pkg{contracard} package.
-%
-% \begin{center}
-% \begin{tabular}{ l l l }
-%  Option & Size (mm) & Size (in) \\
-%  \hline
-%  \code{small}   & 127.0 $\times$ 76.2  & 5.0 $\times$ 3.0 \\
-%  \code{medium}  & 152.4 $\times$ 101.6 & 6.0 $\times$ 4.0 \\
-%  \code{large}   & 203.2 $\times$ 27.0  & 8.0 $\times$ 5.0 \\
-%  \code{a7paper} & 105.0 $\times$ 74.0  & 4.1 $\times$ 2.9 \\
-% \end{tabular}
-% \end{center}
 % \end{macro}
 % \end{macro}
 % \end{macro}
