@@ -421,17 +421,17 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 %
 % \begin{macro}{\setdefaultnotesenv}
 % \changes{1.0.0}{2013/09/10}{Allow changing the default notes environment}
-% \begin{macro}{\setprenotevspace}
+% \begin{macro}{\prenotevspace}
 % \changes{1.0.0}{2013/09/10}{Allow changing the default notes vspace}
 % You might have noticed the nicely formatted notes in the previous example. By
 % default, all notes are set using the \code{flushleft} environment, and with
-% \code{\textbackslash fill} amount of vspace before them. This can be changed
-% with these commands.
+% \code{\textbackslash fill} amount of vspace before them. This can easily be
+% changed.
 %    \begin{macrocode}
 \def\cc@defaultnotesenv{flushleft}
 \newcommand*{\setdefaultnotesenv}[1]{\def\cc@defaultnotesenv{#1}}
-\def\cc@prenotevspace{\fill}
-\newcommand*{\setprenotevspace}[1]{\def\cc@prenotevpsace{#1}}
+\newlength{\prenotevspace}
+\setlength{\prenotevspace}{\fill}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -1423,7 +1423,7 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % your last move.
 %    \begin{macrocode}
 \newcommand*{\notes}[2][\cc@defaultnotesenv]{%
-  \par\nopagebreak\vspace*{\cc@prenotevspace}
+  \par\nopagebreak\vspace*{\prenotevspace}
   \begin{\cc@defaultnotesenv}
     \setlength{\baselineskip}{1.1em plus 0.1em minus 0.2em}
     \def\cc@notestitle{\textbf{\ignorespaces Notes\unskip}}%
