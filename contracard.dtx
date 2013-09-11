@@ -1148,6 +1148,63 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % \end{macro}
 % \end{macro}
 %
+% \begin{macro}{\rollaway}
+% \changes{1.0.0}{2013/09/10}{Add move shortcut}
+% \begin{macro}{\rollaway*}
+% \changes{1.0.0}{2013/09/10}{Add move shortcut}
+% \begin{macro}{\rollawayhalfsashay}
+% \changes{1.0.0}{2013/09/10}{Add move shortcut}
+% \begin{macro}{\rollawayhalfsashay*}
+% \changes{1.0.0}{2013/09/10}{Add move shortcut}
+% \begin{macro}{\rawhs}
+% \changes{1.0.0}{2013/09/10}{Add move shortcut}
+% \begin{macro}{\rawhs*}
+% \changes{1.0.0}{2013/09/10}{Add move shortcut}
+% ``Roll away" and ``roll away with a half sashay" may sound similar, but the
+% macros that produce them are a bit different. The \code{\textbackslash
+% rollaway} macro works exactly like most macros here: It takes a single
+% optional argument, and the star version rewords things a bit (it takes no
+% count argument since that's always 4 beats for this figure). The
+% \code{\textbackslash rollawaywithahalfsashay} macro (and its shorter alias:
+% \code{\textbackslash rawhs}) on the other hand, takes a single optional
+% argument unless you use the splat version in which case it takes a single
+% optional argument \emph{and} a required argument. This allows you to reword
+% things (just like the other commands) by leaving off the optional argument,
+% but also allows you to make more complicated roll aways such as
+% \code{\textbackslash rawhs*{[the gents]}\{Ladies\}} which would be typeset as:
+% ``Ladies roll the gents away with a half sashay".
+%    \begin{macrocode}
+\newcommand*{\rollaway}{%
+  \moveindex{Roll away}%
+  \@ifstar\@rollawayStar\@rollawayNoStar%
+}
+\newcommand*{\rawhs}{\rollawayhalfsashay}
+\newcommand*{\rollawayhalfsashay}{%
+  \moveindex{Roll Away}%
+  \moveindex{Roll Away with a Half Sashay}%
+  \moveindex{Half Sashay}%
+  \@ifstar\@rawhsStar\@rawhsNoStar%
+}
+\newcommand*{\@rollawayNoStar}[1][\unskip]{%
+  \move[4]{Roll away \ignorespaces#1\unskip}%
+}
+\newcommand*{\@rollawayStar}[1][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
+  \move[4]{\ignorespaces#1\unskip\ roll away}%
+}
+\newcommand*{\@rawhsNoStar}[1][\unskip]{%
+  \move[4]{Roll \ignorespaces#1\unskip\ away with a half sashay}%
+}
+\newcommand*{\@rawhsStar}[2][\unskip]{%
+  \move[4]{\ignorespaces#2\unskip\ roll \ignorespaces#1\unskip\ away with a half sashay}%
+}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
 % \begin{macro}{\starleft}
 % \changes{1.0.0}{2013/09/09}{Add move shortcut}
 % \begin{macro}{\starleft*}
@@ -1181,6 +1238,31 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % \end{macro}
 % \end{macro}
 %
+% \begin{macro}{\sashay}
+% \changes{1.0.0}{2013/09/10}{Add move shortcut}
+% \begin{macro}{\sashay*}
+% \changes{1.0.0}{2013/09/10}{Add move shortcut}
+% The sashay command, like \code{\textbackslash rawhs} takes a different number
+% of arguments if you use the starred version. The normal version takes an
+% optional argument and the required count, while the starred version takes the
+% same optional argument, the required count, and another required argument. For
+% instance, \code{\textbackslash sashay*{[down and back]}\{8\}\{Ladies\}} would
+% create the move: ``Ladies sashay down and back''.
+%    \begin{macrocode}
+\newcommand*{\sashay}{%
+  \moveindex{Sashay}%
+  \@ifstar\@sashayStar\@sashayNoStar%
+}
+\newcommand*{\@sashayNoStar}[2][\unskip]{%
+  \move[#2]{Sashay \ignorespaces#1\unskip}%
+}
+\newcommand*{\@sashayStar}[3][\unskip]{%
+  \move[#2]{\ignorespaces#3\unskip\ sashay \ignorespaces#1\unskip}%
+}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
 % \begin{macro}{\swing}
 % \changes{1.0.0}{2013/09/06}{Add move shortcut}
 % \begin{macro}{\swing*}
@@ -1202,6 +1284,52 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % \end{macro}
 % \end{macro}
 %
+% \begin{macro}{\turnalone}
+% \changes{1.0.0}{2013/09/10}{Add move shortcut}
+% \begin{macro}{\turnalone*}
+% \changes{1.0.0}{2013/09/10}{Add move shortcut}
+% \begin{macro}{\turncouple}
+% \changes{1.0.0}{2013/09/10}{Add move shortcut}
+% \begin{macro}{\turncouple*}
+% \changes{1.0.0}{2013/09/10}{Add move shortcut}
+% \begin{macro}{\turntogether}
+% \changes{1.0.0}{2013/09/10}{Add move shortcut}
+% \begin{macro}{\turntogether*}
+% \changes{1.0.0}{2013/09/10}{Add move shortcut}
+%    \begin{macrocode}
+% ``Turn alone" and ``Turn as a couple" aren't exactly dance figures; just
+% directions that are often placed at the end of other figures. For this reason,
+% they all take up 0 logical counts of music and should be appended to the end
+% of other commands. The normal \code{\textbackslash turnalone} command takes an
+% optional argument which can be used to add some text after `alone'. The
+% starred version of the command is exactly the same, except that it also has a
+% required argument, a number of counts (for those times when you want it to
+% actually take up time in the music and not just be part of another move).
+\newcommand*{\turnalone}{%
+  \moveindex{Turn Alone}%
+  \def\cc@who{alone}
+  \@ifstar\@turnaloneStar\@turnaloneNoStar%
+}
+\newcommand*{\turncouple}{\turntogether}
+\newcommand*{\turntogether}{%
+  \moveindex{Turn as a Couple}%
+  \moveindex{Turn Together|see{Turn as a Couple}}%
+  \def\cc@who{as a couple}
+  \@ifstar\@turnStar\@turnNoStar%
+}
+\newcommand*{\@turnNoStar}[1][\unskip]{%
+  \move[0]{turn \cc@who\ \ignorespaces#1\unskip}%
+}
+\newcommand*{\@turnStar}[2][\unskip]{%
+  \move[#2]{Turn \cc@who\ \ignorespaces#1\unskip}%
+}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
 %
 % \section{Lists and Indices}
 %
