@@ -1034,6 +1034,45 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % \end{macro}
 % \end{macro}
 %
+% \begin{macro}{\lines}
+% \changes{1.0.0}{2013/09/11}{Add move shortcut}
+% \begin{macro}{\lines*}
+% \changes{1.0.0}{2013/09/11}{Add move shortcut}
+% \begin{macro}{\longlines}
+% \changes{1.0.0}{2013/09/11}{Add move shortcut}
+% \begin{macro}{\longlines*}
+% \changes{1.0.0}{2013/09/11}{Add move shortcut}
+% The \code{\textbackslash lines} macro takes a single optional argument: The
+% type of lines (eg. `short', `long', etc.). Using the starred version of the
+% command tells the lines to go forward (4 counts) but not back. Since long
+% lines are so common, an alias is provided just for them.
+%    \begin{macrocode}
+\newcommand*{\lines}{%
+  \moveindex{Lines Forward and Back}%
+  \@ifstar\@linesStar\@linesNoStar%
+}
+\newcommand*{\@linesNoStar}[1][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
+  \move[8]{\ignorespaces#1\unskip\ lines forward and back}%
+}
+\newcommand*{\@linesStar}[1][lines]{%
+  \move[4]{\ignorespaces#1\unskip\ lines forward}%
+}
+\newcommand*{\longlines}{%
+  \moveindex{Long Lines Forward and Back|see{Lines Forward and Back}}%
+  \@ifstar\@longlinesStar\@longlinesNoStar%
+}
+\newcommand*{\@longlinesNoStar}{%
+  \lines[Long]%
+}
+\newcommand*{\@longlinesStar}{%
+  \lines*[Long]%
+}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
 % \begin{macro}{\petronella}
 % \changes{1.0.0}{2013/09/08}{Add move shortcut}
 % \begin{macro}{\petronella*}
