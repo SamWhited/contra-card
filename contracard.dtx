@@ -1652,9 +1652,11 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % \begin{macro}{medium}
 % \begin{macro}{large}
 % \begin{macro}{a7paper}
-% The class can be loaded with any of the following options.  These options
-% produce cards with the sizes summarized in the table below. Any unrecognized
-% options are passed to the \pkg{contracard} package.
+% \begin{macro}{draft}
+% \changes{1.0.0}{2013/09/11}{Pass option through to \code{article} class}
+% The class can be loaded with any of the following options. The various size
+% options are summarized in the table below. Any unrecognized options are passed
+% to the \pkg{contracard} package.
 %
 % \begin{center}
 % \begin{tabular}{ l l l }
@@ -1701,10 +1703,14 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
     margin=5mm,top=15mm,paperwidth=105mm,paperheight=74mm%
   }{geometry}%
 }
+\DeclareOption{draft}{%
+  \PassOptionsToClass{draft}{article}%
+}
 \DeclareOption*{%
   \PassOptionsToPackage{\CurrentOption}{contracard}%
 }
 %    \end{macrocode}
+% \end{macro}
 % \end{macro}
 % \end{macro}
 % \end{macro}
