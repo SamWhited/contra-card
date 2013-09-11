@@ -606,6 +606,9 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % the header.
 %    \begin{macrocode}
 \newenvironment{contra}[4][\defaultcontraenv]{%
+  \global\def\dancetitle{\ignorespaces#2\unskip}
+  \global\def\danceauthor{\ignorespaces#3\unskip}
+  \global\def\danceform{\ignorespaces#4\unskip}
   \setlength{\parskip}{0.3em plus 0.2em minus 0.3em}
   \refstepcounter{dance}
   \addcontentsline{lod}{dance}{\protect\numberline{\thedance}\ignorespaces#2\unskip}
@@ -1327,6 +1330,28 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % \end{macro}
 % \end{macro}
 % \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \section{Dance information}
+%
+% The following macros give information about the current (or previous, if
+% you're not in a dance environment) dance. They can be used for things like
+% adding the dance name and number to the header in a book, referencing the
+% dance author in footnotes, etc.
+%
+% \begin{macro}{\dancetitle}
+% \changes{1.0.0}{2013/09/11}{New macro}
+% \begin{macro}{\danceauthor}
+% \changes{1.0.0}{2013/09/11}{New macro}
+% \begin{macro}{\danceform}
+% \changes{1.0.0}{2013/09/11}{New macro}
+%    \begin{macrocode}
+\newcommand*{\dancetitle}{}
+\newcommand*{\danceauthor}{}
+\newcommand*{\danceform}{}
+%    \end{macrocode}
 % \end{macro}
 % \end{macro}
 % \end{macro}
