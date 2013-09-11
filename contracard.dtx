@@ -1273,6 +1273,20 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % project is called \fname{root.tex} you'll want to run: \code{splitindex root}.
 % \end{macro}
 %
+% \begin{macro}{\pauseindexing}
+% \changes{1.0.0}{2013/09/10}{New command}
+% \begin{macro}{\resumeindexing}
+% \changes{1.0.0}{2013/09/10}{New command}
+% On occasion you might have a dance that you don't want to include in the index
+% for some reason. When this happens, you can temporarily disable indexing (and
+% later enable it again).
+%    \begin{macrocode}
+\newcommand*{\pauseindexing}{\def\cc@indexingpaused{}}
+\newcommand*{\resumeindexing}{\let\cc@indexingpaused\undefined}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
 % \begin{macro}{\cc@dbt}
 % \changes{1.0.0}{2013/09/08}{New command}
 % \begin{macro}{\cc@dba}
@@ -1334,20 +1348,24 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 \newcommand*{\moveindex}{\@ifstar\moveindexStar\moveindexNoStar}
 \newcommand*{\moveindexStar}[1]{%
   #1%
-  \ifthenelse{\isundefined{\imki@wrindexentry}}{%
-    \index{#1}%
-  }{%
-    \index[mvp]{#1}%
-    \imki@wrindexentry{mvd}{#1}{\arabic{dance}}%
-  }%
+  \ifthenelse{\isundefined{\cc@indexingpaused}}{%
+    \ifthenelse{\isundefined{\imki@wrindexentry}}{%
+      \index{#1}%
+    }{%
+      \index[mvp]{#1}%
+      \imki@wrindexentry{mvd}{#1}{\arabic{dance}}%
+    }%
+  }{}%
 }
 \newcommand*{\moveindexNoStar}[1]{%
-  \ifthenelse{\isundefined{\imki@wrindexentry}}{%
-    \index{#1}%
-  }{%
-    \index[mvp]{#1}%
-    \imki@wrindexentry{mvd}{#1}{\arabic{dance}}%
-  }%
+  \ifthenelse{\isundefined{\cc@indexingpaused}}{%
+    \ifthenelse{\isundefined{\imki@wrindexentry}}{%
+      \index{#1}%
+    }{%
+      \index[mvp]{#1}%
+      \imki@wrindexentry{mvd}{#1}{\arabic{dance}}%
+    }%
+  }{}%
 }
 %    \end{macrocode}
 % \end{macro}
