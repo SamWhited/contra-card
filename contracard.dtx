@@ -605,6 +605,7 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % the header.
 %    \begin{macrocode}
 \newenvironment{contra}[4][\defaultcontraenv]{%
+  \setlength{\parskip}{0.3em plus 0.2em minus 0.3em}
   \refstepcounter{dance}
   \addcontentsline{lod}{dance}{\protect\numberline{\thedance}\ignorespaces#2\unskip}
   \setcounter{dancecount}{0}
@@ -1407,8 +1408,9 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % your last move.
 %    \begin{macrocode}
 \newcommand*{\notes}[2][\cc@defaultnotesenv]{%
-  \nopagebreak\par\nopagebreak\vspace*{\cc@prenotevspace}
+  \par\nopagebreak\vspace*{\cc@prenotevspace}
   \begin{\cc@defaultnotesenv}
+    \setlength{\baselineskip}{1.1em plus 0.1em minus 0.2em}
     \def\cc@notestitle{\textbf{\ignorespaces Notes\unskip}}%
     \parindent=0pt%
     \setlength{\cc@partsepwidth}{\widthof{\footnotesize \cc@notestitle~}}%
