@@ -257,7 +257,7 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 %
 % The \code{-{}-shell-escape} option is only required if you want the output to
 % contain version information. This will also require that you have \pkg{git}
-% installed as the version is determined by running
+% installed (and the git repo itself) as the version is determined by running:
 %
 % \begin{Verbatim}
 %   $ git describe --tags --dirty
@@ -273,13 +273,16 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % \hypertarget{CCPACKAGE:OPTIONS}{}
 % \begin{macro}{showcountbefore}
 % \begin{macro}{showcountafter}
-% The package (or class) can also be declared with the following options. For
-% more information about each option, see the command which it calls.
+% \begin{macro}{enableidx}
+% \changes{1.0.0}{2013/09/08}{New option}
+% The package (or class) can also be loaded with the following options. For more
+% information about each option, see the command which it calls.
 %    \begin{macrocode}
 \DeclareOption{showcountafter}{\showcountafter}
 \DeclareOption{showcountbefore}{\showcountbefore}
 \DeclareOption{enableidx}{\AtEndOfPackage{\enableidx}}
 %    \end{macrocode}
+% \end{macro}
 % \end{macro}
 % \end{macro}
 %
@@ -378,9 +381,12 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % \changes{1.0.0}{2013/09/10}{Add ability to change count brackets}
 % \begin{macro}{\countrightbracket}
 % \changes{1.0.0}{2013/09/10}{Add ability to change count brackets}
-% These commands can be used to change the left and right brackets which are
+% These commands can be used to set the left and right brackets which are
 % inserted on around the count as discussed above. By default, they are set to
-% plain left and right parenthesis.
+% plain left and right parenthesis. Note that these commands take a single
+% argument (the new bracket) instead of simply being something that you redefine
+% like many of the other formatting commands. They are not used for inserting
+% the brackets themselves; just for changing them.
 %    \begin{macrocode}
 \def\cc@countleftbracket{(}
 \def\cc@countrightbracket{)}
@@ -430,7 +436,7 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % You might have noticed the nicely formatted notes in the previous example. By
 % default, all notes are set using the \code{flushleft} environment, and with
 % \code{\textbackslash fill} amount of vspace before them. This can easily be
-% changed.
+% changed with this macro and length.
 %    \begin{macrocode}
 \def\cc@defaultnotesenv{flushleft}
 \newcommand*{\setdefaultnotesenv}[1]{\def\cc@defaultnotesenv{#1}}
@@ -441,6 +447,10 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % \end{macro}
 %
 % \section{Counters}
+%
+% Lots of counters are used throughout Contra Card for various tasks. The
+% following counters do everything from keeping track of the timing, to counting
+% the number of moves in a dance.
 %
 % \subsection{Musical counts}
 %
@@ -455,13 +465,13 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % \changes{0.3}{2013/02/21}{Create a new counter for the current phrase}
 % \begin{macro}{dancephrase}
 % \changes{0.3}{2013/02/21}{Create a new counter for the current phrase}
-% First we'll create some counters that will help us keep track of the counts
-% (or `steps') in the dance. The \code{dancecount} is reset at the start of each
-% new dance, the \code{partcount} is reset at the begining of each part (eg.\
-% \code{A1} or \code{B1}), and the \code{phrasecount} is reset every time the
-% part changes (eg.~from \code{A} to \code{B}). The \code{dancepart} and
-% \code{dancephrase} counters contain the number of the part of phrase in the dance
-% (instead of the number of steps).
+% These counters help us keep track of the counts (or `steps') in the dance. The
+% \code{dancecount} is reset at the start of each new dance, the
+% \code{partcount} is reset at the begining of each part (eg.\ \code{A1} or
+% \code{B1}), and the \code{phrasecount} is reset every time the part changes
+% (eg.~from \code{A} to \code{B}). The \code{dancepart} and \code{dancephrase}
+% counters contain the number of the part of phrase in the dance (instead of the
+% number of steps).
 %    \begin{macrocode}
 \newcounter{dancecount}
 \newcounter{partcount}
@@ -479,17 +489,62 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % \changes{0.4}{2013/02/22}{Create a new counter for the part length}
 % \begin{macro}{dancephraselength}
 % \changes{0.4}{2013/02/22}{Create a new counter for the phrase length}
+% \begin{macro}{\resetdancepartlength}
+% \changes{1.0.0}{2013/08/12}{Add ability to easily reset counter}
+% \begin{macro}{\resetdancephraselength}
+% \changes{1.0.0}{2013/08/12}{Add ability to easily reset counter}
 % Most contra dances are composed of two 32 count phrases, each with two 16
 % count parts, however, it's sometimes useful to change these lengths (for swung
 % dances and the like). It's important to fully understand how the move command
 % works before modifying these values. Changing just one or the other can have
-% unexpected consequences.
+% unexpected consequences. You can set them back quickly afterwards with the
+% reset commands.
 %    \begin{macrocode}
 \newcounter{dancepartlength}
-\setcounter{dancepartlength}{16}
 \newcounter{dancephraselength}
-\setcounter{dancephraselength}{32}
+\newcommand*{\resetdancepartlength}{\setcounter{dancepartlength}{16}}
+\newcommand*{\resetdancephraselength}{\setcounter{dancephraselength}{32}}
+\resetdancepartlength
+\resetdancephraselength
 %    \end{macrocode}
+% For example, if we set the \code{dancepartlength} to 12 and the
+% \code{\textbackslash dancephraselength} to 24 (along with some minor tweaks
+% for clarty) like so:
+%
+% \begin{verbatim}
+%   \setcounter{dancepartlength}{12}
+%   \setcounter{dancephraselength}{24}
+%   \showcountafter
+% \end{verbatim}
+%
+% We can create a nice mixer in waltz time:
+%
+% \begin{exampledance}
+% \setcounter{dancepartlength}{12}
+% \setcounter{dancephraselength}{24}
+% \begin{contra}{Turn Around Waltz}{Sam Whited}{Circle waltz}
+%   \showcountafter
+%
+%   \move[6]{Roll lady on left away}\moveindex{Roll Away}
+%   \move[6]{Forward and back}\moveindex{Forward and Back}
+%   \move[6]{Roll lady on left away}\moveindex{Roll Away}
+%   \move[6]{Forward and back}\moveindex{Forward and Back}
+%   \move[6]{Hands out and in, turn out}\moveindex{Turn Alone}
+%   \move[6]{Hands in and out, turn in}\moveindex{Turn Alone}
+%   \move[6]{Hands out and in ladies cast right}\moveindex{Ladies Cast Right}
+%   \move[6]{Parallels or free waltz}\moveindex{Parallels}
+%
+%   \notes{Repeat \textbf{BABB} if dancing to the Nanci Griffith cover of ``Turn
+%   Around". Circles of 4 or 8 couples brings you back to your original partner
+%   for free waltz at end; for 3 or 7 put partner on your left to start. Get
+%   people into square formation, then ask them to merge squares to make things
+%   easier.}
+% \end{contra}
+% \resetdancepartlength
+% \resetdancephraselength
+% \end{exampledance}
+% \end{macro}
+% \end{macro}
 % \end{macro}
 % \end{macro}
 %
@@ -571,6 +626,93 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
+%
+% To see how this can be useful consider the following blues contras by caller
+% and all around cat's pajamas Seth Tepfer. Each one comprises three 16 count
+% phrases (\code{A1}, \code{B1}, and \code{C1}). The first employs the
+% \code{\textbackslash newdancephrase} command to reset the phrase every 16
+% counts, the second changes the \code{dancephraselength} and lets Contra Card
+% handle figuring out how to break up the phrases. Both methods produce the same
+% result.
+%
+% \begin{Verbatim}
+% \renewcommand*{\partdelimiter}{:}
+% \begin{contra}{Untitled Blues \textnumero\ 1}{Seth Tepfer}{Duple minor im.}
+%   \gypsy*[Neighbor]{8}
+%   \gypsy*[Ladies]{8}
+%   \newdancephrase
+%   \balanceand*[Partner]\swing{16}
+%   \newdancephrase
+%   \ladieschain
+%   \starleft{8}
+%   \vspace*{\fill}
+%   \begin{flushright}
+%     \href{http://creativecommons.org/licenses/by-nc/3.0/}{%
+%       \IfFileExists{by-nc.png}{%
+%         \includegraphics[width=1cm]{by-nc.png}%
+%        }{\cc\bync}}
+%   \end{flushright}
+% \end{contra}
+% \end{Verbatim}
+%
+% \begin{exampledance}
+% \renewcommand*{\partdelimiter}{:}
+% \begin{contra}{Untitled Blues \textnumero\ 1}{\href{http://www.dancerhapsody.com/calling/dances.html}{Seth Tepfer}}{Duple minor im.}
+%   \gypsy*[Neighbor]{8}
+%   \gypsy*[Ladies]{8}
+%   \newdancephrase
+%   \balanceand*[Partner]\swing{16}
+%   \newdancephrase
+%   \ladieschain
+%   \starleft{8}
+%   \vspace*{\fill}
+%   \begin{flushright}
+%     \href{http://creativecommons.org/licenses/by-nc/3.0/}{%
+%       \IfFileExists{by-nc.png}{%
+%         \includegraphics[width=1cm]{by-nc.png}%
+%        }{\cc\bync}}
+%   \end{flushright}
+% \end{contra}
+% \end{exampledance}
+%
+% \begin{Verbatim}
+% \setlength{\phrasevspace}{0em}
+% \setcounter{dancephraselength}{16}
+% \begin{contra}{Untitled Blues \textnumero\ 2}{Seth Tepfer}{Duple minor im.}
+%   \gypsy*[Neighbor]{8}
+%   \move[8]{Gents allemande\moveindex{Allemande} left 1\textonehalf}
+%   \balanceand*[Partner]\swing{16}
+%   \move[8]{\textonehalf\ promenade\moveindex{Half Promenade}\moveindex{Promenade} across set}
+%   \ladieschain
+%   \vspace*{\fill}
+%   \begin{flushright}
+%     \href{http://creativecommons.org/licenses/by-nc/3.0/}{%
+%       \IfFileExists{by-nc.png}{%
+%         \includegraphics[width=1cm]{by-nc.png}%
+%        }{\cc\bync}}
+%   \end{flushright}
+% \end{contra}
+% \end{Verbatim}
+%
+% \begin{exampledance}
+% \setlength{\phrasevspace}{0em}
+% \setcounter{dancephraselength}{16}
+% \begin{contra}{Untitled Blues \textnumero\ 2}{\href{http://www.dancerhapsody.com/calling/dances.html}{Seth Tepfer}}{Duple minor im.}
+%   \gypsy*[Neighbor]{8}
+%   \move[8]{Gents allemande\moveindex{Allemande} left 1\textonehalf}
+%   \balanceand*[Partner]\swing{16}
+%   \move[8]{\textonehalf\ promenade\moveindex{Half Promenade}\moveindex{Promenade} across set}
+%   \ladieschain
+%   \vspace*{\fill}
+%   \begin{flushright}
+%     \href{http://creativecommons.org/licenses/by-nc/3.0/}{%
+%       \IfFileExists{by-nc.png}{%
+%         \includegraphics[width=1cm]{by-nc.png}%
+%        }{\cc\bync}}
+%   \end{flushright}
+% \end{contra}
+% \resetdancephraselength
+% \end{exampledance}
 %
 % \subsection{Move counts}
 
@@ -658,9 +800,10 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % \changes{0.3}{2013/02/21}{Simplify dance logic using new counters}
 % \changes{1.0.0}{2013/09/10}{Improve indentation and line spacing}
 % \begin{macro}{\move*}
-% The next thing we need to define is the \code{\textbackslash move} command.
-% This command takes in a move to display, and (optionally) the number of counts
-% the move takes. If the count is not specified, 8 is used as the default.
+% The meat of the \pkg{contracard} package is contained in the
+% \code{\textbackslash move} command.  This command takes in a move to display,
+% and (optionally) the number of beats the move takes. If the count is not
+% specified, 8 is used as the default.
 %    \begin{macrocode}
 \newcommand*{\move}{\@ifstar\@moveStar\@moveNoStar}
 \newcommand*{\@moveStar}[2][8]{%
@@ -725,9 +868,9 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 %
 % \subsection{Move shortcuts}
 %
-% Often you may find yourself copy and pasting common moves that often have the
-% same timing, wording on the card, etc. For times like this \pkg{contracard}
-% provides a number of shortcut macros.
+% Often you may find yourself copy and pasting common moves that have the same
+% timing, wording, etc. For times like this \pkg{contracard} provides a number
+% of shortcut macros.
 %
 % \begin{macro}{\allemande}
 % \changes{1.0.0}{2013/09/05}{Add move shortcut}
@@ -759,13 +902,12 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % \changes{1.0.0}{2013/09/05}{Add move shortcut}
 % \begin{macro}{\balanceand*}
 % \changes{1.0.0}{2013/09/05}{Add move shortcut}
-% The \code{\textbackslash balance} macro is fairly simple: It takes a single
-% optional argument and prints it after (or before if you use
-% \code{\textbackslash balance*}) the word `balance'. Balances always take up 4
-% beats unless you use the \code{\textbackslash balanceand} version of the
-% command which takes up 0 logical counts.  This way you can follow it up with
-% another command (eg.~\code{\textbackslash balanceand*[Partner]\textbackslash
-% swing}).
+% The \code{\textbackslash balance} macro takes a single optional argument and
+% prints it after (or before if you use \code{\textbackslash balance*}) the word
+% `balance'. Balances always take up 4 beats unless you use the
+% \code{\textbackslash balanceand} version of the command which takes up 0
+% logical counts.  This way you can follow it up with another command
+% (eg.~\code{\textbackslash balanceand*[Partner]\textbackslash swing}).
 %    \begin{macrocode}
 \newcommand*{\balance}{%
   \moveindex{Balance}%
@@ -778,13 +920,7 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
   \move[4]{\ignorespaces#1\unskip\ balance}%
 }
 \newcommand*{\balanceand}{%
-  \ifthenelse{\value{phrasecount}=\value{dancephraselength}}{%
-    \newdancephrase%
-  }{%
-    \ifthenelse{\(\value{partcount}=\value{dancepartlength}\)}{%
-     \newdancepart%
-    }{}%
-  }%
+  \cc@checkphrasestart%
   \moveindex{Balance}%
   \@ifstar\@balanceandStar\@balanceandNoStar%
 }
@@ -804,22 +940,9 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % \changes{1.0.0}{2013/09/06}{Add move shortcut}
 % \begin{macro}{\butterflywhirl*}
 % \changes{1.0.0}{2013/09/06}{Add move shortcut}
-% Two version of the \code{\textbackslash butterflywhirl} macro exist. Both
-% taken in an optional argument that specifies the other dancer (eg.~partner,
-% neighbor, etc.), and the count. The normal macro prints the line:
-%
-% \begin{quote}
-% Butterfly whirl \#1
-% \end{quote}
-%
-% While the starred version prints:
-%
-% \begin{quote}
-% \#1 butterfly whirl
-% \end{quote}
-%
-% Both use proper spacing and capitalization if argument \#1 is left off.
-%
+% Both versions of \code{\textbackslash butterflywhirl} also take in an optional
+% string representing the other dance (eg.~partner, neighbor, etc.) and the
+% count as arguments.
 %    \begin{macrocode}
 \newcommand*{\butterflywhirl}{%
   \moveindex{Butterfly Whirl}%
@@ -874,9 +997,9 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % \changes{1.0.0}{2013/09/06}{Add move shortcut}
 % \begin{macro}{\courtesyturn*}
 % \changes{1.0.0}{2013/09/06}{Add move shortcut}
-% Like \code{\textbackslash butterflywhirl} these macros take an optional person
-% to turn, and the number of beats. The star version of the command tweaks the
-% wording a bit.
+% Like most of the move shortcut macros, these take an optional person to turn,
+% and the number of beats. The star version of the command tweaks the wording a
+% bit.
 %    \begin{macrocode}
 \newcommand*{\courtesyturn}{%
   \moveindex{Courtesy Turn}%
@@ -941,8 +1064,10 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % \changes{1.0.0}{2013/09/06}{Add move shortcut}
 % \begin{macro}{\gypsyright*}
 % \changes{1.0.0}{2013/09/06}{Add move shortcut}
-% The \code{\textbackslash gypsy} macros take an optional argument (the person
-% to gypsy) and one required argument (the count).
+% Several different macros exist for creating Gypsy's; while you can create
+% right and left gypsy's with the normal \code{\textbackslash gypsy} macro, the
+% \code{\textbackslash gypsyleft} and \code{\textbackslash gypsyright} macros
+% also index the move under the given direction.
 %    \begin{macrocode}
 \newcommand*{\gypsy}{%
   \moveindex{Gypsy}%
@@ -1160,10 +1285,11 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % \changes{1.0.0}{2013/09/11}{Add move shortcut}
 % \begin{macro}{\longlines*}
 % \changes{1.0.0}{2013/09/11}{Add move shortcut}
-% The \code{\textbackslash lines} macro takes a single optional argument: The
-% type of lines (eg. `short', `long', etc.). Using the starred version of the
-% command tells the lines to go forward (4 counts) but not back. Since long
-% lines are so common, an alias is provided just for them.
+% The \code{\textbackslash lines} macro (lines forward and back) takes a single
+% optional argument: The type of lines (eg. `short', `long', etc.). Using the
+% starred version of the command tells the lines to go forward (4 counts) but
+% not back. Since ``long lines forward and back" is such a common figure, an
+% alias is provided just for that.
 %    \begin{macrocode}
 \newcommand*{\lines}{%
   \moveindex{Lines Forward and Back}%
@@ -1284,7 +1410,8 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % \changes{1.0.0}{2013/09/08}{Add move shortcut}
 % \begin{macro}{\rightsandlefts*}
 % \changes{1.0.0}{2013/09/08}{Add move shortcut}
-% Creates a right and left through (aka. rights and lefts).
+% Creates a right and left through (aka. rights and lefts). These always take up
+% 8 counts.
 %    \begin{macrocode}
 \newcommand*{\rightandleftthrough}{%
   \moveindex{Right and left through}%
@@ -1373,6 +1500,9 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % \changes{1.0.0}{2013/09/09}{Add move shortcut}
 % \begin{macro}{\starright*}
 % \changes{1.0.0}{2013/09/09}{Add move shortcut}
+% Though `star left' and `star right' are really the same move (in different
+% directions), there are two separate macros since there aren't any other
+% directions you can star.
 %    \begin{macrocode}
 \newcommand*{\starleft}{%
   \moveindex{Star}%
@@ -1456,29 +1586,35 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % \changes{1.0.0}{2013/09/10}{Add move shortcut}
 % \begin{macro}{\turntogether*}
 % \changes{1.0.0}{2013/09/10}{Add move shortcut}
-%    \begin{macrocode}
 % ``Turn alone" and ``Turn as a couple" aren't exactly dance figures; just
 % directions that are often placed at the end of other figures. For this reason,
-% they all take up 0 logical counts of music and should be appended to the end
-% of other commands. The normal \code{\textbackslash turnalone} command takes an
-% optional argument which can be used to add some text after `alone'. The
-% starred version of the command is exactly the same, except that it also has a
-% required argument, a number of counts (for those times when you want it to
-% actually take up time in the music and not just be part of another move).
+% they all take up 0 logical counts of music and should be prepended to other
+% commands. The normal commands take an optional argument which can be used to
+% add some text after `alone' or `couple'. The starred version of each command
+% is exactly the same, except that it also has a required argument, a number of
+% counts (for those times when you want it to actually take up time in the music
+% and not just be part of another move).
+%    \begin{macrocode}
 \newcommand*{\turnalone}{%
   \moveindex{Turn Alone}%
-  \def\cc@who{alone}
-  \@ifstar\@turnaloneStar\@turnaloneNoStar%
+  \def\cc@who{alone}%
+  \@ifstar\@turnStar\@turnNoStar%
 }
-\newcommand*{\turncouple}{\turntogether}
+\newcommand*{\turncouple}{%
+  \moveindex{Turn as a Couple}%
+  \moveindex{Turn Together|see{Turn as a Couple}}%
+  \def\cc@who{as a couple}%
+  \@ifstar\@turnStar\@turnNoStar%
+}
 \newcommand*{\turntogether}{%
   \moveindex{Turn as a Couple}%
   \moveindex{Turn Together|see{Turn as a Couple}}%
-  \def\cc@who{as a couple}
+  \def\cc@who{together}%
   \@ifstar\@turnStar\@turnNoStar%
 }
 \newcommand*{\@turnNoStar}[1][\unskip]{%
-  \move[0]{turn \cc@who\ \ignorespaces#1\unskip}%
+  \cc@checkphrasestart%
+	\move*[0]{Turn \cc@who\ \ignorespaces#1\unskip\ \ \ignorespaces}%
 }
 \newcommand*{\@turnStar}[2][\unskip]{%
   \move[#2]{Turn \cc@who\ \ignorespaces#1\unskip}%
@@ -1563,10 +1699,10 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % \changes{1.0.0}{2013/09/12}{Add move shortcut}
 % \begin{macro}{\upthehall*}
 % \changes{1.0.0}{2013/09/12}{Add move shortcut}
-% Up and down the hall are often counted as a single move (often with a `turn
-% alone' or similar in between). You may want to use the \code{\textbackslash
-% move} command to define your own versions of these commands, but just in case
-% some shortcuts are provided anyways.
+% Up and down the hall are often counted as a single move (sometimes with a
+% `turn alone' or similar in between). You may want to use the
+% \code{\textbackslash move} command to define your own versions of these
+% commands, but just in case some shortcuts are provided anyways.
 %    \begin{macrocode}
 \newcommand*{\downthehall}{%
   \moveindex{Down the Hall}%
@@ -1592,17 +1728,16 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 %
 % \section{Dance information}
 %
-% The following macros give information about the current (or previous, if
-% you're not in a dance environment) dance. They can be used for things like
-% adding the dance name and number to the header in a book, referencing the
-% dance author in footnotes, etc.
-%
 % \begin{macro}{\dancetitle}
 % \changes{1.0.0}{2013/09/11}{New macro}
 % \begin{macro}{\danceauthor}
 % \changes{1.0.0}{2013/09/11}{New macro}
 % \begin{macro}{\danceform}
 % \changes{1.0.0}{2013/09/11}{New macro}
+% These macros give information about the current (or previous, if you're not in
+% a dance environment) dance. They can be used for things like adding the dance
+% name and number to the header in a book, referencing the dance author in
+% footnotes, etc.
 %    \begin{macrocode}
 \newcommand*{\dancetitle}{}
 \newcommand*{\danceauthor}{}
@@ -1636,8 +1771,8 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 %    \end{macrocode}
 % \end{macro}
 %
-% An \hyperlink{CC:LOD}{example list of dances} can be found at the top of this
-% document.
+% An \hyperlink{CC:LOD}{example list of dances} can be found at the beginning of
+% this document.
 %
 % \subsection{Indices}
 % \changes{1.0.0}{2013/09/08}{Added support for indices}
@@ -1679,7 +1814,11 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 %    \end{macrocode}
 % Because we use the \code{splitindex} option, you'll need to run the
 % \fname{splitindex} command against the index file. For instance, if your
-% project is called \fname{root.tex} you'll want to run: \code{splitindex root}.
+% project is called \fname{root.tex} you'll want to run:
+%
+% \begin{quote}
+% \code{\$ splitindex root}
+% \end{quote}
 % \end{macro}
 %
 % \begin{macro}{\pauseindexing}
@@ -1745,14 +1884,13 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % \changes{1.0.0}{2013/09/08}{New command}
 % \begin{macro}{\moveindex*}
 % \changes{1.0.0}{2013/09/08}{New command}
-% For any of the move shortcuts discussed in the next section, index entries are
-% automatically added for the given move. However, for moves that you define
-% yourself with the \code{\textbackslash move} command, you'll need to add index
-% entries manually. This can be done with \code{\textbackslash moveindex}. This
-% macro takes a single argument (the index entry to add) and should only be
-% called from within the \code{contra} environment. The star version of the
-% command also typesets the first argument (so you don't have to write it
-% twice).
+% For any of the move shortcut macros, index entries are automatically added for
+% the given move. However, for moves that you define yourself with the
+% \code{\textbackslash move} command, you'll need to add index entries manually.
+% This can be done with \code{\textbackslash moveindex}. This macro takes a
+% single argument (the index entry to add) and should only be called from within
+% the \code{contra} environment. The star version of the command also typesets
+% the first argument (so you don't have to write it twice).
 %    \begin{macrocode}
 \newcommand*{\moveindex}{\@ifstar\moveindexStar\moveindexNoStar}
 \newcommand*{\moveindexStar}[1]{%
@@ -1870,6 +2008,23 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % \end{macro}
 % \end{macro}
 %
+% \begin{macro}{\cc@checkphrasestart}
+% This macro is used by various parts of contra card to reset the dance phrase
+% and part at the appropriate time. You should probably just move on and leave
+% it alone.
+%    \begin{macrocode}
+\newcommand*{\cc@checkphrasestart}{%
+  \ifthenelse{\value{phrasecount}=\value{dancephraselength}}{%
+    \newdancephrase%
+  }{%
+    \ifthenelse{\(\value{partcount}=\value{dancepartlength}\)}{%
+     \newdancepart%
+    }{}%
+  }%
+}
+%    \end{macrocode}
+% \end{macro}
+%
 %    \begin{macrocode}
 \ProcessOptions\relax
 %</contracard-pkg>
@@ -1980,12 +2135,15 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 %
 % \bookmarksetup{startatroot}%
 % \addtocontents{toc}{\bigskip}%
-% \section{Examples}
+% \section{A Final Example}
 %
-% A few examples are contained below. Note that the output is wrapped in a frame
-% for clarity; no attempt has been made to make the frame match the size,
-% margins, etc. that a calling card would have (these examples don't use
-% \fname{contracard.cls}, just the package).
+% A final example dance can be found below. Note that the output is wrapped in a
+% frame for clarity; no attempt has been made to make the frame match the size,
+% margins, etc. that a calling card would have (the examples in this document
+% don't use \fname{contracard.cls}, just the package). The dance is licensed
+% under a Creative Commons Attribution 3.0 Unported license (CC-BY) which means
+% you're free to use it however you please (as long as you attribute the
+% author).
 %
 % \subsection{Code's Compiling by Sam Whited}
 %
@@ -2038,96 +2196,6 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 %     \IfFileExists{by.png}{%
 %       \includegraphics[width=1cm]{by.png}%
 %     }{\cc\by}}
-%   \end{flushright}
-% \end{contra}
-% \end{exampledance}
-%
-% \subsection{Untitled Blues Contras by Seth Tepfer}
-%
-% These blues contras consist of three, 16 count phrases (\code{A1}, \code{B1},
-% and \code{C1}). The first employs the \code{\textbackslash newdancephrase}
-% command to reset the phrase every 16 counts, the second changes the
-% \code{dancephraselength} and lets \pkg{contracard} handle figuring out how to
-% break up the phrases.
-%
-% \subsubsection*{Untitled Blues \textnumero\ 1}
-%
-% \begin{Verbatim}
-% \renewcommand*{\partdelimiter}{:}
-% \begin{contra}{Untitled Blues \textnumero\ 1}{Seth Tepfer}{Duple Minor Im.}
-%   \gypsy*[Neighbor]{8}
-%   \gypsy*[Ladies]{8}
-%   \newdancephrase
-%   \balanceand*[Partner]\swing{16}
-%   \newdancephrase
-%   \ladieschain
-%   \starleft{8}
-%   \vspace*{\fill}
-%   \begin{flushright}
-%     \href{http://creativecommons.org/licenses/by-nc/3.0/}{%
-%       \IfFileExists{by-nc.png}{%
-%         \includegraphics[width=1cm]{by-nc.png}%
-%        }{\cc\bync}}
-%   \end{flushright}
-% \end{contra}
-% \end{Verbatim}
-%
-% \begin{exampledance}
-% \renewcommand*{\partdelimiter}{:}
-% \begin{contra}{Untitled Blues \textnumero\ 1}{\href{http://www.dancerhapsody.com/calling/dances.html}{Seth Tepfer}}{Duple Minor Im.}
-%   \gypsy*[Neighbor]{8}
-%   \gypsy*[Ladies]{8}
-%   \newdancephrase
-%   \balanceand*[Partner]\swing{16}
-%   \newdancephrase
-%   \ladieschain
-%   \starleft{8}
-%   \vspace*{\fill}
-%   \begin{flushright}
-%     \href{http://creativecommons.org/licenses/by-nc/3.0/}{%
-%       \IfFileExists{by-nc.png}{%
-%         \includegraphics[width=1cm]{by-nc.png}%
-%        }{\cc\bync}}
-%   \end{flushright}
-% \end{contra}
-% \end{exampledance}
-%
-% \subsubsection*{Untitled Blues \textnumero\ 2}
-%
-% \begin{Verbatim}
-% \setlength{\phrasevspace}{0em}
-% \setcounter{dancephraselength}{16}
-% \begin{contra}{Untitled Blues \textnumero\ 2}{Seth Tepfer}{Duple Minor Im.}
-%   \gypsy*[Neighbor]{8}
-%   \move[8]{Gents allemande\moveindex{Allemande} left 1\textonehalf}
-%   \balanceand*[Partner]\swing{16}
-%   \move[8]{\textonehalf\ promenade\moveindex{Half Promenade}\moveindex{Promenade} across set}
-%   \ladieschain
-%   \vspace*{\fill}
-%   \begin{flushright}
-%     \href{http://creativecommons.org/licenses/by-nc/3.0/}{%
-%       \IfFileExists{by-nc.png}{%
-%         \includegraphics[width=1cm]{by-nc.png}%
-%        }{\cc\bync}}
-%   \end{flushright}
-% \end{contra}
-% \end{Verbatim}
-%
-% \begin{exampledance}
-% \setlength{\phrasevspace}{0em}
-% \setcounter{dancephraselength}{16}
-% \begin{contra}{Untitled Blues \textnumero\ 2}{\href{http://www.dancerhapsody.com/calling/dances.html}{Seth Tepfer}}{Duple Minor Im.}
-%   \gypsy*[Neighbor]{8}
-%   \move[8]{Gents allemande\moveindex{Allemande} left 1\textonehalf}
-%   \balanceand*[Partner]\swing{16}
-%   \move[8]{\textonehalf\ promenade\moveindex{Half Promenade}\moveindex{Promenade} across set}
-%   \ladieschain
-%   \vspace*{\fill}
-%   \begin{flushright}
-%     \href{http://creativecommons.org/licenses/by-nc/3.0/}{%
-%       \IfFileExists{by-nc.png}{%
-%         \includegraphics[width=1cm]{by-nc.png}%
-%        }{\cc\bync}}
 %   \end{flushright}
 % \end{contra}
 % \end{exampledance}
