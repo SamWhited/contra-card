@@ -867,14 +867,14 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % \word{dosado}, \word{dos-\`a-dos}, etc.) or a see saw (left shoulder dosido).
 %    \begin{macrocode}
 \newcommand*{\dosido}{%
-  \moveindex{Do-si-do}%
+  \moveindex{\spellDosido}%
   \@ifstar\@dosidoStar\@dosidoNoStar%
 }
 \newcommand*{\@dosidoNoStar}[2][\unskip]{%
-  \move[#2]{Do-si-do \ignorespaces#1\unskip}%
+  \move[#2]{\spellDosido\ \ignorespaces#1\unskip}%
 }
 \newcommand*{\@dosidoStar}[2][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
-  \move[#2]{\ignorespaces#1\unskip\ do-si-do}%
+  \move[#2]{\ignorespaces#1\unskip\ \spelldosido}%
 }
 \newcommand*{\seesaw}{%
   \moveindex{See Saw}%
@@ -1692,6 +1692,31 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
   \end{\cc@defaultnotesenv}
 }
 %    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\spelldosido}
+% \changes{1.0.0}{2013/09/12}{Change how Do-si-do is spelled easily}
+% \begin{macro}{\spellDosido}
+% \changes{1.0.0}{2013/09/12}{Change how Do-si-do is spelled easily}
+% \begin{macro}{\setdosidospelling}
+% \changes{1.0.0}{2013/09/12}{Change how Do-si-do is spelled easily}
+% These macros can be used for easily changing the spelling of `Do-si-do'
+% anywhere a \code{\textbackslash dosido} command is found (and in the index).
+% By default, we spell it the contra dance way (`Do-si-do'), however, this can
+% easily be changed. For example, running \code{\textbackslash
+% setdosidospelling\{dos-\textbackslash \`{}a-dos\}} will cause
+% \code{\textbackslash spellDosido} to render: `Dos-\`a-dos' and
+% \code{\textbackslash spelldosido} to render: `dos-\`a-dos'.
+%    \begin{macrocode}
+\def\spelldosido{do-si-do}
+\def\spellDosido{Do-si-do}
+\newcommand*{\setdosidospelling}[1]{%
+  \protected@edef\spelldosido{\expandafter\MakeLowercase#1}
+  \protected@edef\spellDosido{\expandafter\MakeUppercase#1}
+}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
 % \end{macro}
 %
 %    \begin{macrocode}
