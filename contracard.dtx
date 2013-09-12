@@ -398,8 +398,10 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % \begin{contra}{Whirling dervish}{Sam Whited}{Duple improper}
 %   \gypsy[neighbor 1\textthreequarters]{8}
 %   \move[8]{Men half hey ricochet while ladies cross%
-%   \unskip\moveindex{Hey For Four}%
+%   \unskip\moveindex{Hey for Four}%
 %   \unskip\moveindex{Half Hey}%
+%   \unskip\moveindex{Half Hey Ricochet}%
+%   \unskip\moveindex{Hey}%
 %   }
 %   \swing[your partners all]{16}
 %   \move[8]{Spin like a Whirling Dervish\moveindex{Whirling Dervish}}
@@ -833,6 +835,41 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % \end{macro}
 % \end{macro}
 %
+% \begin{macro}{\circleleft}
+% \changes{1.0.0}{2013/09/12}{Add move shortcut}
+% \begin{macro}{\circleleft*}
+% \changes{1.0.0}{2013/09/12}{Add move shortcut}
+% \begin{macro}{\circleright}
+% \changes{1.0.0}{2013/09/12}{Add move shortcut}
+% \begin{macro}{\circleright*}
+% \changes{1.0.0}{2013/09/12}{Add move shortcut}
+% Here are a few commands to deal with circles. As usual, there is an optional
+% argument (in case you need to say something like ``Gents circle left" or
+% ``Circle left 1 time `round") and a mandatory argument (the number of beats to
+% circle).
+%    \begin{macrocode}
+\newcommand*{\circleleft}{%
+  \moveindex{Circle Left}%
+  \def\cc@dir{left}%
+  \@ifstar\@circleStar\@circleNoStar%
+}
+\newcommand*{\circleright}{%
+  \moveindex{Circle Right}%
+  \def\cc@dir{right}%
+  \@ifstar\@circleStar\@circleNoStar%
+}
+\newcommand*{\@circleNoStar}[2][\unskip]{%
+  \move[#2]{Circle \cc@dir\ \ignorespaces#1\unskip}%
+}
+\newcommand*{\@circleStar}[2][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
+  \move[#2]{\ignorespaces#1\unskip\ circle \cc@dir}%
+}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
 % \begin{macro}{\courtesyturn}
 % \changes{1.0.0}{2013/09/06}{Add move shortcut}
 % \begin{macro}{\courtesyturn*}
@@ -926,7 +963,7 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 \newcommand*{\@gypsyNoStar}[2][\unskip]{%
   \move[#2]{Gypsy \ignorespaces#1\unskip}
 }
-\newcommand*{\@gypsyStar}[2][\expandafter{G}\expandafter\@gobble\@gobbletwo]{%
+\newcommand*{\@gypsyStar}[2][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
   \move[#2]{\ignorespaces#1\unskip\ gypsy}
 }
 \newcommand*{\@gypsyDirNoStar}[2][\unskip]{%
@@ -936,6 +973,85 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
   \move[#2]{\ignorespaces#1\unskip\ \cc@thedir\ gypsy}
 }
 %    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\heyforfour}
+% \changes{1.0.0}{2013/09/12}{Add move shortcut}
+% \begin{macro}{\heyforfour*}
+% \changes{1.0.0}{2013/09/12}{Add move shortcut}
+% \begin{macro}{\halfhey}
+% \changes{1.0.0}{2013/09/12}{Add move shortcut}
+% \begin{macro}{\halfhey*}
+% \changes{1.0.0}{2013/09/12}{Add move shortcut}
+% \begin{macro}{\halfheyricochet}
+% \changes{1.0.0}{2013/09/12}{Add move shortcut}
+% \begin{macro}{\halfheyricochet*}
+% \changes{1.0.0}{2013/09/12}{Add move shortcut}
+% \begin{macro}{\fullhey}
+% \changes{1.0.0}{2013/09/12}{Add move shortcut}
+% \begin{macro}{\fullhey*}
+% \changes{1.0.0}{2013/09/12}{Add move shortcut}
+% These macros produce various kinds of hey. Though `hey for four' is often used
+% to indicate `half a hey` we define `hey for four` and `full hey' to be the
+% same thing for the purpose of these shortcut macros.
+%    \begin{macrocode}
+\newcommand*{\heyforfour}{%
+  \moveindex{Hey}%
+  \moveindex{Hey for Four}%
+  \moveindex{Full Hey}%
+  \@ifstar\@heyforfourStar\@heyforfourNoStar%
+}
+\newcommand*{\@heyforfourNoStar}[1][\unskip]{%
+  \move[16]{Hey for four \ignorespaces#1\unskip}
+}
+\newcommand*{\@heyforfourStar}[1][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
+  \move[16]{\ignorespaces#1\unskip\ hey for four}
+}
+\newcommand*{\halfhey}{%
+  \moveindex{Hey}%
+  \moveindex{Hey for Four}%
+  \moveindex{Half Hey}%
+  \@ifstar\@halfheyStar\@halfheyNoStar%
+}
+\newcommand*{\@halfheyNoStar}[1][\unskip]{%
+  \move[8]{Half a hey \ignorespaces#1\unskip}
+}
+\newcommand*{\@halfheyStar}[1][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
+  \move[8]{\ignorespaces#1\unskip\ half a hey}
+}
+\newcommand*{\halfheyricochet}{%
+  \moveindex{Hey}%
+  \moveindex{Hey for Four}%
+  \moveindex{Half Hey}%
+  \moveindex{Half Hey Ricochet}%
+  \@ifstar\@halfheyricochetStar\@halfheyricochetNoStar%
+}
+\newcommand*{\@halfheyricochetNoStar}[1][\unskip]{%
+  \move[8]{Half hey ricochet \ignorespaces#1\unskip}
+}
+\newcommand*{\@halfheyricochetStar}[1][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
+  \move[8]{\ignorespaces#1\unskip\ half hey ricochet}
+}
+\newcommand*{\fullhey}{%
+  \moveindex{Hey}%
+  \moveindex{Hey for Four}%
+  \moveindex{Full Hey}%
+  \@ifstar\@fullheyStar\@fullheyNoStar%
+}
+\newcommand*{\@fullheyNoStar}[1][\unskip]{%
+  \move[16]{Full hey \ignorespaces#1\unskip}
+}
+\newcommand*{\@fullheyStar}[1][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
+  \move[16]{\ignorespaces#1\unskip\ full hey}
+}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
 % \end{macro}
 % \end{macro}
 % \end{macro}
@@ -1434,6 +1550,41 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 % \end{macro}
 % \end{macro}
 % \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\downthehall}
+% \changes{1.0.0}{2013/09/12}{Add move shortcut}
+% \begin{macro}{\downthehall*}
+% \changes{1.0.0}{2013/09/12}{Add move shortcut}
+% \begin{macro}{\upthehall}
+% \changes{1.0.0}{2013/09/12}{Add move shortcut}
+% \begin{macro}{\upthehall*}
+% \changes{1.0.0}{2013/09/12}{Add move shortcut}
+% Up and down the hall are often counted as a single move (often with a `turn
+% alone' or similar in between). You may want to use the \code{\textbackslash
+% move} command to define your own versions of these commands, but just in case
+% some shortcuts are provided anyways.
+%    \begin{macrocode}
+\newcommand*{\downthehall}{%
+  \moveindex{Down the Hall}%
+  \def\cc@dir{down}%
+  \@ifstar\@walkthehallStar\@walkthehallNoStar%
+}
+\newcommand*{\upthehall}{%
+  \moveindex{Up the Hall}%
+  \def\cc@dir{up}%
+  \@ifstar\@walkthehallStar\@walkthehallNoStar%
+}
+\newcommand*{\@walkthehallNoStar}[2][\unskip]{%
+  \move[#2]{\expandafter\MakeUppercase\cc@dir\ the hall\ \ignorespaces#1\unskip}%
+}
+\newcommand*{\@walkthehallStar}[2][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
+  \move[#2]{\ignorespaces#1\unskip\ \cc@dir\ the hall}%
+}
+%    \end{macrocode}
 % \end{macro}
 % \end{macro}
 % \end{macro}
