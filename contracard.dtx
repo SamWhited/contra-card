@@ -811,10 +811,10 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 }
 \newlength{\cc@partsepwidth}%
 \newcommand*{\@moveNoStar}[2][8]{%
-  \parindent=0pt%
+  \setlength{\parindent}{0pt}%
   \setlength{\cc@partsepwidth}{\widthof{\Alph{dancephrase}\arabic{dancepart}%
     \partdelimiter\ }}%
-  \hangindent=\cc@partsepwidth%
+  \setlength{\hangindent}{\cc@partsepwidth}%
   \ifthenelse{\value{phrasecount}=\value{dancephraselength}}{%
     \ifthenelse{\NOT\(#1=0\)}{%
       \newdancephrase%
@@ -1974,9 +1974,9 @@ version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
   \begin{\cc@defaultnotesenv}
     \setlength{\baselineskip}{1.1em plus 0.1em minus 0.2em}
     \def\cc@notestitle{\textbf{\ignorespaces Notes\unskip}}%
-    \parindent=0pt%
+    \setlength{\parindent}{0pt}%
     \setlength{\cc@partsepwidth}{\widthof{\footnotesize \cc@notestitle~}}%
-    \hangindent=\cc@partsepwidth%
+    \setlength{\hangindent}{\cc@partsepwidth}%
     {\footnotesize \cc@notestitle~\ignorespaces#2\unskip}%
   \end{\cc@defaultnotesenv}
 }
