@@ -355,7 +355,7 @@ This work consists of this file contracard.dtx
 %    \begin{macrocode}
 \newcommand*{\dancetitleformat}{\section*}
 \newcommand*{\danceauthorformat}{\subsection*}
-\newcommand*{\danceformformat}{\hfill}
+\newcommand*{\danceformformat}{\hspace{\fill}}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -600,7 +600,7 @@ This work consists of this file contracard.dtx
 % still be reset).
 %    \begin{macrocode}
 \newcommand*{\resetdancephrase}{%
-  \ifthenelse{\value{partcount}=16}{\hspace*{\fill}\newline}{}%
+  \ifthenelse{\value{partcount}=16}{\newline}{}%
   \@ifstar{\@resetdancephraseStar}{\@resetdancephraseNoStar}%
 }
 \newcommand*{\@resetdancephraseStar}{%
@@ -654,7 +654,7 @@ This work consists of this file contracard.dtx
   \resetdancepart*%
 }
 \newcommand*{\newdancepart}{%
-  \hspace*{\fill}\par\nopagebreak
+  \par\nopagebreak%
   \addtocounter{dancepart}{1}%
   \setcounter{partcount}{0}%
   \setcounter{partmovenum}{0}%
@@ -862,8 +862,7 @@ This work consists of this file contracard.dtx
       \newdancepart%
     }{}%
   }%
-  \ifthenelse{\(\intcalcMod{\value{dancecount}}{\value{dancepartlength}}=0\)%
-    \AND\(\value{partmovenum}=0\)}{%
+  \ifthenelse{\value{partmovenum}=0}{%
     \Alph{dancephrase}\arabic{dancepart}\partdelimiter\ %
   }{}%
   \addtocounter{dancecount}{#1}%
