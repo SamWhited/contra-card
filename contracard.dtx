@@ -852,9 +852,9 @@ This work consists of this file contracard.dtx
   \setlength{\cc@partsepwidth}{\widthof{\Alph{dancephrase}\arabic{dancepart}%
     \partdelimiter\ }}%
   \setlength{\hangindent}{\cc@partsepwidth}%
-  \ifthenelse{\value{phrasecount}=\value{dancephraselength}}{%
-    \ifthenelse{\NOT\(#1=0\)}{%
-      \newdancephrase%
+  \ifthenelse{\value{phrasecount}=0}{%
+    \ifthenelse{\value{phrasemovenum}=0\AND\NOT\value{dancemovenum}=0}{%
+      \pagebreak[1]\phraseseparator%
     }{}%
   }{%
     \ifthenelse{\(\value{partcount}=\value{dancepartlength}\)%
@@ -880,9 +880,6 @@ This work consists of this file contracard.dtx
     \relax%
   }{~\cc@countleftbracket\ignorespaces#1\unskip\cc@countrightbracket}%
   \ifthenelse{\NOT\(#1=0\)}{%
-    \ifthenelse{\value{phrasecount}=\value{dancephraselength}}{%
-      \pagebreak[1]\phraseseparator%
-    }{}%
     \ifthenelse{\value{partcount}=\intcalcDiv{\value{dancepartlength}}{2}}{%
       \setcounter{halfpartmovenum}{0}%
     }{}%
