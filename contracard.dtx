@@ -198,15 +198,13 @@ This work consists of this file contracard.dtx
 % \begin{exampledance}
 % \begin{contra}{Monarch Grove}{Martha Wild}{Duple becket}
 %   \move{Slide left and circle left \textthreequarters\moveindex{Circle Left}\moveindex{Slide Left}}
-%   \swing[neighbor]{8}
+%   \swing*[Neighbor]{8}
 %   \longlines
 %   \dosido*[Men]{8}
 %   \allemande*[Men]{8}{left 1\textonehalf}
 %   \move{Partner star promenade and butterfly whirl\moveindex{Star Promenade}\moveindex{Butterfly Whirl}}
 %   \dosido*[Women]{8}
 %   \swing[partner]{8}
-%   \vspace*{\fill}
-%   \let\thefootnote\relax\footnotetext{Used by special arrangement.}
 % \end{contra}
 % \end{exampledance}
 % \tableofcontents
@@ -243,6 +241,8 @@ This work consists of this file contracard.dtx
 %
 % \subsection{Special thanks}
 %
+% \renewcommand{\thefootnote}{\fnsymbol{footnote}}%
+% \addtocounter{footnote}{1}%
 % Several people deserve a special thanks for their contributions to this
 % package. Most notably the various callers and dancers who responded to my
 % queries on the \href{http://www.sharedweight.net/}{Shared Weight},
@@ -250,9 +250,11 @@ This work consists of this file contracard.dtx
 % Dance Callers}, and \href{http://www.contradance.org/}{Chatahoochee Country
 % Dancers}, mailing lists. These comprise Andrea Nettleton, Bill Baritompa, Seth
 % Tepfer, Richard Hopkins, Chris Page, James Saxe, Mark Goodwin, Rob Harper,
-% Eric Black, Kalia Kliban, John Sweeney, Martha Wild, and Linda Leslie (in no
-% particular order). Also to Sarah Snyder, and all of my other favorite dance
-% partners from the Atlanta dance community.
+% Eric Black, Kalia Kliban, John Sweeney, Martha Wild\footnote{Dances by Martha
+% Wild used in this publication are reproduced from \textit{Calls of the Wild}
+% by special arrangement with the author.}, and Linda Leslie (in no particular
+% order). Also to Sarah Snyder, and all of my other favorite dance partners from
+% the Atlanta dance community.
 %
 % \StopEventually{}
 % \changes{0.1}{2013/02/09}{Created boilerplate for class}
@@ -1423,7 +1425,7 @@ This work consists of this file contracard.dtx
   \move[4]{\ignorespaces#1\unskip\ lines forward}%
 }
 \newcommand*{\longlines}{%
-  \moveindex{Long Lines Forward and Back|see{Lines Forward and Back}}%
+  \moveindex{Long Lines Forward and Back\ \seealso{Lines Forward and Back}{X}}%
   \@ifstar\@longlinesStar\@longlinesNoStar%
 }
 \newcommand*{\@longlinesNoStar}{%
@@ -1742,7 +1744,7 @@ This work consists of this file contracard.dtx
 }
 \newcommand*{\@turnNoStar}[1][\unskip]{%
   \cc@checkphrasestart%
-	\move*[0]{Turn \cc@who\ \ignorespaces#1\unskip\ \ \ignorespaces}%
+  \move*[0]{Turn \cc@who\ \ignorespaces#1\unskip\ \ \ignorespaces}%
 }
 \newcommand*{\@turnStar}[2][\unskip]{%
   \move[#2]{Turn \cc@who\ \ignorespaces#1\unskip}%
@@ -1789,7 +1791,7 @@ This work consists of this file contracard.dtx
   \move[4]{Star through}%
 }
 \newcommand*{\starthru}{%
-	\moveindex{Star Thru|see{Star Through}}%
+  \moveindex{Star Thru|see{Star Through}}%
   \moveindex{Star Through}%
   \move[4]{Star thru}%
 }
