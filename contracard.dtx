@@ -978,7 +978,8 @@ This work consists of this file contracard.dtx
 \newcommand*{\@allemandeNoStar}[3][\unskip]{%
   \move[#2]{Allemande \ignorespaces#3\unskip\ \ignorespaces#1\unskip}%
 }
-\newcommand*{\@allemandeStar}[3][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
+\newcommand*{\@allemandeStar}[3][%
+  \expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
   \move[#2]{\ignorespaces#1\unskip\ allemande \ignorespaces#3\unskip}%
 }
 %    \end{macrocode}
@@ -1007,7 +1008,8 @@ This work consists of this file contracard.dtx
 \newcommand*{\@balanceNoStar}[1][\unskip]{%
   \move[4]{Balance \ignorespaces#1\unskip}%
 }
-\newcommand*{\@balanceStar}[1][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
+\newcommand*{\@balanceStar}[1][%
+  \expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
   \move[4]{\ignorespaces#1\unskip\ balance}%
 }
 \newcommand*{\balanceand}{%
@@ -1018,7 +1020,8 @@ This work consists of this file contracard.dtx
 \newcommand*{\@balanceandNoStar}[1][]{%
   \move*[0]{Balance and \ignorespaces#1\unskip\ \ \ignorespaces}%
 }
-\newcommand*{\@balanceandStar}[1][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
+\newcommand*{\@balanceandStar}[1][%
+  \expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
   \move*[0]{\ignorespaces#1\unskip\ balance and\ \ \ignorespaces}%
 }
 %    \end{macrocode}
@@ -1042,7 +1045,8 @@ This work consists of this file contracard.dtx
 \newcommand*{\@butterflyNoStar}[2][\unskip]{%
   \move[#2]{Butterfly whirl \ignorespaces#1\unskip}%
 }
-\newcommand*{\@butterflyStar}[2][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
+\newcommand*{\@butterflyStar}[2][%
+  \expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
   \move[#2]{\ignorespaces#1\unskip\ butterfly whirl}%
 }
 %    \end{macrocode}
@@ -1075,7 +1079,8 @@ This work consists of this file contracard.dtx
 \newcommand*{\@circleNoStar}[2][\unskip]{%
   \move[#2]{Circle \cc@dir\ \ignorespaces#1\unskip}%
 }
-\newcommand*{\@circleStar}[2][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
+\newcommand*{\@circleStar}[2][%
+  \expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
   \move[#2]{\ignorespaces#1\unskip\ circle \cc@dir}%
 }
 %    \end{macrocode}
@@ -1099,7 +1104,8 @@ This work consists of this file contracard.dtx
 \newcommand*{\@courtesyturnNoStar}[2][\unskip]{%
   \move[#2]{Courtesy turn \ignorespaces#1\unskip}%
 }
-\newcommand*{\@courtesyturnStar}[2][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
+\newcommand*{\@courtesyturnStar}[2][%
+  \expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
   \move[#2]{\ignorespaces#1\unskip\ courtesy turn}%
 }
 %    \end{macrocode}
@@ -1124,7 +1130,8 @@ This work consists of this file contracard.dtx
 \newcommand*{\@dosidoNoStar}[2][\unskip]{%
   \move[#2]{\spellDosido\ \ignorespaces#1\unskip}%
 }
-\newcommand*{\@dosidoStar}[2][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
+\newcommand*{\@dosidoStar}[2][%
+  \expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
   \move[#2]{\ignorespaces#1\unskip\ \spelldosido}%
 }
 \newcommand*{\seesaw}{%
@@ -1134,7 +1141,8 @@ This work consists of this file contracard.dtx
 \newcommand*{\@seesawNoStar}[2][\unskip]{%
   \move[#2]{See saw \ignorespaces#1\unskip}%
 }
-\newcommand*{\@seesawStar}[2][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
+\newcommand*{\@seesawStar}[2][%
+  \expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
   \move[#2]{\ignorespaces#1\unskip\ see saw}%
 }
 %    \end{macrocode}
@@ -1179,13 +1187,15 @@ This work consists of this file contracard.dtx
 \newcommand*{\@gypsyNoStar}[2][\unskip]{%
   \move[#2]{Gypsy \ignorespaces#1\unskip}
 }
-\newcommand*{\@gypsyStar}[2][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
+\newcommand*{\@gypsyStar}[2][%
+  \expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
   \move[#2]{\ignorespaces#1\unskip\ gypsy}
 }
 \newcommand*{\@gypsyDirNoStar}[2][\unskip]{%
   \move[#2]{Gypsy \cc@thedir\ \ignorespaces#1\unskip}
 }
-\newcommand*{\@gypsyDirStar}[2][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
+\newcommand*{\@gypsyDirStar}[2][%
+  \expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
   \move[#2]{\ignorespaces#1\unskip\ \cc@thedir\ gypsy}
 }
 %    \end{macrocode}
@@ -1225,7 +1235,8 @@ This work consists of this file contracard.dtx
 \newcommand*{\@heyforfourNoStar}[1][\unskip]{%
   \move[16]{Hey for four \ignorespaces#1\unskip}
 }
-\newcommand*{\@heyforfourStar}[1][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
+\newcommand*{\@heyforfourStar}[1][%
+  \expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
   \move[16]{\ignorespaces#1\unskip\ hey for four}
 }
 \newcommand*{\halfhey}{%
@@ -1237,7 +1248,8 @@ This work consists of this file contracard.dtx
 \newcommand*{\@halfheyNoStar}[1][\unskip]{%
   \move[8]{Half a hey \ignorespaces#1\unskip}
 }
-\newcommand*{\@halfheyStar}[1][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
+\newcommand*{\@halfheyStar}[1][%
+  \expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
   \move[8]{\ignorespaces#1\unskip\ half a hey}
 }
 \newcommand*{\halfheyricochet}{%
@@ -1250,7 +1262,8 @@ This work consists of this file contracard.dtx
 \newcommand*{\@halfheyricochetNoStar}[1][\unskip]{%
   \move[8]{Half hey ricochet \ignorespaces#1\unskip}
 }
-\newcommand*{\@halfheyricochetStar}[1][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
+\newcommand*{\@halfheyricochetStar}[1][%
+  \expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
   \move[8]{\ignorespaces#1\unskip\ half hey ricochet}
 }
 \newcommand*{\fullhey}{%
@@ -1262,7 +1275,8 @@ This work consists of this file contracard.dtx
 \newcommand*{\@fullheyNoStar}[1][\unskip]{%
   \move[16]{Full hey \ignorespaces#1\unskip}
 }
-\newcommand*{\@fullheyStar}[1][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
+\newcommand*{\@fullheyStar}[1][%
+  \expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
   \move[16]{\ignorespaces#1\unskip\ full hey}
 }
 %    \end{macrocode}
@@ -1274,6 +1288,18 @@ This work consists of this file contracard.dtx
 % \end{macro}
 % \end{macro}
 % \end{macro}
+%
+% \begin{exampledance}
+% \begin{contra}{East Meets West}{Martha Wild}{Duple improper}
+%   \longlines
+%   \move{Gypsy star \textthreequarters}\moveindex{Gypsy Star}
+%   \move[16]{Gypsy and swing partner}\moveindex{Gypsy}\moveindex{Swing}
+%   \halfpromenade
+%   \move{Hey}\moveindex{Hey}\moveindex{Hey for Four}\moveindex{Full Hey}
+%   \move{(continue hey)}
+%   \ladieschain
+% \end{contra}
+% \end{exampledance}
 %
 % \begin{macro}{\ladieschain}
 % \changes{1.0.0}{2013/09/06}{Add move shortcut}
@@ -1319,7 +1345,8 @@ This work consists of this file contracard.dtx
 \newcommand*{\@chainNoStar}[1][\unskip]{%
   \move[8]{\expandafter\MakeUppercase\cc@who\ chain \ignorespaces#1\unskip}%
 }
-\newcommand*{\@chainStar}[1][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
+\newcommand*{\@chainStar}[1][%
+  \expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
   \move[8]{\ignorespaces#1\unskip\ \cc@who\ chain}%
 }
 \newcommand*{\halfladieschain}{%
@@ -1335,7 +1362,8 @@ This work consists of this file contracard.dtx
 \newcommand*{\@halfchainNoStar}[1][\unskip]{%
   \move[8]{\expandafter\MakeUppercase\cc@who\ half chain \ignorespaces#1\unskip}%
 }
-\newcommand*{\@halfchainStar}[1][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
+\newcommand*{\@halfchainStar}[1][%
+  \expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
   \move[8]{\ignorespaces#1\unskip\ \cc@who\ half chain}%
 }
 \newcommand*{\fullladieschain}{%
@@ -1351,7 +1379,8 @@ This work consists of this file contracard.dtx
 \newcommand*{\@fullchainNoStar}[1][\unskip]{%
   \move[16]{\expandafter\MakeUppercase\cc@who\ full chain \ignorespaces#1\unskip}%
 }
-\newcommand*{\@fullchainStar}[1][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
+\newcommand*{\@fullchainStar}[1][%
+  \expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
   \move[16]{\ignorespaces#1\unskip\ \cc@who\ full chain}%
 }
 %    \end{macrocode}
@@ -1386,7 +1415,8 @@ This work consists of this file contracard.dtx
   \moveindex{Lines Forward and Back}%
   \@ifstar\@linesStar\@linesNoStar%
 }
-\newcommand*{\@linesNoStar}[1][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
+\newcommand*{\@linesNoStar}[1][%
+  \expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
   \move[8]{\ignorespaces#1\unskip\ lines forward and back}%
 }
 \newcommand*{\@linesStar}[1][lines]{%
@@ -1433,7 +1463,8 @@ This work consists of this file contracard.dtx
 \newcommand*{\@petronellaNoStar}[1][\unskip]{%
   \move[4]{Petronella \ignorespaces#1\unskip}%
 }
-\newcommand*{\@petronellaStar}[1][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
+\newcommand*{\@petronellaStar}[1][%
+  \expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
   \move[4]{\ignorespaces#1\unskip\ petronella}%
 }
 \newcommand*{\longpetronella}{%
@@ -1443,7 +1474,8 @@ This work consists of this file contracard.dtx
 \newcommand*{\@longpetronellaNoStar}[1][\unskip]{%
   \move[8]{Petronella \ignorespaces#1\unskip}%
 }
-\newcommand*{\@longpetronellaStar}[1][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
+\newcommand*{\@longpetronellaStar}[1][%
+  \expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
   \move[8]{\ignorespaces#1\unskip\ petronella}%
 }
 %    \end{macrocode}
@@ -1473,7 +1505,8 @@ This work consists of this file contracard.dtx
 \newcommand*{\@promenadeNoStar}[2][\unskip]{%
   \move[#2]{Promenade \ignorespaces#1\unskip}%
 }
-\newcommand*{\@promenadeStar}[2][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
+\newcommand*{\@promenadeStar}[2][%
+  \expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
   \move[#2]{\ignorespaces#1\unskip\ promenade}%
 }
 \newcommand*{\halfpromenade}{%
@@ -1481,10 +1514,11 @@ This work consists of this file contracard.dtx
   \moveindex{Half Promenade}%
   \@ifstar\@halfpromenadeStar\@halfpromenadeNoStar%
 }
-\newcommand*{\@halfpromenadeNoStar}[2][\unskip]{%
+\newcommand*{\@halfpromenadeNoStar}[1][\unskip]{%
   \move[8]{Half promenade \ignorespaces#1\unskip}%
 }
-\newcommand*{\@halfpromenadeStar}[2][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
+\newcommand*{\@halfpromenadeStar}[1][%
+  \expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
   \move[8]{\ignorespaces#1\unskip\ half promenade}%
 }
 %    \end{macrocode}
@@ -1517,7 +1551,8 @@ This work consists of this file contracard.dtx
 \newcommand*{\@rlNoStar}[1][\unskip]{%
   \move[8]{Right and left through \ignorespaces#1\unskip}%
 }
-\newcommand*{\@rlStar}[1][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
+\newcommand*{\@rlStar}[1][%
+  \expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
   \move[8]{\ignorespaces#1\unskip\ right and left through}%
 }
 %    \end{macrocode}
@@ -1566,7 +1601,8 @@ This work consists of this file contracard.dtx
 \newcommand*{\@rollawayNoStar}[1][\unskip]{%
   \move[4]{Roll away \ignorespaces#1\unskip}%
 }
-\newcommand*{\@rollawayStar}[1][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
+\newcommand*{\@rollawayStar}[1][%
+  \expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
   \move[4]{\ignorespaces#1\unskip\ roll away}%
 }
 \newcommand*{\@rawhsNoStar}[1][\unskip]{%
@@ -1658,7 +1694,8 @@ This work consists of this file contracard.dtx
 \newcommand*{\@swingNoStar}[2][\unskip]{%
   \move[#2]{Swing \ignorespaces#1\unskip}%
 }
-\newcommand*{\@swingStar}[2][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
+\newcommand*{\@swingStar}[2][%
+  \expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
   \move[#2]{\ignorespaces#1\unskip\ swing}%
 }
 %    \end{macrocode}
@@ -1808,7 +1845,8 @@ This work consists of this file contracard.dtx
 \newcommand*{\@walkthehallNoStar}[2][\unskip]{%
   \move[#2]{\expandafter\MakeUppercase\cc@dir\ the hall\ \ignorespaces#1\unskip}%
 }
-\newcommand*{\@walkthehallStar}[2][\expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
+\newcommand*{\@walkthehallStar}[2][%
+  \expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
   \move[#2]{\ignorespaces#1\unskip\ \cc@dir\ the hall}%
 }
 %    \end{macrocode}
