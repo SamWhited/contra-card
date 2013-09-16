@@ -240,6 +240,7 @@ This work consists of this file contracard.dtx
 % \changes{1.0.0}{2013/09/06}{Add Unicode (\XeLaTeX\ and \LuaLaTeX) support}
 % \changes{1.0.0}{2013/09/09}{Start using \href{http://semver.org}{Semantic
 % Versioning}}
+% \changes{1.0.0}{2013/09/15}{Fix phrase separator issues}
 %
 % \section{Building and using \pkg{contracard}}
 %
@@ -703,7 +704,7 @@ This work consists of this file contracard.dtx
 % \end{macro}
 %
 % To see how this can be useful consider the following blues contras by caller
-% and all around cat's pajamas Seth Tepfer. Each one comprises three 16 count
+% (and all around cat's pajamas) Seth Tepfer. Each one comprises three 16 count
 % phrases (\code{A1}, \code{B1}, and \code{C1}). The first employs the
 % \code{\textbackslash newdancephrase} command to reset the phrase every 16
 % counts, the second changes the \code{dancephraselength} and lets Contra Card
@@ -752,6 +753,7 @@ This work consists of this file contracard.dtx
 % \end{contra}
 % \end{exampledance}
 %
+% \clearpage
 % \begin{Verbatim}
 % \setlength{\phrasevspace}{0em}
 % \renewcommand*{\partdelimiter}{:}
@@ -861,6 +863,12 @@ This work consists of this file contracard.dtx
   \end{\dancetitleenv}
   \newcommand*{\@contraenv}{#1}
   \begin{\@contraenv}
+%    \end{macrocode}
+% The next three lines are worth noting. Any new lines, vertical tabs, or form
+% feeds you introduce into your dance won't actually do anything. Contra Card
+% attempts to handle line breaks for your, and provides you with hook to insert
+% vertical space at the appropriate times.
+%    \begin{macrocode}
   \catcode10=9\relax % New line
   \catcode11=9\relax % Vertical Tab
   \catcode12=9\relax % Form Feed
