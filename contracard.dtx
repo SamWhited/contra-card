@@ -400,7 +400,7 @@ This work consists of this file contracard.dtx
 % \begin{verbatim}
 %   \renewcommand*{\dancetitleenv}{center}
 %   \renewcommand*{\midpartdelimiter}{\ ---}
-%   \renewcommand*{\phraseseparator}{\ding{167}\par}
+%   \renewcommand*{\phraseseparator}{\ding{167}}
 % \end{verbatim}
 %
 % and looks something like this:
@@ -408,7 +408,7 @@ This work consists of this file contracard.dtx
 % \begin{exampledance}
 % \renewcommand*{\dancetitleenv}{center}%
 % \renewcommand*{\midpartdelimiter}{\ ---}%
-% \renewcommand*{\phraseseparator}{\ding{167}\par}%
+% \renewcommand*{\phraseseparator}{\ding{167}}%
 % \begin{contra}{Code's Compiling}{Sam Whited}{Duple becket}
 %   \dosido*[Neighbor]{8}
 %   \seesaw*[Partner]{8}
@@ -685,7 +685,7 @@ This work consists of this file contracard.dtx
 % The user can also manually start a new phrase or part:
 %    \begin{macrocode}
 \newcommand*{\newdancephrase}{%
-  \ifthenelse{\NOT\value{phrasecount}=0}{\par}{}%
+  \ifthenelse{\NOT\value{phrasecount}=0}{\par\phraseseparator\par}{}%
   \addtocounter{dancephrase}{1}%
   \setcounter{phrasecount}{0}%
   \setcounter{phrasemovenum}{0}%
@@ -711,6 +711,7 @@ This work consists of this file contracard.dtx
 % result.
 %
 % \begin{Verbatim}
+% \setlength{\phrasevspace}{0em}
 % \renewcommand*{\partdelimiter}{:}
 % \begin{contra}{Untitled Blues \textnumero\ 1}{Seth Tepfer}{Duple minor im.}
 %   \gypsy*[Neighbor]{8}
@@ -731,6 +732,7 @@ This work consists of this file contracard.dtx
 % \end{Verbatim}
 %
 % \begin{exampledance}
+% \setlength{\phrasevspace}{0em}
 % \renewcommand*{\partdelimiter}{:}
 % \begin{contra}{Untitled Blues \textnumero\ 1}{\href{http://www.dancerhapsody.com/calling/dances.html}{Seth Tepfer}}{Duple minor im.}
 %   \gypsy*[Neighbor]{8}
@@ -752,6 +754,7 @@ This work consists of this file contracard.dtx
 %
 % \begin{Verbatim}
 % \setlength{\phrasevspace}{0em}
+% \renewcommand*{\partdelimiter}{:}
 % \setcounter{dancephraselength}{16}
 % \begin{contra}{Untitled Blues \textnumero\ 2}{Seth Tepfer}{Duple minor im.}
 %   \gypsy*[Neighbor]{8}
@@ -771,6 +774,7 @@ This work consists of this file contracard.dtx
 %
 % \begin{exampledance}
 % \setlength{\phrasevspace}{0em}
+% \renewcommand*{\partdelimiter}{:}
 % \setcounter{dancephraselength}{16}
 % \begin{contra}{Untitled Blues \textnumero\ 2}{\href{http://www.dancerhapsody.com/calling/dances.html}{Seth Tepfer}}{Duple minor im.}
 %   \gypsy*[Neighbor]{8}
@@ -890,9 +894,9 @@ This work consists of this file contracard.dtx
   \setlength{\cc@partsepwidth}{\widthof{\Alph{dancephrase}\arabic{dancepart}%
     \partdelimiter\ }}%
   \setlength{\hangindent}{\cc@partsepwidth}%
-  \ifthenelse{\value{phrasecount}=0}{%
-    \ifthenelse{\value{phrasemovenum}=0\AND\NOT\value{dancemovenum}=0}{%
-      \pagebreak[1]\phraseseparator%
+  \ifthenelse{\value{phrasecount}=\value{dancephraselength}}{%
+    \ifthenelse{\NOT\(#1=0\)}{%
+      \newdancephrase%
     }{}%
   }{%
     \ifthenelse{\(\value{partcount}=\value{dancepartlength}\)%
