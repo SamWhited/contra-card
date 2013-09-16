@@ -127,7 +127,7 @@ This work consists of this file contracard.dtx
 %
 %<*driver>
 \documentclass[a4paper]{ltxdoc}
-\usepackage{fancyvrb,hologo,framed,multicol,url,graphicx,cclicenses}
+\usepackage{fancyvrb,hologo,framed,multicol,url,graphicx,cclicenses,pifont}
 \usepackage[enableidx]{contracard}
 \ifccunicode\relax\else\usepackage[utf8x]{inputenc}\fi
 \usepackage[pdfborder=0, bookmarks, colorlinks=false, hidelinks]{hyperref}
@@ -392,6 +392,44 @@ This work consists of this file contracard.dtx
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
+%
+% A dance with a centered title block, a custom mid-part delimiter (an em-dash
+% in this case), and a nice horticultural dingbat as the phrase separator can be
+% accomplished with:
+%
+% \begin{verbatim}
+%   \renewcommand*{\dancetitleenv}{center}
+%   \renewcommand*{\midpartdelimiter}{\ ---}
+%   \renewcommand*{\phraseseparator}{\ding{167}\par}
+% \end{verbatim}
+%
+% and looks something like this:
+%
+% \begin{exampledance}
+% \renewcommand*{\dancetitleenv}{center}%
+% \renewcommand*{\midpartdelimiter}{\ ---}%
+% \renewcommand*{\phraseseparator}{\ding{167}\par}%
+% \begin{contra}{Code's Compiling}{Sam Whited}{Duple becket}
+%   \dosido*[Neighbor]{8}
+%   \seesaw*[Partner]{8}
+%   \swing*[Shadow]{16}
+%   \balanceand\longpetronella
+%   \balanceand\longpetronella
+%   \swing*[Partner]{8}
+%   \rightandleftthrough*[Left diagonal:]
+%   \notes{The Neighbor dosido into a partner see saw should be one fluid
+%   motion. Resist spinning in the dosido, and start revolving slowly over your
+%   right shoulder as you enter the see saw and everything will flow. Make sure
+%   lines have \emph{lots} of space for the dosido.}
+%   \vspace*{\fill}
+%   \begin{flushright}
+%   \href{http://creativecommons.org/licenses/by/3.0/}{%
+%     \IfFileExists{by.png}{%
+%       \includegraphics[width=1cm]{by.png}%
+%     }{\cc\by}}
+%   \end{flushright}
+% \end{contra}
+% \end{exampledance}
 %
 % \begin{macro}{\showcountbefore}
 % \changes{1.0.0}{2013/09/07}{Allow showing the count before each move}
@@ -2166,73 +2204,8 @@ This work consists of this file contracard.dtx
 %</contracard-cls>
 %    \end{macrocode}
 %
-% \bookmarksetup{startatroot}%
-% \addtocontents{toc}{\bigskip}%
-% \section{A Final Example}
-%
-% A final example dance can be found below. Note that the output is wrapped in a
-% frame for clarity; no attempt has been made to make the frame match the size,
-% margins, etc. that a calling card would have (the examples in this document
-% don't use \fname{contracard.cls}, just the package). The dance is licensed
-% under a Creative Commons Attribution 3.0 Unported license (CC-BY) which means
-% you're free to use it however you please (as long as you attribute the
-% author).
-%
-% \subsection{Code's Compiling by Sam Whited}
-%
-% This is a simple dance from the caller's perspective (not so for the dancers!)
-% and doesn't do much to show off Contra Card's features. Each move is 8 counts,
-% and it uses standard phrasing. Teaching it may be more difficult; at first
-% glance it appears not to flow, but by adding a few turns and making sure that
-% dancers know they don't have to stop and face forward before doing the see saw
-% (almost as if it were a mad robin) it will flow smoothly.
-%
-% \begin{Verbatim}
-% \begin{contra}{Code's Compiling}{Sam Whited}{Duple becket}
-%   \dosido*[Neighbor]{8}
-%   \seesaw*[Partner]{8}
-%   \swing*[Shadow]{16}
-%   \balanceand\longpetronella
-%   \balanceand\longpetronella
-%   \swing*[Partner]{8}
-%   \rightandleftthrough*[Left diagonal:]
-%   \notes{The Neighbor dosido into a partner see saw should be one fluid
-%   motion. Resist spinning in the dosido, and start revolving slowly over your
-%   right shoulder as you enter the see saw and everything will flow. Make sure
-%   lines have \textbf{lots} of space for the dosido.}
-%   \vspace*{\fill}
-%   \begin{flushright}
-%   \href{http://creativecommons.org/licenses/by/3.0/}{%
-%     \IfFileExists{by.png}{%
-%       \includegraphics[width=1cm]{by.png}%
-%     }{\cc\by}}
-%   \end{flushright}
-% \end{contra}
-% \end{Verbatim}
-%
-% \begin{exampledance}
-% \begin{contra}{Code's Compiling}{Sam Whited}{Duple becket}
-%   \dosido*[Neighbor]{8}
-%   \seesaw*[Partner]{8}
-%   \swing*[Shadow]{16}
-%   \balanceand\longpetronella
-%   \balanceand\longpetronella
-%   \swing*[Partner]{8}
-%   \rightandleftthrough*[Left diagonal:]
-%   \notes{The Neighbor dosido into a partner see saw should be one fluid
-%   motion. Resist spinning in the dosido, and start revolving slowly over your
-%   right shoulder as you enter the see saw and everything will flow. Make sure
-%   lines have \textbf{lots} of space for the dosido.}
-%   \vspace*{\fill}
-%   \begin{flushright}
-%   \href{http://creativecommons.org/licenses/by/3.0/}{%
-%     \IfFileExists{by.png}{%
-%       \includegraphics[width=1cm]{by.png}%
-%     }{\cc\by}}
-%   \end{flushright}
-% \end{contra}
-% \end{exampledance}
-%
+% \bookmarksetup{startatroot}
+% \addtocontents{toc}{\bigskip}
 % \clearpage
 % \setcounter{IndexColumns}{2}
 % \phantomsection
