@@ -62,10 +62,10 @@ TDS_ZIP = $(NAME).tds.zip
 ZIPS = $(CTAN_ZIP) $(TDS_ZIP)
 
 DO_LATEX = xelatex --interaction=nonstopmode $<  $(REDIRECT)
-DO_LATEX_WRITE18 = xelatex --shell-escape --interaction=nonstopmode $<  $(REDIRECT)
+DO_LATEX_WRITE18 = xelatex --shell-escape --interaction=nonstopmode $< $(REDIRECT)
 DO_TEX = tex --interaction=nonstopmode $< $(REDIRECT)
-DO_MAKEINDEX = makeindex -s gind.ist $(subst .dtx,,$<)  $(REDIRECT)  2>&1
-DO_SPLITINDEX = splitindex $(subst .dtx,,$<) $(REDIRECT)  2>&1
+DO_MAKEINDEX = makeindex -s gind.ist $(subst .dtx,,$<) $(REDIRECT) 2>&1
+DO_SPLITINDEX = splitindex $(subst .dtx,,$<) $(REDIRECT) 2>&1
 DO_MAKECHANGES = makeindex -s gglo.ist -o $(NAME).gls $(NAME).glo $< $(REDIRECT) 2>&1
 
 all: $(GENERATED)
