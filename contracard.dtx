@@ -127,9 +127,18 @@ This work consists of this file contracard.dtx
 %
 %<*driver>
 \documentclass[a4paper]{ltxdoc}
+\usepackage{ifxetex,ifluatex}
 \usepackage{fancyvrb,hologo,framed,multicol,url,graphicx,cclicenses,pifont}
 \usepackage[enableidx]{contracard}
-\ifccunicode\relax\else\usepackage[utf8x]{inputenc}\fi
+\ifxetex
+  \usepackage{unicode-math}
+\else
+  \ifluatex
+    \usepackage{unicode-math}
+  \else
+    \usepackage[utf8x]{inputenc}
+  \fi
+\fi
 \usepackage[pdfborder=0, bookmarks, colorlinks=false, hidelinks]{hyperref}
 \usepackage[parfill]{parskip}
 \usepackage{bookmark}
@@ -237,7 +246,6 @@ This work consists of this file contracard.dtx
 % \changes{0.4}{2013/02/22}{Support swung dances}
 % \changes{0.4}{2013/02/22}{Add list of dances}
 % \changes{0.4}{2013/02/22}{Add \pkg{tocloft} package to requirements}
-% \changes{1.0.0}{2013/09/06}{Add Unicode (\XeLaTeX\ and \LuaLaTeX) support}
 % \changes{1.0.0}{2013/09/09}{Start using \href{http://semver.org}{Semantic
 % Versioning}}
 % \changes{1.0.0}{2013/09/15}{Fix phrase separator issues}
@@ -253,20 +261,6 @@ This work consists of this file contracard.dtx
 \RequirePackage{ifthen}
 \RequirePackage{tocloft}
 \RequirePackage{textcomp}
-\RequirePackage{ifxetex,ifluatex}
-%</contracard-pkg>
-%    \end{macrocode}
-%
-% If you're using \XeLaTeX\ or \LuaLaTeX\ you should also make sure you have the
-% \pkg{unicode-math} package:
-%
-%    \begin{macrocode}
-%<*contracard-pkg>
-\newif\ifccunicode
-\ifxetex\ccunicodetrue\else\ifluatex\ccunicodetrue\fi\fi
-\ifccunicode
-  \RequirePackage{unicode-math}
-\fi
 %</contracard-pkg>
 %    \end{macrocode}
 %
