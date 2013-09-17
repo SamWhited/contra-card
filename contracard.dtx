@@ -943,11 +943,10 @@ This work consists of this file contracard.dtx and the derived files
     }{}%
     \ifx\cc@moveStar\undefined%
       \ifthenelse{\value{partcount}=\intcalcDiv{\value{dancepartlength}}{2}}{%
-        \midpartdelimiter\nopagebreak\ \nopagebreak\ignorespaces%
+        \midpartdelimiter\looseness=-1\linebreak[1]\space\nopagebreak\ignorespaces%
       }{%
         \ifthenelse{\NOT\value{partcount}=\value{dancepartlength}}{%
-          \movedelimiter\nopagebreak\nolinebreak[2]\ %
-          \nopagebreak\nolinebreak[2]\ignorespaces%
+          \movedelimiter\nolinebreak[2]\space\nopagebreak\ignorespaces%
         }{}%
       }%
     \fi%
