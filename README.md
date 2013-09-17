@@ -1,6 +1,7 @@
 # Contra Card
 
-A LaTeX package for contra and square dance calls.
+A LaTeX package for typesetting traditional contra and square dances, and a
+class which generates calling cards for the same.
 
 ## Download
 
@@ -12,7 +13,8 @@ The current [release
 version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 **Contra Card** and associated
 [documentation](http://mirrors.ctan.org/macros/latex/contrib/contracard/contracard.pdf)
-[PDF] is available from [CTAN](http://ctan.org/pkg/contracard).
+[PDF] is available from [CTAN](http://ctan.org/pkg/contracard) or
+[GitHub](https://github.com/SamWhited/contracard/releases).
 
 ## License
 
@@ -20,7 +22,7 @@ Copyright 2012 Samuel Whited
 
 This file may be distributed and/or modified under the conditions of the LaTeX
 Project Public License, either version 1.3c of this license or (at your option)
-any later version. The latest version of this license is in:
+any later version. The latest version of this license can be found at:
 
 http://www.latex-project.org/lppl.txt
 
@@ -35,9 +37,5 @@ Website:    https://samwhited.com
 Contact:    sam@samwhited.com
 Public key: 0xEC2C9934
 
-This work consists of this file contracard.dtx
-          and the derived files contracard.sty
-                            and contracard.cls
-                            and contracard.pdf
-                            and README.md
-                            and README
+This work consists of this file contracard.dtx and the derived files
+`contracard.sty`, `contracard.cls`, `contracard.pdf`, `README.md`, and `README`.
