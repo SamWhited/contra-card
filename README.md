@@ -31,11 +31,11 @@ and version 1.3c or later is part of all distributions of LaTeX version
 
 This work has the LPPL maintenance status `maintained'.
 
-Author:     Sam Whited
-Maintainer: Sam Whited
-Website:    https://samwhited.com
-Contact:    sam@samwhited.com
-Public key: 0xEC2C9934
+- Author:     Sam Whited
+- Maintainer: Sam Whited
+- Website:    https://samwhited.com
+- Contact:    sam@samwhited.com
+- Public key: 0xEC2C9934
 
 This work consists of this file contracard.dtx and the derived files
 `contracard.sty`, `contracard.cls`, `contracard.pdf`, `README.md`, and `README`.
