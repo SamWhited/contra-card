@@ -83,6 +83,15 @@ by.png:
 by-nc.png:
 	wget http://mirrors.creativecommons.org/presskit/buttons/80x15/png/by-nc.png
 
+gendoc-offline: $(DTX)
+	@echo "Compiling documentation"
+	$(DO_LATEX_WRITE18)
+	$(DO_SPLITINDEX)
+	$(DO_MAKEINDEX)
+	$(DO_MAKECHANGES)
+	while ($(DO_LATEX_WRITE18) ; \
+	grep -q "Rerun to get" $(NAME).log ) do true; \
+	done
 
 gendoc: $(DTX) resources
 	@echo "Compiling documentation"
