@@ -6,19 +6,18 @@ class which generates calling cards for the same.
 ## Download
 
 Development of this package occurs primarily on
-[GitHub](https://github.com/SamWhited/contracard). Issues and pull requests
-should be submitted there.
+[Bitbucket](https://bitbucket.org/SamWhited/contracard). Issues and pull
+requests should be submitted there.
 
 The current [release
 version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
 **Contra Card** and associated
 [documentation](http://mirrors.ctan.org/macros/latex/contrib/contracard/contracard.pdf)
-[PDF] is available from [CTAN](http://ctan.org/pkg/contracard) or
-[GitHub](https://github.com/SamWhited/contracard/releases).
+[PDF] is available from [CTAN](http://ctan.org/pkg/contracard).
 
 ## License
 
-Copyright 2012 Samuel Whited
+Copyright 2012–2016 Samuel Whited
 
 This file may be distributed and/or modified under the conditions of the LaTeX
 Project Public License, either version 1.3c of this license or (at your option)
