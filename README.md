@@ -6,8 +6,8 @@ class which generates calling cards for the same.
 ## Download
 
 Development of this package occurs primarily on
-[GitHub](https://github.com/SamWhited/contracard). Issues and pull
-requests should be submitted there.
+[GitHub](https://github.com/SamWhited/contracard).
+Issues and pull requests should be submitted there.
 
 The current [release
 version](http://ctan.org/tex-archive/macros/latex/contrib/contracard) of
