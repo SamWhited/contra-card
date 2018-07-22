@@ -125,7 +125,7 @@ $(CTAN_ZIP): $(CTAN_FILES)
 	@$(RM) -- $@
 	@mkdir -p $(NAME)/
 	@cp $^ $(NAME)/
-	@zip -9 $@ $(NAME)/* >/dev/null
+	@zip -9 -f $@ $(NAME)/* >/dev/null
 	@rm -rf $(NAME)/
 
 define run-install
