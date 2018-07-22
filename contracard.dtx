@@ -763,7 +763,7 @@ This work consists of this file contracard.dtx and the derived files
 % \begin{exampledance}
 % \setlength{\phrasevspace}{0em}
 % \renewcommand*{\partdelimiter}{:}
-% \begin{contra}{Untitled Blues \textnumero\ 1}{\href{http://www.dancerhapsody.com/calling/dances.html}{Seth Tepfer}}{Duple minor im.}
+% \begin{contra}{Untitled Blues \textnumero\ 1}{Seth Tepfer}{Duple minor im.}
 %   \gypsy*[Neighbor]{8}
 %   \gypsy*[Ladies]{8}
 %   \newdancephrase
@@ -806,7 +806,7 @@ This work consists of this file contracard.dtx and the derived files
 % \setlength{\phrasevspace}{0em}
 % \renewcommand*{\partdelimiter}{:}
 % \setcounter{dancephraselength}{16}
-% \begin{contra}{Untitled Blues \textnumero\ 2}{\href{http://www.dancerhapsody.com/calling/dances.html}{Seth Tepfer}}{Duple minor im.}
+% \begin{contra}{Untitled Blues \textnumero\ 2}{Seth Tepfer}{Duple minor im.}
 %   \gypsy*[Neighbor]{8}
 %   \move[8]{Gents allemande\moveindex{Allemande} left 1\textonehalf}
 %   \balanceand*[Partner]\swing{16}
@@ -1465,6 +1465,14 @@ This work consists of this file contracard.dtx and the derived files
 % \changes{1.0.0}{2013/09/08}{Add move shortcut}
 % \begin{macro}{\longpetronella*}
 % \changes{1.0.0}{2013/09/08}{Add move shortcut}
+% \begin{macro}{\petronellanella}
+% \changes{1.1.0}{2018/07/21}{Add nella-nella petronella variants}
+% \begin{macro}{\petronellanella*}
+% \changes{1.1.0}{2018/07/21}{Add nella-nella petronella variants}
+% \begin{macro}{\longpetronellanella}
+% \changes{1.1.0}{2018/07/21}{Add nella-nella petronella variants}
+% \begin{macro}{\longpetronellanella*}
+% \changes{1.1.0}{2018/07/21}{Add nella-nella petronella variants}
 % Petronella's are normally performed in rings of four, and aren't with another
 % individual, however, the \code{\textbackslash petronella} macro still takes a
 % single optional argument for those rare occasions when two individuals are
@@ -1474,6 +1482,19 @@ This work consists of this file contracard.dtx and the derived files
 % longpetronella} which takes up the full 8 counts. This way you can write
 % \code{\textbackslash balanceand\textbackslash longpetronella} and the timing
 % will be correct.
+% A petronella-nella has the same timing as an ormal petronella but instead of
+% moving one place to the right dancers move two places.
+% \begin{exampledance}
+% \begin{contra}{Snowball Shimmy}{Seth Tepfer}{Duple becket}
+%   \move[8]{Circle left all the way}
+%   \allemande*[Gents]{8}{left 1\textonehalf}
+%   \balanceand\swing[neighbor]{16}
+%   \balanceand\longpetronella
+%   \balanceand\longpetronellanella
+%   \balanceand\swing[partner]{16}
+%   \notes{nella-nella variant of Erik Weberg's Wasatch Wiggle}
+% \end{contra}
+% \end{exampledance}
 %    \begin{macrocode}
 \newcommand*{\petronella}{%
   \moveindex{Petronella}%
@@ -1497,7 +1518,35 @@ This work consists of this file contracard.dtx and the derived files
   \expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
   \move[8]{\ignorespaces#1\unskip\ petronella}%
 }
+\newcommand*{\petronellanella}{%
+  \moveindex{Petronella}%
+  \moveindex{Petronella-nella}%
+  \@ifstar\@petronellanellaStar\@petronellanellaNoStar%
+}
+\newcommand*{\@petronellanellaNoStar}[1][\unskip]{%
+  \move[4]{Petronella-nella \ignorespaces#1\unskip}%
+}
+\newcommand*{\@petronellanellaStar}[1][%
+  \expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
+  \move[4]{\ignorespaces#1\unskip\ petronella-nella}%
+}
+\newcommand*{\longpetronellanella}{%
+  \moveindex{Petronella}%
+  \moveindex{Petronella-nella}%
+  \@ifstar\@longpetronellanellaStar\@longpetronellanellaNoStar%
+}
+\newcommand*{\@longpetronellanellaNoStar}[1][\unskip]{%
+  \move[8]{Petronella-nella \ignorespaces#1\unskip}%
+}
+\newcommand*{\@longpetronellanellaStar}[1][%
+  \expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
+  \move[8]{\ignorespaces#1\unskip\ petronella-nella}%
+}
 %    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
 % \end{macro}
 % \end{macro}
 % \end{macro}
