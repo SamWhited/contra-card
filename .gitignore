@@ -1,5 +1,6 @@
 *.aux
 *.cls
+contracard/
 *.gl[os]
 *.idx
 *.ilg
@@ -7,6 +8,7 @@
 *.lod
 *.log
 *.pdf
+README
 *.sty
 *.toc
 *.zip
