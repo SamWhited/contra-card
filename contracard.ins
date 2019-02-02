@@ -1,0 +1,55 @@
+%%  contracard.ins -- part of contracard
+
+\input l3docstrip.tex\relax
+
+\keepsilent
+\usedir{tex/latex/contracard}
+\let\MetaPrefix\relax
+\preamble
+
+  Copyright 2012 Sam Whited
+
+  This file may be distributed and/or modified under the
+  conditions of the LaTeX Project Public License, either
+  version 1.3c of this license or (at your option) any later
+  version. The latest version of this license is in:
+
+  http://www.latex-project.org/lppl.txt
+
+  and version 1.3c or later is part of all distributions of
+  LaTeX version 2008/05/04 or later.
+
+  For the maintenance status and other document metadata,
+  see the end of this document.
+
+\endpreamble
+\postamble
+
+  ___________
+  This work has the LPPL maintenance status `maintained'.
+
+  Author:     Sam Whited
+  Maintainer: Sam Whited
+  Website:    https://blog.samwhited.com
+  Contact:    sam@samwhited.com
+
+\endpostamble
+\askforoverwritefalse
+
+\let\MetaPrefix\DoubleperCent
+\generate{\file{contracard.sty}{\from{contracard.dtx}{contracard-pkg}}}
+\generate{\file{contracard.cls}{\from{contracard.dtx}{contracard-cls}}}
+
+\endbatchfile
+\endinput
+
+%%
+%%   ___________
+%%   This work has the LPPL maintenance status `maintained'.
+%%
+%%   Author:     Sam Whited
+%%   Maintainer: Sam Whited
+%%   Website:    https://blog.samwhited.com
+%%   Contact:    sam@samwhited.com
+%%
+%% End of file `contracard.ins'.

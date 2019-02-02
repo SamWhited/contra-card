@@ -10,7 +10,7 @@ DO_SPLITINDEX = splitindex contracard $(REDIRECT) 2>&1
 DO_MAKEINDEX = makeindex -s gind.ist -o contracard.ind contracard $(REDIRECT) 2>&1
 DO_MAKECHANGES = makeindex -s gglo.ist -o contracard.gls contracard.glo $< $(REDIRECT) 2>&1
 
-contracard.pdf: contracard.dtx by-nc.png by.png
+contracard.pdf: contracard.sty contracard.cls contracard.dtx by-nc.png by.png
 	$(DO_LATEX_WRITE18)
 	$(DO_LATEX_WRITE18)
 	$(DO_SPLITINDEX)
@@ -19,6 +19,9 @@ contracard.pdf: contracard.dtx by-nc.png by.png
 	while ($(DO_LATEX_WRITE18) ; \
 	grep -q "Rerun to get" contracard.log ) do true; \
 	done
+
+contracard.sty contracard.cls: contracard.dtx contracard.ins
+	xelatex --interaction=nonstopmode contracard.ins $(REDIRECT)
 
 contracard.zip: contracard.dtx contracard.pdf Makefile LICENSE
 	rm -f $@
