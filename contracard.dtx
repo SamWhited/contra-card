@@ -148,15 +148,15 @@
 % \begin{contra}{Lament To Sarah}{Sam Whited}{Duple improper}
 %   \lines*[In your set, short]
 %   \move[4]{open up across}
-%   \rollawayhalfsashay
+%   \rollawaysashay
 %   \move[4]{Neighbor two hand turn}\unskip\moveindex{Two hand turn}%
 %
 %   \move[8]{Cont.\ two hand turn}\unskip\moveindex{Two hand turn}%
 %   \swing*[Melt into a]{8}
 %
-%   \balanceand\longpetronella
-%   \balanceand\longpetronella
-%   \balanceand\longpetronella
+%   \balanceand\petronella
+%   \balanceand\petronella
+%   \balanceand\petronella
 %   \move[8]{Balance with your partner and two hand turn while rotating to the
 %   right to end facing new neighbors}\unskip\moveindex{Balance}\moveindex{Two hand turn}
 %   \notes{%
@@ -175,6 +175,7 @@
 % \changes{1.0.0}{2013/09/09}{Start using \href{http://semver.org}{Semantic
 % Versioning}}
 % \changes{1.0.0}{2013/09/15}{Fix phrase separator issues}
+% \changes{2.0.0}{2018/07/25}{Remove \texttt{\textbackslash rawhs} macros}
 %
 % \section{Building and using \pkg{contracard}}
 %
@@ -336,8 +337,8 @@
 %   \dosido*[Neighbor]{8}
 %   \seesaw*[Partner]{8}
 %   \swing*[Shadow]{16}
-%   \balanceand\longpetronella
-%   \balanceand\longpetronella
+%   \balanceand\petronella
+%   \balanceand\petronella
 %   \swing*[Partner]{8}
 %   \rightandleftthrough*[Left diagonal:]
 %   \notes{The Neighbor dosido into a partner see saw should be one fluid
@@ -409,8 +410,8 @@
 %   }
 %   \swing[your partners all]{16}
 %   \move[8]{Spin like a Whirling Dervish\moveindex{Whirling Dervish}}
-%   \balanceand\longpetronella
-%   \balanceand\move[8]{gents roll neighbor away with a half sashay\moveindex{Half
+%   \balanceand\petronella
+%   \balanceand\move[4]{gents roll neighbor away with a half sashay\moveindex{Half
 %   Sashay}\moveindex{Roll Away}\moveindex{Roll Away\ldots Half Sashay}}
 %   \move[8]{Balance neighbor and gypsy left 1 time to new
 %   neighbors\moveindex{Balance}\moveindex{Gypsy}\moveindex{Gypsy Left}}
@@ -640,7 +641,7 @@
 %   \gypsy*[Neighbor]{8}
 %   \gypsy*[Ladies]{8}
 %   \newdancephrase
-%   \balanceand*[Partner]\swing{16}
+%   \balanceand*[Partner]\swing{12}
 %   \newdancephrase
 %   \ladieschain
 %   \starleft{8}
@@ -661,7 +662,7 @@
 %   \gypsy*[Neighbor]{8}
 %   \gypsy*[Ladies]{8}
 %   \newdancephrase
-%   \balanceand*[Partner]\swing{16}
+%   \balanceand*[Partner]\swing{12}
 %   \newdancephrase
 %   \ladieschain
 %   \starleft{8}
@@ -683,7 +684,7 @@
 % \begin{contra}{Untitled Blues \textnumero\ 2}{Seth Tepfer}{Duple minor im.}
 %   \gypsy*[Neighbor]{8}
 %   \move[8]{Gents allemande\moveindex{Allemande} left 1\textonehalf}
-%   \balanceand*[Partner]\swing{16}
+%   \balanceand*[Partner]\swing{12}
 %   \move[8]{\textonehalf\ promenade\moveindex{Half Promenade}\moveindex{Promenade} across set}
 %   \ladieschain
 %   \vspace*{\fill}
@@ -703,7 +704,7 @@
 % \begin{contra}{Untitled Blues \textnumero\ 2}{Seth Tepfer}{Duple minor im.}
 %   \gypsy*[Neighbor]{8}
 %   \move[8]{Gents allemande\moveindex{Allemande} left 1\textonehalf}
-%   \balanceand*[Partner]\swing{16}
+%   \balanceand*[Partner]\swing{12}
 %   \move[8]{\textonehalf\ promenade\moveindex{Half Promenade}\moveindex{Promenade} across set}
 %   \ladieschain
 %   \vspace*{\fill}
@@ -905,14 +906,13 @@
 % \changes{1.0.0}{2013/09/05}{Add move shortcut}
 % \begin{macro}{\balanceand}
 % \changes{1.0.0}{2013/09/05}{Add move shortcut}
+% \changes{2.0.0}{2018/07/25}{Change timing to take up full count}
 % \begin{macro}{\balanceand*}
 % \changes{1.0.0}{2013/09/05}{Add move shortcut}
+% \changes{2.0.0}{2018/07/25}{Change timing to take up full count}
 % The \code{\textbackslash balance} macro takes a single optional argument and
 % prints it after (or before if you use \code{\textbackslash balance*}) the word
-% `balance'. Balances always take up 4 beats unless you use the
-% \code{\textbackslash balanceand} version of the command which takes up 0
-% logical counts.  This way you can follow it up with another command
-% (eg.~\code{\textbackslash balanceand*[Partner]\textbackslash swing}).
+% `balance'. Balances always take up 4 beats.
 %    \begin{macrocode}
 \newcommand*{\balance}{%
   \moveindex{Balance}%
@@ -931,11 +931,11 @@
   \@ifstar\@balanceandStar\@balanceandNoStar%
 }
 \newcommand*{\@balanceandNoStar}[1][]{%
-  \move*[0]{Balance and \ignorespaces#1\unskip\ \ \ignorespaces}%
+  \move*[4]{Balance and \ignorespaces#1\unskip\ \ \ignorespaces}%
 }
 \newcommand*{\@balanceandStar}[1][%
   \expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
-  \move*[0]{\ignorespaces#1\unskip\ balance and\ \ \ignorespaces}%
+  \move*[4]{\ignorespaces#1\unskip\ balance and\ \ \ignorespaces}%
 }
 %    \end{macrocode}
 % \end{macro}
@@ -1351,41 +1351,54 @@
 % \end{macro}
 % \end{macro}
 %
+% \begin{macro}{\madrobin}
+% \changes{2.0.0}{2018/07/24}{Add move shortcut}
+%    \begin{macrocode}
+\newcommand*{\madrobin}{%
+  \moveindex{Mad Robin}%
+  \@ifstar\@madrobinStar\@madrobinNoStar%
+}
+\newcommand*{\@madrobinNoStar}[1][\unskip]{%
+  \move[8]{Mad robin \ignorespaces#1\unskip}%
+}
+\newcommand*{\@madrobinStar}[1][%
+  \expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
+  \move[8]{\ignorespaces#1\unskip\ mad robin}%
+}
+%    \end{macrocode}
+% \end{macro}
+%
 % \begin{macro}{\petronella}
 % \changes{1.0.0}{2013/09/08}{Add move shortcut}
 % \begin{macro}{\petronella*}
 % \changes{1.0.0}{2013/09/08}{Add move shortcut}
 % \begin{macro}{\longpetronella}
 % \changes{1.0.0}{2013/09/08}{Add move shortcut}
+% \changes{2.0.0}{2018/07/25}{Deprecate move}
 % \begin{macro}{\longpetronella*}
 % \changes{1.0.0}{2013/09/08}{Add move shortcut}
+% \changes{2.0.0}{2018/07/25}{Deprecate move}
 % \begin{macro}{\petronellanella}
 % \changes{1.1.0}{2018/07/21}{Add nella-nella petronella variants}
 % \begin{macro}{\petronellanella*}
 % \changes{1.1.0}{2018/07/21}{Add nella-nella petronella variants}
 % \begin{macro}{\longpetronellanella}
 % \changes{1.1.0}{2018/07/21}{Add nella-nella petronella variants}
-% \begin{macro}{\longpetronellanella*}
-% \changes{1.1.0}{2018/07/21}{Add nella-nella petronella variants}
 % Petronella's are normally performed in rings of four, and aren't with another
 % individual, however, the \code{\textbackslash petronella} macro still takes a
 % single optional argument for those rare occasions when two individuals are
-% turning in a diamond pattern. Petronella's themselves take 4 beats, but they
-% are normally prefixed by a balance. Since the \code{\textbackslash balanceand}
-% macro takes up zero logical beats, we also provide \code{\textbackslash
-% longpetronella} which takes up the full 8 counts. This way you can write
-% \code{\textbackslash balanceand\textbackslash longpetronella} and the timing
-% will be correct.
-% A petronella-nella has the same timing as an ormal petronella but instead of
+% turning in a diamond pattern. For legacy reasons, we also provide the
+% deprecated \code{\textbackslash longpetronella} which takes up 8 counts.
+% A petronella-nella has the same timing as a normal petronella but instead of
 % moving one place to the right dancers move two places.
 % \begin{exampledance}
 % \begin{contra}{Snowball Shimmy}{Seth Tepfer}{Duple becket}
 %   \move[8]{Circle left all the way}
 %   \allemande*[Gents]{8}{left 1\textonehalf}
-%   \balanceand\swing[neighbor]{16}
-%   \balanceand\longpetronella
-%   \balanceand\longpetronellanella
-%   \balanceand\swing[partner]{16}
+%   \balanceand\swing[neighbor]{12}
+%   \balanceand\petronella
+%   \balanceand\petronellanella
+%   \balanceand\swing[partner]{12}
 %   \notes{nella-nella variant of Erik Weberg's Wasatch Wiggle}
 % \end{contra}
 % \end{exampledance}
@@ -1424,20 +1437,7 @@
   \expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
   \move[4]{\ignorespaces#1\unskip\ petronella-nella}%
 }
-\newcommand*{\longpetronellanella}{%
-  \moveindex{Petronella}%
-  \moveindex{Petronella-nella}%
-  \@ifstar\@longpetronellanellaStar\@longpetronellanellaNoStar%
-}
-\newcommand*{\@longpetronellanellaNoStar}[1][\unskip]{%
-  \move[8]{Petronella-nella \ignorespaces#1\unskip}%
-}
-\newcommand*{\@longpetronellanellaStar}[1][%
-  \expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
-  \move[8]{\ignorespaces#1\unskip\ petronella-nella}%
-}
 %    \end{macrocode}
-% \end{macro}
 % \end{macro}
 % \end{macro}
 % \end{macro}
@@ -1525,12 +1525,16 @@
 %
 % \begin{macro}{\rollaway}
 % \changes{1.0.0}{2013/09/10}{Add move shortcut}
+% \changes{2.0.0}{2018/07/25}{Breaking change to allow complex notation}
 % \begin{macro}{\rollaway*}
 % \changes{1.0.0}{2013/09/10}{Add move shortcut}
-% \begin{macro}{\rollawayhalfsashay}
+% \changes{2.0.0}{2018/07/25}{Breaking change to allow complex notation}
+% \begin{macro}{\rollawaysashay}
 % \changes{1.0.0}{2013/09/10}{Add move shortcut}
-% \begin{macro}{\rollawayhalfsashay*}
+% \changes{2.0.0}{2018/07/25}{Renamed from ``rollawayhalfsashay''}
+% \begin{macro}{\rollawaysashay*}
 % \changes{1.0.0}{2013/09/10}{Add move shortcut}
+% \changes{2.0.0}{2018/07/25}{Renamed from ``rollawayhalfsashay''}
 % \begin{macro}{\rawhs}
 % \changes{1.0.0}{2013/09/10}{Add move shortcut}
 % \begin{macro}{\rawhs*}
@@ -1553,25 +1557,23 @@
   \moveindex{Roll away}%
   \@ifstar\@rollawayStar\@rollawayNoStar%
 }
-\newcommand*{\rawhs}{\rollawayhalfsashay}
-\newcommand*{\rollawayhalfsashay}{%
+\newcommand*{\rollawaysashay}{%
   \moveindex{Roll Away}%
   \moveindex{Roll Away with a Half Sashay}%
   \moveindex{Half Sashay}%
   \@ifstar\@rawhsStar\@rawhsNoStar%
 }
 \newcommand*{\@rollawayNoStar}[1][\unskip]{%
-  \move[4]{Roll away \ignorespaces#1\unskip}%
+	\move[4]{Roll \ignorespaces#1\unskip\ away}%
 }
-\newcommand*{\@rollawayStar}[1][%
-  \expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
-  \move[4]{\ignorespaces#1\unskip\ roll away}%
+\newcommand*{\@rollawayStar}[3][\unskip]{%
+  \move[4]{\ignorespaces#2\unskip\ roll \ignorespaces#3\unskip\ away \ignorespaces#1\unskip}%
 }
 \newcommand*{\@rawhsNoStar}[1][\unskip]{%
   \move[4]{Roll \ignorespaces#1\unskip\ away with a half sashay}%
 }
-\newcommand*{\@rawhsStar}[2][\unskip]{%
-  \move[4]{\ignorespaces#2\unskip\ roll \ignorespaces#1\unskip\ away with a half sashay}%
+\newcommand*{\@rawhsStar}[3][\unskip]{%
+  \move[4]{\ignorespaces#2\unskip\ roll \ignorespaces#3\unskip\ away with a half sashay \ignorespaces#1\unskip}%
 }
 %    \end{macrocode}
 % \end{macro}
