@@ -31,6 +31,7 @@
 \usepackage[pdfborder=0, bookmarks, colorlinks=false, hidelinks]{hyperref}
 \usepackage[parfill]{parskip}
 \usepackage{bookmark}
+\usepackage[page,toc]{appendix}
 
 \fvset{gobble=2}
 
@@ -401,7 +402,7 @@
 % \begin{exampledance}
 % \showcountafter%
 % \begin{contra}{Whirling Dervish}{Sam Whited}{Duple improper}
-%   \gypsy[neighbor 1\textthreequarters]{8}
+%   \walkaround[neighbor 1\textthreequarters]{8}
 %   \move[8]{Men half hey ricochet while ladies cross%
 %   \unskip\moveindex{Hey for Four}%
 %   \unskip\moveindex{Half Hey}%
@@ -413,8 +414,8 @@
 %   \balanceand\petronella
 %   \balanceand\move[4]{gents roll neighbor away with a half sashay\moveindex{Half
 %   Sashay}\moveindex{Roll Away}\moveindex{Roll Away\ldots Half Sashay}}
-%   \move[8]{Balance neighbor and gypsy left 1 time to new
-%   neighbors\moveindex{Balance}\moveindex{Gypsy}\moveindex{Gypsy Left}}
+%   \move[8]{Balance neighbor and left shoulder round 1 time to new
+%   neighbors\moveindex{Balance}\moveindex{Walk around}\moveindex{Left shoulder round}}
 %   \notes{A ``Whirling Dervish" is just a circle left in single file except
 %   that you should spin over your left shoulder the entire time you're doing
 %   it.}
@@ -638,8 +639,8 @@
 % \setlength{\phrasevspace}{0em}
 % \renewcommand*{\partdelimiter}{:}
 % \begin{contra}{Untitled Blues \textnumero\ 1}{Seth Tepfer}{Duple minor im.}
-%   \gypsy*[Neighbor]{8}
-%   \gypsy*[Ladies]{8}
+%   \walkaround*[Neighbor]{8}
+%   \walkaround*[Ladies]{8}
 %   \newdancephrase
 %   \balanceand*[Partner]\swing{12}
 %   \newdancephrase
@@ -659,8 +660,8 @@
 % \setlength{\phrasevspace}{0em}
 % \renewcommand*{\partdelimiter}{:}
 % \begin{contra}{Untitled Blues \textnumero\ 1}{Seth Tepfer}{Duple minor im.}
-%   \gypsy*[Neighbor]{8}
-%   \gypsy*[Ladies]{8}
+%   \walkaround*[Neighbor]{8}
+%   \walkaround*[Ladies]{8}
 %   \newdancephrase
 %   \balanceand*[Partner]\swing{12}
 %   \newdancephrase
@@ -682,7 +683,7 @@
 % \renewcommand*{\partdelimiter}{:}
 % \setcounter{dancephraselength}{16}
 % \begin{contra}{Untitled Blues \textnumero\ 2}{Seth Tepfer}{Duple minor im.}
-%   \gypsy*[Neighbor]{8}
+%   \walkaround*[Neighbor]{8}
 %   \move[8]{Gents allemande\moveindex{Allemande} left 1\textonehalf}
 %   \balanceand*[Partner]\swing{12}
 %   \move[8]{\textonehalf\ promenade\moveindex{Half Promenade}\moveindex{Promenade} across set}
@@ -702,7 +703,7 @@
 % \renewcommand*{\partdelimiter}{:}
 % \setcounter{dancephraselength}{16}
 % \begin{contra}{Untitled Blues \textnumero\ 2}{Seth Tepfer}{Duple minor im.}
-%   \gypsy*[Neighbor]{8}
+%   \walkaround*[Neighbor]{8}
 %   \move[8]{Gents allemande\moveindex{Allemande} left 1\textonehalf}
 %   \balanceand*[Partner]\swing{12}
 %   \move[8]{\textonehalf\ promenade\moveindex{Half Promenade}\moveindex{Promenade} across set}
@@ -1064,52 +1065,62 @@
 % \end{macro}
 % \end{macro}
 %
-% \begin{macro}{\gypsy}
+% \begin{macro}{\walkaround}
 % \changes{1.0.0}{2013/09/06}{Add move shortcut}
-% \begin{macro}{\gypsy*}
+% \changes{2.0.0}{2019/02/17}{Rename move}
+% \begin{macro}{\walkaround*}
 % \changes{1.0.0}{2013/09/06}{Add move shortcut}
-% \begin{macro}{\gypsyleft}
+% \changes{2.0.0}{2019/02/17}{Rename move}
+% \begin{macro}{\walkaroundleft}
 % \changes{1.0.0}{2013/09/06}{Add move shortcut}
-% \begin{macro}{\gypsyleft*}
+% \changes{2.0.0}{2019/02/17}{Rename move}
+% \begin{macro}{\walkaroundleft*}
 % \changes{1.0.0}{2013/09/06}{Add move shortcut}
-% \begin{macro}{\gypsyright}
+% \changes{2.0.0}{2019/02/17}{Rename move}
+% \begin{macro}{\walkaroundright}
 % \changes{1.0.0}{2013/09/06}{Add move shortcut}
-% \begin{macro}{\gypsyright*}
+% \changes{2.0.0}{2019/02/17}{Rename move}
+% \begin{macro}{\walkaroundright*}
 % \changes{1.0.0}{2013/09/06}{Add move shortcut}
-% Several different macros exist for creating Gypsy's; while you can create
-% right and left gypsy's with the normal \code{\textbackslash gypsy} macro, the
-% \code{\textbackslash gypsyleft} and \code{\textbackslash gypsyright} macros
-% also index the move under the given direction.
+% \changes{2.0.0}{2019/02/17}{Rename move}
+% Several different macros exist for creating walk arounds (sometimes right or
+% left shoulder round).
+% You can create a direction agnostic version with the \code{\textbackslash
+% walkaround} macro, while the \code{\textbackslash walkaroundleft} and
+% \code{\textbackslash walkaroundright} macros use the ``shoulder round" variant
+% and include the direction, they also index the move under the given direction.
+%
+% For information about the terminology, see appendix \ref{appendix:notation}.
 %    \begin{macrocode}
-\newcommand*{\gypsy}{%
-  \moveindex{Gypsy}%
-  \@ifstar\@gypsyStar\@gypsyNoStar%
+\newcommand*{\walkaround}{%
+  \moveindex{Walk around}%
+  \@ifstar\@walkAroundStar\@walkAroundNoStar%
 }
-\newcommand*{\gypsyright}{%
-  \moveindex{Gypsy}%
-  \moveindex{Gypsy Right}%
+\newcommand*{\walkaroundright}{%
+  \moveindex{Walk around}%
+  \moveindex{Right shoulder round}%
   \def\cc@thedir{right}%
-  \@ifstar\@gypsyDirStar\@gypsyDirNoStar%
+  \@ifstar\@walkAroundDirStar\@walkAroundDirNoStar%
 }
-\newcommand*{\gypsyleft}{%
-  \moveindex{Gypsy}%
-  \moveindex{Gypsy Left}%
+\newcommand*{\walkaroundleft}{%
+  \moveindex{Walk around}%
+  \moveindex{Left shoulder round}%
   \def\cc@thedir{left}%
-  \@ifstar\@gypsyDirStar\@gypsyDirNoStar%
+  \@ifstar\@walkAroundDirStar\@walkAroundDirNoStar%
 }
-\newcommand*{\@gypsyNoStar}[2][\unskip]{%
-  \move[#2]{Gypsy \ignorespaces#1\unskip}
+\newcommand*{\@walkAroundNoStar}[2][\unskip]{%
+  \move[#2]{Walk around \ignorespaces#1\unskip}
 }
-\newcommand*{\@gypsyStar}[2][%
+\newcommand*{\@walkAroundStar}[2][%
   \expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
-  \move[#2]{\ignorespaces#1\unskip\ gypsy}
+  \move[#2]{\ignorespaces#1\unskip\ walk around}
 }
-\newcommand*{\@gypsyDirNoStar}[2][\unskip]{%
-  \move[#2]{Gypsy \cc@thedir\ \ignorespaces#1\unskip}
+\newcommand*{\@walkAroundDirNoStar}[2][\unskip]{%
+  \move[#2]{\cc@thedir\ shoulder round \ignorespaces#1\unskip}
 }
-\newcommand*{\@gypsyDirStar}[2][%
+\newcommand*{\@walkAroundDirStar}[2][%
   \expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
-  \move[#2]{\ignorespaces#1\unskip\ \cc@thedir\ gypsy}
+  \move[#2]{\ignorespaces#1\unskip\ \cc@thedir\ shoulder round}
 }
 %    \end{macrocode}
 % \end{macro}
@@ -1205,8 +1216,9 @@
 % \begin{exampledance}
 % \begin{contra}{East Meets West}{Martha Wild}{Duple improper}
 %   \longlines
-%   \move{Gypsy star \textthreequarters}\moveindex{Gypsy Star}
-%   \move[16]{Gypsy and swing partner}\moveindex{Gypsy}\moveindex{Swing}
+%   \move{Walk around star \textthreequarters}\moveindex{Walk Around Star}
+%   \move[16]{Right shoulder round and swing partner}\moveindex{Walk around}%
+%     \moveindex{Right shoulder round}\moveindex{Swing}
 %   \halfpromenade
 %   \move{Hey}\moveindex{Hey}\moveindex{Hey for Four}\moveindex{Full Hey}
 %   \move{(continue hey)}
@@ -2225,6 +2237,26 @@
 \ProcessOptions\relax
 %</contracard-cls>
 %    \end{macrocode}
+%
+% \cleardoublepage
+% \begin{appendices}
+% \section{On Notation}
+% \label{appendix:notation}
+%
+% In some circles (pun intended) the move ``walk around" or ``right/left
+% shoulder round" (also ``spiral", ``gyre", ``eyes", etc.) is called a ``gypsy".
+% This is considered an ethnic slur by some groups of the Romani people.
+% While the contra term is not likely to have been derived from the slur, I see
+% no reason not to use an alternative.
+% In version 2 of this document---and in calling cards generated with this
+% package---I have chosen to use the term ``walk around" when no direction needs
+% to be specified, or ``right/left shoulder round" when it does.
+% This avoids creating an uncomfortable situation for a dancer hearing a word
+% that to them may be associated with hostility, and a lifetime of persecution.
+% It seems to me that providing a safe and welcoming dance environment is a
+% worthy goal that should not be set aside for a misguided adherence to
+% tradition.
+% \end{appendices}
 %
 % \bookmarksetup{startatroot}
 % \addtocontents{toc}{\bigskip}
