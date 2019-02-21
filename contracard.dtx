@@ -2045,10 +2045,10 @@
 % For example: \code{\textbackslash timesaround\{4\}\{6\}} produces:
 % ``\timesaround{4}{6}".
 %    \begin{macrocode}
+\newcounter{timesaround}
+\newcounter{quartertimesaround}
 \newcommand*{\timesaround}[2]{%
-  \newcounter{timesaround}%
   \setcounter{timesaround}{\intcalcDiv{\intcalcNum{#2}}{\intcalcNum{#1}}}%
-  \newcounter{quartertimesaround}%
   \setcounter{quartertimesaround}{%
     \intcalcMod{\intcalcNum{#2}}{\intcalcNum{#1}}%
   }%
