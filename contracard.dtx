@@ -176,7 +176,6 @@
 % \changes{1.0.0}{2013/09/09}{Start using \href{http://semver.org}{Semantic
 % Versioning}}
 % \changes{1.0.0}{2013/09/15}{Fix phrase separator issues}
-% \changes{2.0.0}{2018/07/25}{Remove \texttt{\textbackslash rawhs} macros}
 %
 % \section{Building and using \pkg{contracard}}
 %
@@ -1391,23 +1390,14 @@
 % \changes{1.0.0}{2013/09/08}{Add move shortcut}
 % \begin{macro}{\petronella*}
 % \changes{1.0.0}{2013/09/08}{Add move shortcut}
-% \begin{macro}{\longpetronella}
-% \changes{1.0.0}{2013/09/08}{Add move shortcut}
-% \changes{2.0.0}{2018/07/25}{Deprecate move}
-% \begin{macro}{\longpetronella*}
-% \changes{1.0.0}{2013/09/08}{Add move shortcut}
-% \changes{2.0.0}{2018/07/25}{Deprecate move}
 % \begin{macro}{\petronellanella}
 % \changes{1.1.0}{2018/07/21}{Add nella-nella petronella variants}
 % \begin{macro}{\petronellanella*}
 % \changes{1.1.0}{2018/07/21}{Add nella-nella petronella variants}
-% \begin{macro}{\longpetronellanella}
-% \changes{1.1.0}{2018/07/21}{Add nella-nella petronella variants}
 % Petronella's are normally performed in rings of four, and aren't with another
 % individual, however, the \code{\textbackslash petronella} macro still takes a
 % single optional argument for those rare occasions when two individuals are
-% turning in a diamond pattern. For legacy reasons, we also provide the
-% deprecated \code{\textbackslash longpetronella} which takes up 8 counts.
+% turning in a diamond pattern.
 % A petronella-nella has the same timing as a normal petronella but instead of
 % moving one place to the right dancers move two places.
 % \begin{exampledance}
@@ -1433,17 +1423,6 @@
   \expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
   \move[4]{\ignorespaces#1\unskip\ petronella}%
 }
-\newcommand*{\longpetronella}{%
-  \moveindex{Petronella}%
-  \@ifstar\@longpetronellaStar\@longpetronellaNoStar%
-}
-\newcommand*{\@longpetronellaNoStar}[1][\unskip]{%
-  \move[8]{Petronella \ignorespaces#1\unskip}%
-}
-\newcommand*{\@longpetronellaStar}[1][%
-  \expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
-  \move[8]{\ignorespaces#1\unskip\ petronella}%
-}
 \newcommand*{\petronellanella}{%
   \moveindex{Petronella}%
   \moveindex{Petronella-nella}%
@@ -1457,9 +1436,6 @@
   \move[4]{\ignorespaces#1\unskip\ petronella-nella}%
 }
 %    \end{macrocode}
-% \end{macro}
-% \end{macro}
-% \end{macro}
 % \end{macro}
 % \end{macro}
 % \end{macro}
@@ -1549,28 +1525,21 @@
 % \changes{1.0.0}{2013/09/10}{Add move shortcut}
 % \changes{2.0.0}{2018/07/25}{Breaking change to allow complex notation}
 % \begin{macro}{\rollawaysashay}
-% \changes{1.0.0}{2013/09/10}{Add move shortcut}
 % \changes{2.0.0}{2018/07/25}{Renamed from ``rollawayhalfsashay''}
 % \begin{macro}{\rollawaysashay*}
-% \changes{1.0.0}{2013/09/10}{Add move shortcut}
-% \changes{2.0.0}{2018/07/25}{Renamed from ``rollawayhalfsashay''}
-% \begin{macro}{\rawhs}
-% \changes{1.0.0}{2013/09/10}{Add move shortcut}
-% \begin{macro}{\rawhs*}
-% \changes{1.0.0}{2013/09/10}{Add move shortcut}
+% \changes{2.0.0}{2018/07/25}{Renamed from ``rollawayhalfsashay*''}
 % ``Roll away" and ``roll away with a half sashay" may sound similar, but the
 % macros that produce them are a bit different. The \code{\textbackslash
 % rollaway} macro works exactly like most macros here: It takes a single
 % optional argument, and the star version rewords things a bit (it takes no
-% count argument since that's always 4 beats for this figure). The
-% \code{\textbackslash rollawaywithahalfsashay} macro (and its shorter alias:
-% \code{\textbackslash rawhs}) on the other hand, takes a single optional
-% argument unless you use the splat version in which case it takes a single
-% optional argument \emph{and} a required argument. This allows you to reword
-% things (just like the other commands) by leaving off the optional argument,
-% but also allows you to make more complicated roll aways such as
-% \code{\textbackslash rawhs*{[the gents]}\{Ladies\}} which would be typeset as:
-% ``Ladies roll the gents away with a half sashay".
+% count argument since that's always 4 beats for this figure).
+% The \code{\textbackslash rollawaysashay} macro on the other hand, takes a
+% single optional argument unless you use the splat version in which case it
+% takes a single optional argument \emph{and} a required argument.
+% This allows you to reword things (just like the other commands) by leaving off
+% the optional argument, but also allows you to make more complicated roll aways
+% such as \code{\textbackslash rollawaysashay*{[the gents]}\{Ladies\}} which
+% would be typeset as: ``Ladies roll the gents away with a half sashay".
 %    \begin{macrocode}
 \newcommand*{\rollaway}{%
   \moveindex{Roll away}%
@@ -1595,8 +1564,6 @@
   \move[4]{\ignorespaces#2\unskip\ roll \ignorespaces#3\unskip\ away with a half sashay \ignorespaces#1\unskip}%
 }
 %    \end{macrocode}
-% \end{macro}
-% \end{macro}
 % \end{macro}
 % \end{macro}
 % \end{macro}
@@ -1642,12 +1609,13 @@
 % \changes{1.0.0}{2013/09/10}{Add move shortcut}
 % \begin{macro}{\sashay*}
 % \changes{1.0.0}{2013/09/10}{Add move shortcut}
-% The sashay command, like \code{\textbackslash rawhs} takes a different number
-% of arguments if you use the starred version. The normal version takes an
-% optional argument and the required count, while the starred version takes the
-% same optional argument, the required count, and another required argument. For
-% instance, \code{\textbackslash sashay*{[down and back]}\{8\}\{Ladies\}} would
-% create the move: ``Ladies sashay down and back''.
+% The sashay command, like \code{\textbackslash rollawaysashay} takes a
+% different number of arguments if you use the starred version.
+% The normal version takes an optional argument and the required count, while
+% the starred version takes the same optional argument, the required count, and
+% another required argument.
+% For instance, \code{\textbackslash sashay*{[down and back]}\{8\}\{Ladies\}}
+% would create the move: ``Ladies sashay down and back''.
 %    \begin{macrocode}
 \newcommand*{\sashay}{%
   \moveindex{Sashay}%
@@ -2263,6 +2231,45 @@
 % It seems to me that providing a safe and welcoming dance environment is a
 % worthy goal that should not be set aside for a misguided adherence to
 % tradition.
+%
+% \section{Deprecated macros}
+%
+% \begin{macro}{\longpetronella}
+% \changes{1.0.0}{2013/09/08}{Add move shortcut}
+% \changes{2.0.0}{2018/07/25}{Remove move}
+% \begin{macro}{\longpetronella*}
+% \changes{1.0.0}{2013/09/08}{Add move shortcut}
+% \changes{2.0.0}{2018/07/25}{Remove move}
+% \begin{macro}{\longpetronellanella}
+% \changes{1.1.0}{2018/07/21}{Add nella-nella petronella variants}
+% \changes{2.0.0}{2019/02/24}{Remove move}
+% \begin{macro}{\rollawayhalfsashay}
+% \changes{1.0.0}{2013/09/10}{Add move shortcut}
+% \changes{2.0.0}{2018/07/25}{Renamed to ``\texttt{\textbackslash rollawaysashay}''}
+% \begin{macro}{\rollawayhalfsashay*}
+% \changes{1.0.0}{2013/09/10}{Add move shortcut}
+% \changes{2.0.0}{2018/07/25}{Renamed to ``\texttt{\textbackslash rollawaysashay*}''}
+% \begin{macro}{\rawhs}
+% \changes{1.0.0}{2013/09/10}{Add move shortcut}
+% \changes{2.0.0}{2018/07/25}{Remove move}
+% \begin{macro}{\rawhs*}
+% \changes{1.0.0}{2013/09/10}{Add move shortcut}
+% \changes{2.0.0}{2018/07/25}{Remove move}
+% These macros have been removed from the package, resulting in a major version
+% bump.
+% If you were using any of these macros in your documents, you may wish to
+% continue using an older version of this package or update your documents
+% before upgrading.
+% For information about what version each macro was removed in see the change
+% log.
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
 % \end{appendices}
 %
 % \bookmarksetup{startatroot}
