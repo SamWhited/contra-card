@@ -1364,7 +1364,13 @@
 % \end{macro}
 %
 % \begin{macro}{\madrobin}
-% \changes{2.0.0}{2018/07/24}{Add move shortcut}
+% \changes{2.0.0}{2018/07/24}{New macro}
+% \begin{macro}{\madrobin*}
+% \changes{2.0.0}{2018/07/24}{New macro}
+% The Mad Robin (sometimes called ``Sashay 'round") always takes up 8 full
+% beats.
+% The star version of the command inserts the optional argument before the text
+% ``mad robin" instead of after it.
 %    \begin{macrocode}
 \newcommand*{\madrobin}{%
   \moveindex{Mad Robin}%
@@ -1378,6 +1384,7 @@
   \move[8]{\ignorespaces#1\unskip\ mad robin}%
 }
 %    \end{macrocode}
+% \end{macro}
 % \end{macro}
 %
 % \begin{macro}{\petronella}
