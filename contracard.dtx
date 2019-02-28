@@ -1102,18 +1102,18 @@
   \@ifstar\@walkAroundDirStar\@walkAroundDirNoStar%
 }
 \newcommand*{\@walkAroundNoStar}[2][\unskip]{%
-  \move[#2]{Walk around \ignorespaces#1\unskip}
+  \move[#2]{Walk around \ignorespaces#1\unskip}%
 }
 \newcommand*{\@walkAroundStar}[2][%
   \expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
-  \move[#2]{\ignorespaces#1\unskip\ walk around}
+  \move[#2]{\ignorespaces#1\unskip\ walk around}%
 }
 \newcommand*{\@walkAroundDirNoStar}[2][\unskip]{%
-  \move[#2]{\cc@thedir\ shoulder round \ignorespaces#1\unskip}
+  \move[#2]{\cc@thedir\ shoulder round \ignorespaces#1\unskip}%
 }
 \newcommand*{\@walkAroundDirStar}[2][%
   \expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
-  \move[#2]{\ignorespaces#1\unskip\ \cc@thedir\ shoulder round}
+  \move[#2]{\ignorespaces#1\unskip\ \cc@thedir\ shoulder round}%
 }
 %    \end{macrocode}
 % \end{macro}
