@@ -811,15 +811,19 @@
 % \changes{1.0.0}{2013/09/10}{Improve indentation and line spacing}
 % \begin{macro}{\move*}
 % The meat of the \pkg{contracard} package is contained in the
-% \code{\textbackslash move} command.  This command takes in a move to display,
-% and (optionally) the number of beats the move takes. If the count is not
-% specified, 8 is used as the default.
+% \code{\textbackslash move} command.
+% This command takes in a move to display, and (optionally) the number of beats
+% the move takes.
+% If the count is not specified, 8 is used as the default.
 %    \begin{macrocode}
 \newcommand*{\move}{\@ifstar\@moveStar\@moveNoStar}
 \newcommand*{\@moveStar}[2][8]{%
   \def\cc@moveStar{}\@moveNoStar[#1]{#2}\let\cc@moveStar\undefined%
 }
 \newlength{\cc@partsepwidth}%
+\newcommand*{\@balanceAnd}{\ignorespaces}%
+\newcommand*{\@extraCount}{0}%
+\newcounter{movecount}%
 \newcommand*{\@moveNoStar}[2][8]{%
   \setlength{\parindent}{0pt}%
   \setlength{\cc@partsepwidth}{\widthof{\Alph{dancephrase}\arabic{dancepart}%
@@ -838,21 +842,24 @@
   \ifthenelse{\value{partmovenum}=0}{%
     \Alph{dancephrase}\arabic{dancepart}\partdelimiter\ %
   }{}%
-  \addtocounter{dancecount}{#1}%
-  \addtocounter{phrasecount}{#1}%
-  \addtocounter{partcount}{#1}%
+  \setcounter{movecount}{0}%
+  \addtocounter{movecount}{#1}%
+  \addtocounter{movecount}{\@extraCount}%
+  \addtocounter{dancecount}{\value{movecount}}%
+  \addtocounter{phrasecount}{\value{movecount}}%
+  \addtocounter{partcount}{\value{movecount}}%
   \addtocounter{phrasemovenum}{1}%
   \addtocounter{partmovenum}{1}%
   \addtocounter{halfpartmovenum}{1}%
   \addtocounter{dancemovenum}{1}%
-  \ifthenelse{\isundefined{\@showcountbefore}\OR\(#1=0\)}{%
+  \ifthenelse{\isundefined{\@showcountbefore}\OR\(\value{movecount}=0\)}{%
     \relax%
-  }{\cc@countleftbracket\ignorespaces#1\unskip\cc@countrightbracket~}%
-  \ignorespaces#2\unskip%
-  \ifthenelse{\isundefined{\@showcountafter}\OR\(#1=0\)}{%
+  }{\cc@countleftbracket\ignorespaces\themovecount\unskip\cc@countrightbracket~}%
+  \@balanceAnd#2\unskip%
+  \ifthenelse{\isundefined{\@showcountafter}\OR\(\value{movecount}=0\)}{%
     \relax%
-  }{~\cc@countleftbracket\ignorespaces#1\unskip\cc@countrightbracket}%
-  \ifthenelse{\NOT\(#1=0\)}{%
+  }{~\cc@countleftbracket\ignorespaces\themovecount\unskip\cc@countrightbracket}%
+  \ifthenelse{\NOT\(\value{movecount}=0\)}{%
     \ifthenelse{\value{partcount}=\intcalcDiv{\value{dancepartlength}}{2}}{%
       \setcounter{halfpartmovenum}{0}%
     }{}%
@@ -866,6 +873,8 @@
       }%
     \fi%
   }{}%
+  \renewcommand*{\@balanceAnd}{\ignorespaces}%
+  \renewcommand*{\@extraCount}{0}%
 }
 %    \end{macrocode}
 % \end{macro}
@@ -913,6 +922,9 @@
 % The \code{\textbackslash balance} macro takes a single optional argument and
 % prints it after (or before if you use \code{\textbackslash balance*}) the word
 % `balance'. Balances always take up 4 beats.
+% If \code{\textbackslash balanceand} or \code{\textbackslash balanceand*} is
+% used, the balance won't be counted as a separate move.
+% Instead, its count (and the text) will be added to the next move used.
 %    \begin{macrocode}
 \newcommand*{\balance}{%
   \moveindex{Balance}%
@@ -931,11 +943,13 @@
   \@ifstar\@balanceandStar\@balanceandNoStar%
 }
 \newcommand*{\@balanceandNoStar}[1][]{%
-  \move*[4]{Balance and \ignorespaces#1\unskip\ \ \ignorespaces}%
+  \renewcommand*{\@balanceAnd}{Balance and \ignorespaces#1\unskip\ \expandafter\ignorespaces\expandafter\MakeLowercase}%
+  \renewcommand*{\@extraCount}{4}%
 }
 \newcommand*{\@balanceandStar}[1][%
   \expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
-  \move*[4]{\ignorespaces#1\unskip\ balance and\ \ \ignorespaces}%
+  \renewcommand*{\@balanceAnd}{\ignorespaces#1\unskip\ balance and\ \expandafter\ignorespaces\expandafter\MakeLowercase}%
+  \renewcommand*{\@extraCount}{4}%
 }
 %    \end{macrocode}
 % \end{macro}
