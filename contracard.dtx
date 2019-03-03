@@ -1155,9 +1155,13 @@
 % \changes{1.0.0}{2013/09/12}{Add move shortcut}
 % \begin{macro}{\fullhey*}
 % \changes{1.0.0}{2013/09/12}{Add move shortcut}
+% \begin{macro}{\fullheyricochet}
+% \changes{2.0.0}{2019/03/03}{Add move shortcut}
+% \begin{macro}{\fullheyricochet*}
+% \changes{2.0.0}{2019/03/03}{Add move shortcut}
 % These macros produce various kinds of hey. Though `hey for four' is often used
 % to indicate `half a hey` we define `hey for four` and `full hey' to be the
-% same thing for the purpose of these shortcut macros.
+% same thing.
 %    \begin{macrocode}
 \newcommand*{\heyforfour}{%
   \moveindex{Hey}%
@@ -1212,7 +1216,23 @@
   \expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
   \move[16]{\ignorespaces#1\unskip\ full hey}
 }
+\newcommand*{\fullheyricochet}{%
+  \moveindex{Hey}%
+  \moveindex{Hey for Four}%
+  \moveindex{Full Hey}%
+  \moveindex{Full Hey Ricochet}%
+  \@ifstar\@fullheyricochetStar\@fullheyricochetNoStar%
+}
+\newcommand*{\@fullheyricochetNoStar}[1][\unskip]{%
+  \move[16]{Full hey ricochet \ignorespaces#1\unskip}
+}
+\newcommand*{\@fullheyricochetStar}[1][%
+  \expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
+  \move[16]{\ignorespaces#1\unskip\ full hey ricochet}
+}
 %    \end{macrocode}
+% \end{macro}
+% \end{macro}
 % \end{macro}
 % \end{macro}
 % \end{macro}
