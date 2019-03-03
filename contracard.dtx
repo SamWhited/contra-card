@@ -2283,6 +2283,7 @@
 % \end{macro}
 %
 % \section{Deprecated macros}
+% \label{appendix:deprecated}
 %
 % \begin{macro}{\longpetronella}
 % \changes{1.0.0}{2013/09/08}{Add move shortcut}
@@ -2320,6 +2321,19 @@
 % \end{macro}
 % \end{macro}
 % \end{macro}
+%
+% \section{Upgrading from 1.x}
+%
+% Aside from removing deprecated macros, (see appendix
+% \ref{appendix:deprecated}), you will also want to search your dances for the
+% text \code{\textbackslash balanceand} and decrement the following move by 4
+% counts.
+% Previously, the \code{\textbackslash balanceand} macros took up 0 logical
+% counts of music, but in version 2.0 it adds 4 counts to the next move.
+% Several new move shortcuts were also added in version 2.0 of this package
+% which may be able to replace uses of the generic \code{\textbackslash move}
+% macro in your dances.
+% For a full list, see the change history at the end of this document.
 %
 % \end{appendices}
 %
