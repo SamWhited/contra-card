@@ -23,7 +23,7 @@ contracard.pdf: contracard.sty contracard.cls contracard.dtx by-nc.png by.png
 contracard.sty contracard.cls: contracard.dtx contracard.ins
 	xelatex --interaction=nonstopmode contracard.ins $(REDIRECT)
 
-contracard.zip: contracard.dtx contracard.pdf Makefile LICENSE
+contracard.zip: contracard.dtx contracard.ins contracard.pdf Makefile LICENSE
 	rm -f $@
 	mkdir -p contracard/
 	cp README.md contracard/README
