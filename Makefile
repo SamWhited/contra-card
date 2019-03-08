@@ -5,18 +5,15 @@
 .ALLSRC ?= $^
 
 REDIRECT = > /dev/null
-DO_LATEX_WRITE18 = xelatex --shell-escape --interaction=nonstopmode contracard.dtx $(REDIRECT)
-DO_SPLITINDEX = splitindex contracard $(REDIRECT) 2>&1
-DO_MAKEINDEX = makeindex -s gind.ist -o contracard.ind contracard $(REDIRECT) 2>&1
-DO_MAKECHANGES = makeindex -s gglo.ist -o contracard.gls contracard.glo $< $(REDIRECT) 2>&1
+DO_LATEX = xelatex --shell-escape --interaction=nonstopmode contracard.dtx $(REDIRECT)
 
 contracard.pdf: contracard.sty contracard.cls contracard.dtx by-nc.png by.png
-	$(DO_LATEX_WRITE18)
-	$(DO_LATEX_WRITE18)
-	$(DO_SPLITINDEX)
-	$(DO_MAKEINDEX)
-	$(DO_MAKECHANGES)
-	while ($(DO_LATEX_WRITE18) ; \
+	$(DO_LATEX)
+	$(DO_LATEX)
+	splitindex contracard $(REDIRECT) 2>&1
+	makeindex -s gind.ist -o contracard.ind contracard $(REDIRECT) 2>&1
+	makeindex -s gglo.ist -o contracard.gls contracard.glo $< $(REDIRECT) 2>&1
+	while ($(DO_LATEX) ; \
 	grep -q "Rerun to get" contracard.log ) do true; \
 	done
 
