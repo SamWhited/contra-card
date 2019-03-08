@@ -1,18 +1,35 @@
+% \iffalse meta-comment
+%  contracard.dtx -- part of contracard
+%
+%  Copyright 2013--2019 Sam Whited
+%
+%  This file may be distributed and/or modified under the
+%  conditions of the LaTeX Project Public License, either
+%  version 1.3c of this license or (at your option) any later
+%  version. The latest version of this license is in:
+%
+%  http://www.latex-project.org/lppl.txt
+%
+%  and version 1.3c or later is part of all distributions of
+%  LaTeX version 2008/05/04 or later.
+%
+%  For the maintenance status and other document metadata,
+%  see the end of this document.
+%
+% \fi
+%
 % \iffalse
 %
 %<*driver>
 \ProvidesFile{contracard.dtx}
 %</driver>
 %
-%<*contracard-pkg>
-\NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesPackage{contracard}[2019/03/03 Package for typesetting called dances]
-%</contracard-pkg>
-%<*contracard-cls>
-\NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{contracard}[2019/03/03 Class for creating dance calling cards]
-\AtEndOfClass{\LoadClass{article}}
-%</contracard-cls>
+%<contracard-pkg|contracard-cls>\NeedsTeXFormat{LaTeX2e}[1996/12/01]
+%<contracard-pkg>\ProvidesPackage{contracard}
+%<contracard-cls>\ProvidesClass{contracard}
+%<*contracard-pkg|contracard-cls>
+    [2019/03/03 Class for creating dance calling cards]
+%</contracard-pkg|contracard-cls>
 %
 %<*driver>
 \documentclass[a4paper]{ltxdoc}
@@ -197,6 +214,7 @@
 %
 %    \begin{macrocode}
 %<*contracard-cls>
+\AtEndOfClass{\LoadClass{article}}
 \AtEndOfClass{\RequirePackage{geometry}}
 \AtEndOfClass{\RequirePackage[compact]{titlesec}}
 \AtEndOfClass{\RequirePackage{contracard}}
