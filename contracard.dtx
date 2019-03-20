@@ -203,28 +203,34 @@
 % \pkg{contracard} does this for you); before building the \pkg{contracard}
 % package you should verify that they are installed.
 %
-%    \begin{macrocode}
+% \iffalse
 %<*contracard-pkg>
+% \fi
+%    \begin{macrocode}
 \RequirePackage{calc,intcalc}
 \RequirePackage{ifthen}
 \RequirePackage{tocloft}
 \RequirePackage{textcomp}
-%</contracard-pkg>
 %    \end{macrocode}
+% \iffalse
+%</contracard-pkg>
+% \fi
 %
 % If you're using the class, you'll want the following additional dependencies:
 %
-%    \begin{macrocode}
+% \iffalse
 %<*contracard-cls>
+% \fi
+%    \begin{macrocode}
 \AtEndOfClass{\LoadClass{article}}
 \AtEndOfClass{\RequirePackage{geometry}}
 \AtEndOfClass{\RequirePackage[compact]{titlesec}}
 \AtEndOfClass{\RequirePackage{contracard}}
+%    \end{macrocode}
+% \iffalse
 %</contracard-cls>
-%    \end{macrocode}
-%    \begin{macrocode}
 %<*contracard-pkg>
-%    \end{macrocode}
+% \fi
 %
 % \paragraph{Building \pkg{contracard}} Once you have all the required packages,
 % building \pkg{contracard} from source can be accomplished in multiple ways. If
@@ -2157,16 +2163,18 @@
 %
 %    \begin{macrocode}
 \ProcessOptions\relax
-%</contracard-pkg>
 %    \end{macrocode}
+% \iffalse
+%</contracard-pkg>
+% \fi
 %
 % \clearpage
 % \phantomsection
 % \part{The \pkg{contracard} class}
 %
-%    \begin{macrocode}
+% \iffalse
 %<*contracard-cls>
-%    \end{macrocode}
+% \fi
 %
 % The Contra Card project also provides a class (\fname{contracard.cls}) which
 % acts as a convenience wrapper around the core functionality provided by the
@@ -2260,8 +2268,10 @@
 %    \begin{macrocode}
 \newcommand*{\@ccisclass}{}
 \ProcessOptions\relax
-%</contracard-cls>
 %    \end{macrocode}
+% \iffalse
+%</contracard-cls>
+% \fi
 %
 % \cleardoublepage
 % \begin{appendices}
