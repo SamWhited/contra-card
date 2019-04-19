@@ -42,7 +42,7 @@
     \usepackage[utf8x]{inputenc}
   \fi
 \fi
-\usepackage[pdfborder=0, bookmarks, colorlinks=false, hidelinks]{hyperref}
+\usepackage[bookmarks, colorlinks=false, hidelinks]{hyperref}
 \usepackage[parfill]{parskip}
 \usepackage{bookmark}
 \usepackage[page,toc]{appendix}
@@ -52,7 +52,7 @@
 \newenvironment*{exampledance}{%
   \vspace{3em}
   \begin{framed}
-    \begin{minipage}[t][76.2mm][t]{\textwidth}
+    \begin{minipage}[t][76.2mm][t]{0.9\textwidth}
 }{%
     \end{minipage}
   \end{framed}
@@ -527,8 +527,10 @@
 %    \begin{macrocode}
 \newcounter{dancepartlength}
 \newcounter{dancephraselength}
-\newcommand*{\resetdancepartlength}{\setcounter{dancepartlength}{16}}
-\newcommand*{\resetdancephraselength}{\setcounter{dancephraselength}{32}}
+\newcommand*{\resetdancepartlength}{%
+  \setcounter{dancepartlength}{16}}
+\newcommand*{\resetdancephraselength}{%
+  \setcounter{dancephraselength}{32}}
 \resetdancepartlength
 \resetdancephraselength
 %    \end{macrocode}
@@ -660,6 +662,8 @@
 % handle figuring out how to break up the phrases. Both methods produce the same
 % result.
 %
+% \clearpage
+%
 % \begin{Verbatim}
 % \begin{contra}{Untitled Blues \textnumero\ 1}{Seth Tepfer}{Duple minor im.}
 %   \setlength{\phrasevspace}{0em}
@@ -789,7 +793,8 @@
   \global\def\danceform{\ignorespaces#4\unskip}
   \setlength{\parskip}{0.3em plus 0.2em minus 0.3em}
   \refstepcounter{dance}
-  \addcontentsline{lod}{dance}{\protect\numberline{\thedance}\ignorespaces#2\unskip}
+  \addcontentsline{lod}{dance}{%
+    \protect\numberline{\thedance}\ignorespaces#2\unskip}
   \setcounter{dancecount}{0}
   \setcounter{dancemovenum}{0}
   \resetdancepart*
@@ -846,7 +851,8 @@
 %    \begin{macrocode}
 \newcommand*{\move}{\@ifstar\@moveStar\@moveNoStar}
 \newcommand*{\@moveStar}[2][8]{%
-  \def\cc@moveStar{}\@moveNoStar[#1]{#2}\let\cc@moveStar\undefined%
+  \def\cc@moveStar{}\@moveNoStar[#1]{#2}%
+  \let\cc@moveStar\undefined%
 }
 \newlength{\cc@partsepwidth}%
 \newcommand*{\@balanceAnd}{\ignorespaces}%
@@ -854,7 +860,8 @@
 \newcounter{movecount}%
 \newcommand*{\@moveNoStar}[2][8]{%
   \setlength{\parindent}{0pt}%
-  \setlength{\cc@partsepwidth}{\widthof{\Alph{dancephrase}\arabic{dancepart}%
+  \setlength{\cc@partsepwidth}{%
+    \widthof{\Alph{dancephrase}\arabic{dancepart}%
     \partdelimiter\ }}%
   \setlength{\hangindent}{\cc@partsepwidth}%
   \ifthenelse{\value{phrasecount}=\value{dancephraselength}}{%
@@ -880,22 +887,39 @@
   \addtocounter{partmovenum}{1}%
   \addtocounter{halfpartmovenum}{1}%
   \addtocounter{dancemovenum}{1}%
-  \ifthenelse{\isundefined{\@showcountbefore}\OR\(\value{movecount}=0\)}{%
+  \ifthenelse{%
+    \isundefined{\@showcountbefore}\OR\(\value{movecount}=0\)%
+  }{%
     \relax%
-  }{\cc@countleftbracket\ignorespaces\themovecount\unskip\cc@countrightbracket~}%
+  }{%
+    \cc@countleftbracket%
+    \ignorespaces\themovecount\unskip%
+    \cc@countrightbracket~%
+  }%
   \@balanceAnd#2\unskip%
-  \ifthenelse{\isundefined{\@showcountafter}\OR\(\value{movecount}=0\)}{%
-    \relax%
-  }{~\cc@countleftbracket\ignorespaces\themovecount\unskip\cc@countrightbracket}%
+  \ifthenelse{%
+    \isundefined{\@showcountafter}\OR\(\value{movecount}=0\)%
+  }{\relax}{%
+    ~\cc@countleftbracket%
+    \ignorespaces\themovecount\unskip%
+    \cc@countrightbracket%
+  }%
   \ifthenelse{\NOT\(\value{movecount}=0\)}{%
-    \ifthenelse{\value{partcount}=\intcalcDiv{\value{dancepartlength}}{2}}{%
+    \ifthenelse{%
+      \value{partcount}=\intcalcDiv{\value{dancepartlength}}{2}%
+    }{%
       \setcounter{halfpartmovenum}{0}%
     }{}%
     \ifx\cc@moveStar\undefined%
-      \ifthenelse{\value{partcount}=\intcalcDiv{\value{dancepartlength}}{2}}{%
-        \midpartdelimiter\looseness=-1\linebreak[1]\space\nopagebreak\ignorespaces%
+      \ifthenelse{%
+        \value{partcount}=\intcalcDiv{\value{dancepartlength}}{2}%
       }{%
-        \ifthenelse{\NOT\value{partcount}=\value{dancepartlength}}{%
+        \midpartdelimiter%
+        \looseness=-1\linebreak[1]\space\nopagebreak\ignorespaces%
+      }{%
+        \ifthenelse{%
+          \NOT\value{partcount}=\value{dancepartlength}%
+        }{%
           \movedelimiter\nolinebreak[2]\space\nopagebreak\ignorespaces%
         }{}%
       }%
@@ -971,12 +995,16 @@
   \@ifstar\@balanceandStar\@balanceandNoStar%
 }
 \newcommand*{\@balanceandNoStar}[1][]{%
-  \renewcommand*{\@balanceAnd}{Balance and \ignorespaces#1\unskip\ \expandafter\ignorespaces\expandafter\MakeLowercase}%
+  \renewcommand*{\@balanceAnd}{%
+  Balance and \ignorespaces#1\unskip%
+  \ \expandafter\ignorespaces\expandafter\MakeLowercase}%
   \renewcommand*{\@extraCount}{4}%
 }
 \newcommand*{\@balanceandStar}[1][%
   \expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
-  \renewcommand*{\@balanceAnd}{\ignorespaces#1\unskip\ balance and\ \expandafter\ignorespaces\expandafter\MakeLowercase}%
+  \renewcommand*{\@balanceAnd}{%
+    \ignorespaces#1\unskip\ balance and%
+    \ \expandafter\ignorespaces\expandafter\MakeLowercase}%
   \renewcommand*{\@extraCount}{4}%
 }
 %    \end{macrocode}
@@ -1323,7 +1351,8 @@
   \@ifstar\@chainStar\@chainNoStar%
 }
 \newcommand*{\@chainNoStar}[1][\unskip]{%
-  \move[8]{\expandafter\MakeUppercase\cc@who\ chain \ignorespaces#1\unskip}%
+  \move[8]{\expandafter\MakeUppercase\cc@who%
+  \ chain \ignorespaces#1\unskip}%
 }
 \newcommand*{\@chainStar}[1][%
   \expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
@@ -1340,10 +1369,14 @@
   \@ifstar\@halfchainStar\@halfchainNoStar%
 }
 \newcommand*{\@halfchainNoStar}[1][\unskip]{%
-  \move[8]{\expandafter\MakeUppercase\cc@who\ half chain \ignorespaces#1\unskip}%
+  \move[8]{%
+    \expandafter\MakeUppercase\cc@who%
+    \ half chain \ignorespaces#1\unskip%
+  }%
 }
 \newcommand*{\@halfchainStar}[1][%
-  \expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
+  \expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo%
+]{%
   \move[8]{\ignorespaces#1\unskip\ \cc@who\ half chain}%
 }
 \newcommand*{\fullladieschain}{%
@@ -1357,10 +1390,15 @@
   \@ifstar\@fullchainStar\@fullchainNoStar%
 }
 \newcommand*{\@fullchainNoStar}[1][\unskip]{%
-  \move[16]{\expandafter\MakeUppercase\cc@who\ full chain \ignorespaces#1\unskip}%
+  \move[16]{%
+    \expandafter\MakeUppercase\cc@who%
+    \ full chain \ignorespaces#1\unskip%
+  }%
 }
 \newcommand*{\@fullchainStar}[1][%
-  \expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
+  \expandafter\expandafter\expandafter%
+  \MakeUppercase\@gobbletwo%
+]{%
   \move[16]{\ignorespaces#1\unskip\ \cc@who\ full chain}%
 }
 %    \end{macrocode}
@@ -1403,7 +1441,8 @@
   \move[4]{\ignorespaces#1\unskip\ lines forward}%
 }
 \newcommand*{\longlines}{%
-  \moveindex{Long Lines Forward and Back\ \seealso{Lines Forward and Back}{X}}%
+  \moveindex{%
+    Long Lines Forward and Back\ \seealso{Lines Forward and Back}{X}}%
   \@ifstar\@longlinesStar\@longlinesNoStar%
 }
 \newcommand*{\@longlinesNoStar}{%
@@ -1611,13 +1650,19 @@
 	\move[4]{Roll \ignorespaces#1\unskip\ away}%
 }
 \newcommand*{\@rollawayStar}[3][\unskip]{%
-  \move[4]{\ignorespaces#2\unskip\ roll \ignorespaces#3\unskip\ away \ignorespaces#1\unskip}%
+  \move[4]{%
+    \ignorespaces#2\unskip%
+    \ roll \ignorespaces#3\unskip\ away\ignorespaces#1\unskip%
+  }%
 }
 \newcommand*{\@rawhsNoStar}[1][\unskip]{%
   \move[4]{Roll \ignorespaces#1\unskip\ away with a half sashay}%
 }
 \newcommand*{\@rawhsStar}[3][\unskip]{%
-  \move[4]{\ignorespaces#2\unskip\ roll \ignorespaces#3\unskip\ away with a half sashay \ignorespaces#1\unskip}%
+  \move[4]{%
+    \ignorespaces#2\unskip\ roll \ignorespaces#3\unskip%
+    \ away with a half sashay \ignorespaces#1\unskip%
+  }%
 }
 %    \end{macrocode}
 % \end{macro}
@@ -1850,7 +1895,9 @@
   \@ifstar\@walkthehallStar\@walkthehallNoStar%
 }
 \newcommand*{\@walkthehallNoStar}[2][\unskip]{%
-  \move[#2]{\expandafter\MakeUppercase\cc@dir\ the hall\ \ignorespaces#1\unskip}%
+  \move[#2]{%
+    \expandafter\MakeUppercase\cc@dir\ the hall\ \ignorespaces#1\unskip%
+  }%
 }
 \newcommand*{\@walkthehallStar}[2][%
   \expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
@@ -2079,7 +2126,8 @@
 \newcounter{timesaround}
 \newcounter{quartertimesaround}
 \newcommand*{\timesaround}[2]{%
-  \setcounter{timesaround}{\intcalcDiv{\intcalcNum{#2}}{\intcalcNum{#1}}}%
+  \setcounter{timesaround}{%
+    \intcalcDiv{\intcalcNum{#2}}{\intcalcNum{#1}}}%
   \setcounter{quartertimesaround}{%
     \intcalcMod{\intcalcNum{#2}}{\intcalcNum{#1}}%
   }%
@@ -2111,7 +2159,8 @@
     \setlength{\baselineskip}{1.1em plus 0.1em minus 0.2em}
     \def\cc@notestitle{\textbf{\ignorespaces Notes\unskip}}%
     \setlength{\parindent}{0pt}%
-    \setlength{\cc@partsepwidth}{\widthof{\footnotesize \cc@notestitle~}}%
+    \setlength{\cc@partsepwidth}{%
+      \widthof{\footnotesize \cc@notestitle~}}%
     \setlength{\hangindent}{\cc@partsepwidth}%
     {\footnotesize \cc@notestitle~\ignorespaces#2\unskip}%
   \end{\cc@defaultnotesenv}
