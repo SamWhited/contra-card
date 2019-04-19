@@ -1,6 +1,8 @@
 *.aux
 *.cls
 contracard/
+*.fdb_latexmk
+*.fls
 *.gl[os]
 *.idx
 *.ilg
@@ -10,5 +12,6 @@ contracard/
 *.pdf
 README
 *.sty
+*.synctex.gz
 *.toc
 *.zip
