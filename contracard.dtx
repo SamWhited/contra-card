@@ -108,10 +108,10 @@
 %   \move{Slide left and circle left \textthreequarters\moveindex{Circle Left}\moveindex{Slide Left}}
 %   \swing*[Neighbor]{8}
 %   \longlines
-%   \dosido*[Men]{8}
-%   \allemande*[Men]{8}{left 1\textonehalf}
+%   \dosido*[Larks]{8}
+%   \allemande*[Larks]{8}{left 1\textonehalf}
 %   \move{Partner star promenade and butterfly whirl\moveindex{Star Promenade}\moveindex{Butterfly Whirl}}
-%   \dosido*[Women]{8}
+%   \dosido*[Ravens]{8}
 %   \swing[partner]{8}
 % \end{contra}
 % \end{exampledance}
@@ -428,7 +428,7 @@
 % \showcountafter%
 % \begin{contra}{Whirling Dervish}{Sam Whited}{Duple improper}
 %   \walkaround[neighbor 1\textthreequarters]{8}
-%   \move[8]{Men half hey ricochet while ladies cross%
+%   \move[8]{Larks half hey ricochet while ravens cross%
 %   \unskip\moveindex{Hey for Four}%
 %   \unskip\moveindex{Half Hey}%
 %   \unskip\moveindex{Half Hey Ricochet}%
@@ -437,7 +437,7 @@
 %   \swing[your partners all]{16}
 %   \move[8]{Spin like a Whirling Dervish\moveindex{Whirling Dervish}}
 %   \balanceand\petronella
-%   \balanceand\move[4]{gents roll neighbor away with a half sashay\moveindex{Half
+%   \balanceand\move[4]{Larks roll neighbor away with a half sashay\moveindex{Half
 %   Sashay}\moveindex{Roll Away}\moveindex{Roll Away\ldots Half Sashay}}
 %   \move[8]{Balance neighbor and left shoulder round 1 time to new
 %   neighbors\moveindex{Balance}\moveindex{Walk around}\moveindex{Left shoulder round}}
@@ -552,13 +552,13 @@
 % \begin{contra}{Turn Around Waltz}{Sam Whited}{Circle waltz}
 %   \showcountafter
 %
-%   \move[6]{Roll lady on left away}\moveindex{Roll Away}
+%   \move[6]{Roll raven on left away}\moveindex{Roll Away}
 %   \move[6]{Forward and back}\moveindex{Forward and Back}
-%   \move[6]{Roll lady on left away}\moveindex{Roll Away}
+%   \move[6]{Roll raven on left away}\moveindex{Roll Away}
 %   \move[6]{Forward and back}\moveindex{Forward and Back}
 %   \move[6]{Hands out and in, turn out}\moveindex{Turn Alone}
 %   \move[6]{Hands in and out, turn in}\moveindex{Turn Alone}
-%   \move[6]{Hands out and in ladies cast right}\moveindex{Cast Right}
+%   \move[6]{Hands out and in, ravens cast right}\moveindex{Cast Right}
 %   \move[6]{Parallels or free waltz}\moveindex{Parallels}
 %
 %   \notes{Repeat \textbf{BABB} if dancing to the Nanci Griffith cover of ``Turn
@@ -669,7 +669,7 @@
 %   \setlength{\phrasevspace}{0em}
 %   \renewcommand*{\partdelimiter}{:}
 %   \walkaround*[Neighbor]{8}
-%   \walkaround*[Ladies]{8}
+%   \walkaround*[Ravens]{8}
 %   \newdancephrase
 %   \balanceand*[Partner]\swing{12}
 %   \newdancephrase
@@ -690,7 +690,7 @@
 %   \setlength{\phrasevspace}{0em}
 %   \renewcommand*{\partdelimiter}{:}
 %   \walkaround*[Neighbor]{8}
-%   \walkaround*[Ladies]{8}
+%   \walkaround*[Ravens]{8}
 %   \newdancephrase
 %   \balanceand*[Partner]\swing{12}
 %   \newdancephrase
@@ -714,7 +714,7 @@
 %   \setcounter{dancephraselength}{16}
 %
 %   \walkaround*[Neighbor]{8}
-%   \move[8]{Gents allemande\moveindex{Allemande} left 1\textonehalf}
+%   \move[8]{Larks allemande\moveindex{Allemande} left 1\textonehalf}
 %   \balanceand*[Partner]\swing{12}
 %   \move[8]{\textonehalf\ promenade\moveindex{Half Promenade}\moveindex{Promenade} across set}
 %   \ladieschain
@@ -735,7 +735,7 @@
 %   \setcounter{dancephraselength}{16}
 %
 %   \walkaround*[Neighbor]{8}
-%   \move[8]{Gents allemande\moveindex{Allemande} left 1\textonehalf}
+%   \move[8]{Larks allemande\moveindex{Allemande} left 1\textonehalf}
 %   \balanceand*[Partner]\swing{12}
 %   \move[8]{\textonehalf\ promenade\moveindex{Half Promenade}\moveindex{Promenade} across set}
 %   \ladieschain
@@ -1045,7 +1045,7 @@
 % \begin{macro}{\circleright*}
 % \changes{1.0.0}{2013/09/12}{Add move shortcut}
 % Here are a few commands to deal with circles. As usual, there is an optional
-% argument (in case you need to say something like ``Gents circle left" or
+% argument (in case you need to say something like ``Larks circle left" or
 % ``Circle left 1 time `round") and a mandatory argument (the number of beats to
 % circle).
 %    \begin{macrocode}
@@ -1333,21 +1333,21 @@
 % \changes{1.0.0}{2013/09/06}{Add move shortcut}
 % \begin{macro}{\fullmenchain*}
 % \changes{1.0.0}{2013/09/06}{Add move shortcut}
-% The ladies chain (and it's less common variant for men) is actually a half of
-% a ladies chain. The full ladies chain is often simply called as two ladies
-% chains, however, the alternate full ladies chain commands are provided
-% anyways. A set of commands for half ladies chains are also provided; these are
-% exactly like the normal ladies chain commands except they include the word
-% `half' in the output.
+% The ravens chain (and it's less common variant for larks) is actually a half
+% of a chain.
+% The full chain is often simply called as two chains, however, the alternate
+% full chain commands are provided for convenience.
+% A set of commands for half chains are also provided; these are exactly like
+% the normal chain macros except they include the word `half' in the output.
 %    \begin{macrocode}
 \newcommand*{\ladieschain}{%
-  \moveindex{Ladies Chain}%
-  \def\cc@who{ladies}%
+  \moveindex{Ravens Chain}%
+  \def\cc@who{ravens}%
   \@ifstar\@chainStar\@chainNoStar%
 }
 \newcommand*{\menchain}{%
-  \moveindex{Men Chain}%
-  \def\cc@who{men}%
+  \moveindex{Larks Chain}%
+  \def\cc@who{larks}%
   \@ifstar\@chainStar\@chainNoStar%
 }
 \newcommand*{\@chainNoStar}[1][\unskip]{%
@@ -1359,13 +1359,13 @@
   \move[8]{\ignorespaces#1\unskip\ \cc@who\ chain}%
 }
 \newcommand*{\halfladieschain}{%
-  \moveindex{Half Ladies Chain}%
-  \def\cc@who{ladies}%
+  \moveindex{Half Ravens Chain}%
+  \def\cc@who{ravens}%
   \@ifstar\@halfchainStar\@halfchainNoStar%
 }
 \newcommand*{\halfmenchain}{%
-  \moveindex{Half Men Chain}%
-  \def\cc@who{men}%
+  \moveindex{Half Larks Chain}%
+  \def\cc@who{larks}%
   \@ifstar\@halfchainStar\@halfchainNoStar%
 }
 \newcommand*{\@halfchainNoStar}[1][\unskip]{%
@@ -1380,13 +1380,13 @@
   \move[8]{\ignorespaces#1\unskip\ \cc@who\ half chain}%
 }
 \newcommand*{\fullladieschain}{%
-  \moveindex{Full Ladies Chain}%
-  \def\cc@who{ladies}%
+  \moveindex{Full Ravens Chain}%
+  \def\cc@who{ravens}%
   \@ifstar\@fullchainStar\@fullchainNoStar%
 }
 \newcommand*{\fullmenchain}{%
-  \moveindex{Full Men Chain}%
-  \def\cc@who{men}%
+  \moveindex{Full Larks Chain}%
+  \def\cc@who{larks}%
   \@ifstar\@fullchainStar\@fullchainNoStar%
 }
 \newcommand*{\@fullchainNoStar}[1][\unskip]{%
@@ -1498,7 +1498,7 @@
 % \begin{exampledance}
 % \begin{contra}{Snowball Shimmy}{Seth Tepfer}{Duple becket}
 %   \move[8]{Circle left all the way}
-%   \allemande*[Gents]{8}{left 1\textonehalf}
+%   \allemande*[Larks]{8}{left 1\textonehalf}
 %   \balanceand\swing[neighbor]{12}
 %   \balanceand\petronella
 %   \balanceand\petronellanella
@@ -1633,8 +1633,8 @@
 % takes a single optional argument \emph{and} a required argument.
 % This allows you to reword things (just like the other commands) by leaving off
 % the optional argument, but also allows you to make more complicated roll aways
-% such as \code{\textbackslash rollawaysashay*{[the gents]}\{Ladies\}} which
-% would be typeset as: ``Ladies roll the gents away with a half sashay".
+% such as \code{\textbackslash rollawaysashay*{[the larks]}\{Ravens\}} which
+% would be typeset as: ``Ravens roll the larks away with a half sashay".
 %    \begin{macrocode}
 \newcommand*{\rollaway}{%
   \moveindex{Roll away}%
@@ -1715,8 +1715,8 @@
 % The normal version takes an optional argument and the required count, while
 % the starred version takes the same optional argument, the required count, and
 % another required argument.
-% For instance, \code{\textbackslash sashay*{[down and back]}\{8\}\{Ladies\}}
-% would create the move: ``Ladies sashay down and back''.
+% For instance, \code{\textbackslash sashay*{[down and back]}\{8\}\{Ravens\}}
+% would create the move: ``Ravens sashay down and back''.
 %    \begin{macrocode}
 \newcommand*{\sashay}{%
   \moveindex{Sashay}%
