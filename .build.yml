@@ -1,0 +1,16 @@
+image: freebsd/latest
+
+packages:
+  - tex-dvipsk
+  - tex-formats
+  - texlive-base
+  - texlive-texmf
+  - tex-xetex
+  - zip
+sources:
+  - https://git.sr.ht/~samwhited/contracard
+tasks:
+- build: |
+   cd contracard/
+   make
+   make contracard.zip

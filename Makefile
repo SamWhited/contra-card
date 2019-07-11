@@ -22,8 +22,9 @@ contracard.sty contracard.cls: contracard.dtx contracard.ins
 
 contracard.zip: contracard.dtx contracard.ins contracard.pdf Makefile LICENSE
 	rm -f $@
+	rm -rf contracard/
 	mkdir -p contracard/
 	cp README.md contracard/README
 	cp $(.ALLSRC) contracard/
-	zip -9 -f $@ contracard/* >/dev/null
+	zip -9 $@ contracard/*
 	rm -rf contracard/
