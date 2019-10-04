@@ -676,7 +676,7 @@
 %   \newdancephrase
 %   \balanceand*[Partner]\swing{12}
 %   \newdancephrase
-%   \ladieschain
+%   \ravenschain
 %   \starleft{8}
 %   \vspace*{\fill}
 %   \begin{flushright}
@@ -697,7 +697,7 @@
 %   \newdancephrase
 %   \balanceand*[Partner]\swing{12}
 %   \newdancephrase
-%   \ladieschain
+%   \ravenschain
 %   \starleft{8}
 %   \vspace*{\fill}
 %   \begin{flushright}
@@ -720,7 +720,7 @@
 %   \move[8]{Larks allemande\moveindex{Allemande} left 1\textonehalf}
 %   \balanceand*[Partner]\swing{12}
 %   \move[8]{\textonehalf\ promenade\moveindex{Half Promenade}\moveindex{Promenade} across set}
-%   \ladieschain
+%   \ravenschain
 %   \vspace*{\fill}
 %   \begin{flushright}
 %     \href{http://creativecommons.org/licenses/by-nc/3.0/}{%
@@ -741,7 +741,7 @@
 %   \move[8]{Larks allemande\moveindex{Allemande} left 1\textonehalf}
 %   \balanceand*[Partner]\swing{12}
 %   \move[8]{\textonehalf\ promenade\moveindex{Half Promenade}\moveindex{Promenade} across set}
-%   \ladieschain
+%   \ravenschain
 %   \vspace*{\fill}
 %   \begin{flushright}
 %     \href{http://creativecommons.org/licenses/by-nc/3.0/}{%
@@ -1308,34 +1308,34 @@
 %   \halfpromenade
 %   \move{Hey}\moveindex{Hey}\moveindex{Hey for Four}\moveindex{Full Hey}
 %   \move{(continue hey)}
-%   \ladieschain
+%   \ravenschain
 % \end{contra}
 % \end{exampledance}
 %
-% \begin{macro}{\ladieschain}
-% \changes{1.0.0}{2013/09/06}{Add move shortcut}
-% \begin{macro}{\ladieschain*}
-% \changes{1.0.0}{2013/09/06}{Add move shortcut}
-% \begin{macro}{\menchain}
-% \changes{1.0.0}{2013/09/06}{Add move shortcut}
-% \begin{macro}{\menchain*}
-% \changes{1.0.0}{2013/09/06}{Add move shortcut}
-% \begin{macro}{\halfladieschain}
-% \changes{1.0.0}{2013/09/06}{Add move shortcut}
-% \begin{macro}{\halfladieschain*}
-% \changes{1.0.0}{2013/09/06}{Add move shortcut}
-% \begin{macro}{\halfmenchain}
-% \changes{1.0.0}{2013/09/06}{Add move shortcut}
-% \begin{macro}{\halfmenchain*}
-% \changes{1.0.0}{2013/09/06}{Add move shortcut}
-% \begin{macro}{\fullladieschain}
-% \changes{1.0.0}{2013/09/06}{Add move shortcut}
-% \begin{macro}{\fullladieschain*}
-% \changes{1.0.0}{2013/09/06}{Add move shortcut}
-% \begin{macro}{\fullmenchain}
-% \changes{1.0.0}{2013/09/06}{Add move shortcut}
-% \begin{macro}{\fullmenchain*}
-% \changes{1.0.0}{2013/09/06}{Add move shortcut}
+% \begin{macro}{\ravenschain}
+% \changes{3.0.0}{2019/10/03}{Rename move}
+% \begin{macro}{\ravenschain*}
+% \changes{3.0.0}{2019/10/03}{Rename move}
+% \begin{macro}{\larkschain}
+% \changes{3.0.0}{2019/10/03}{Rename move}
+% \begin{macro}{\larkschain*}
+% \changes{3.0.0}{2019/10/03}{Rename move}
+% \begin{macro}{\halfravenschain}
+% \changes{3.0.0}{2019/10/03}{Rename move}
+% \begin{macro}{\halfravenschain*}
+% \changes{3.0.0}{2019/10/03}{Rename move}
+% \begin{macro}{\halflarkschain}
+% \changes{3.0.0}{2019/10/03}{Rename move}
+% \begin{macro}{\halflarkschain*}
+% \changes{3.0.0}{2019/10/03}{Rename move}
+% \begin{macro}{\fullravenschain}
+% \changes{3.0.0}{2019/10/03}{Rename move}
+% \begin{macro}{\fullravenschain*}
+% \changes{3.0.0}{2019/10/03}{Rename move}
+% \begin{macro}{\fulllarkschain}
+% \changes{3.0.0}{2019/10/03}{Rename move}
+% \begin{macro}{\fulllarkschain*}
+% \changes{3.0.0}{2019/10/03}{Rename move}
 % The ravens chain (and it's less common variant for larks) is actually a half
 % of a chain.
 % The full chain is often simply called as two chains, however, the alternate
@@ -1343,12 +1343,12 @@
 % A set of commands for half chains are also provided; these are exactly like
 % the normal chain macros except they include the word `half' in the output.
 %    \begin{macrocode}
-\newcommand*{\ladieschain}{%
+\newcommand*{\ravenschain}{%
   \moveindex{Ravens Chain}%
   \def\cc@who{ravens}%
   \@ifstar\@chainStar\@chainNoStar%
 }
-\newcommand*{\menchain}{%
+\newcommand*{\larkschain}{%
   \moveindex{Larks Chain}%
   \def\cc@who{larks}%
   \@ifstar\@chainStar\@chainNoStar%
@@ -1361,12 +1361,12 @@
   \expandafter\expandafter\expandafter\MakeUppercase\@gobbletwo]{%
   \move[8]{\ignorespaces#1\unskip\ \cc@who\ chain}%
 }
-\newcommand*{\halfladieschain}{%
+\newcommand*{\halfravenschain}{%
   \moveindex{Half Ravens Chain}%
   \def\cc@who{ravens}%
   \@ifstar\@halfchainStar\@halfchainNoStar%
 }
-\newcommand*{\halfmenchain}{%
+\newcommand*{\halflarkschain}{%
   \moveindex{Half Larks Chain}%
   \def\cc@who{larks}%
   \@ifstar\@halfchainStar\@halfchainNoStar%
@@ -1382,12 +1382,12 @@
 ]{%
   \move[8]{\ignorespaces#1\unskip\ \cc@who\ half chain}%
 }
-\newcommand*{\fullladieschain}{%
+\newcommand*{\fullravenschain}{%
   \moveindex{Full Ravens Chain}%
   \def\cc@who{ravens}%
   \@ifstar\@fullchainStar\@fullchainNoStar%
 }
-\newcommand*{\fullmenchain}{%
+\newcommand*{\fulllarkschain}{%
   \moveindex{Full Larks Chain}%
   \def\cc@who{larks}%
   \@ifstar\@fullchainStar\@fullchainNoStar%
@@ -2364,6 +2364,55 @@
 % \end{macro}
 % \end{macro}
 %
+% \begin{macro}{\ladieschain}
+% \changes{1.0.0}{2013/09/06}{Add move shortcut}
+% \begin{macro}{\ladieschain*}
+% \changes{1.0.0}{2013/09/06}{Add move shortcut}
+% \begin{macro}{\menchain}
+% \changes{1.0.0}{2013/09/06}{Add move shortcut}
+% \begin{macro}{\menchain*}
+% \changes{1.0.0}{2013/09/06}{Add move shortcut}
+% \begin{macro}{\halfladieschain}
+% \changes{1.0.0}{2013/09/06}{Add move shortcut}
+% \begin{macro}{\halfladieschain*}
+% \changes{1.0.0}{2013/09/06}{Add move shortcut}
+% \begin{macro}{\halfmenchain}
+% \changes{1.0.0}{2013/09/06}{Add move shortcut}
+% \begin{macro}{\halfmenchain*}
+% \changes{1.0.0}{2013/09/06}{Add move shortcut}
+% \begin{macro}{\fullladieschain}
+% \changes{1.0.0}{2013/09/06}{Add move shortcut}
+% \begin{macro}{\fullladieschain*}
+% \changes{1.0.0}{2013/09/06}{Add move shortcut}
+% \begin{macro}{\fullmenchain}
+% \changes{1.0.0}{2013/09/06}{Add move shortcut}
+% \begin{macro}{\fullmenchain*}
+% \changes{1.0.0}{2013/09/06}{Add move shortcut}
+% Because contra is a called dance, the names of the roles are more important
+% than a dance like swing or blues where they’re only ever stated to politely
+% ask a new partner if they prefer to lead or follow. In recent years there has
+% been a push to use more inclusive terms that don’t artificially constrain new
+% dancers to a single role like the gendered terms ``gents" and ``ladies" do.
+% The most popular of these terms are ``Larks" for the left hand role, and
+% ``Ravens" for the right hand role and they are used throughout this package.
+%
+% The commands listed in the margin have been renamed, for their alternatives
+% see \texttt{\textbackslash ravenschain}, \texttt{\textbackslash larkschain},
+% and their variants.
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%%%
+%
 % \section{Deprecated macros}
 % \label{appendix:deprecated}
 %
@@ -2403,6 +2452,12 @@
 % \end{macro}
 % \end{macro}
 % \end{macro}
+%
+% \section{Upgrading from 2.x}
+%
+% Only minor changes need to be made when upgrading from 2.x. Searching for and
+% replacing the macros listed in appendix \ref{appendix:notation} with their new
+% equivalents will result in your dances building as usual.
 %
 % \section{Upgrading from 1.x}
 %
